@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './styles.css';
+import '../styles.css';
 import Header from './components/header';
 import Footer from './components/footer';
 import Home from './pages/home';
@@ -10,14 +9,10 @@ import UserProfile from './pages/userProfile';
 import BeneficiaryProfile from './pages/beneficiaryProfile';
 import EmployerProfile from './pages/employerProfile';
 
-
-
-// import './App.css'
-
 import React from 'react';
 import axios from 'axios';
 
-import PruLogo from './assets/pru-logo.svg';
+import PruLogo from '../assets/pru-logo.svg';
 
 function App() {
   return (

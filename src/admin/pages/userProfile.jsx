@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from 'react-router-dom';
-import "../styles.css";
-import PruLogo from '../assets/pru-logo-main.svg';
+import "../../styles.css";
+import PruLogo from '../../assets/pru-logo-main.svg';
 
 const UserProfile = () => {
   const initialState = {

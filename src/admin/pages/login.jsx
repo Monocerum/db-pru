@@ -1,12 +1,10 @@
 import { useState } from 'react'
-import '../styles.css';
+import "../../styles.css";
 
 import React from 'react';
 import axios from 'axios';
 
 function Login() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <main>
@@ -15,7 +13,7 @@ function Login() {
                 <label for="login" className="login-lbl"><span className="company-name">PRU Life U.K.</span> Account</label>
                 <div className="container">
                     <div className="login-hdr">
-                        <h3 className="log-hdr">ADMIN LOGIN</h3>
+                        <h3 className="log-hdr">LOGIN</h3>
                     </div>
                     <form action="submit" className="login-container">
                       <div className="fill login-fill">

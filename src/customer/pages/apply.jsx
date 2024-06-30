@@ -1,14 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { BrowserRouter as Link } from 'react-router-dom';
 import axios from 'axios';
 
 // Styles
-import '../styles.css';
+import '../../styles.css';
 
 // Assets
-import PruLogo from '../assets/pru-logo-main.svg';
+import PruLogo from '../../assets/pru-logo-main.svg';
 
 function Apply() {
   const [tickSameAdrs, tickChecked] = useState(false);
@@ -629,12 +628,10 @@ function Apply() {
                     <input className="application-btn" type="Submit" value="SUBMIT" />
                 </div>
                 </form>
-                <ul>
-                    <li>
-                        <Link to="/dbMembers">Return to database.</Link>
-                    </li>
-                </ul>
 			<div>
+            <div className="logOut">
+                <button className="logOut-btn" id="logOut">LOG OUT</button>
+            </div>
         </div>
         </div>			
         </main>

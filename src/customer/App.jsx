@@ -1,0 +1,64 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import '../styles.css';
+import Header from './components/header';
+import Footer from './components/footer';
+import Apply from './pages/apply';
+import Login from './pages/login';
+import Register from './pages/register';
+import UserProfile from './pages/userProfile';
+import BeneficiaryProfile from './pages/beneficiaryProfile';
+import Admin from '../admin/App';
+
+import React from 'react';
+import axios from 'axios';
+
+import PruLogo from '../assets/pru-logo.svg';
+
+function App() {
+  return (
+    <>
+      <div className="body">
+        <Router>
+        <Header />
+          <div>
+            <main>
+            <Routes>
+              <Route path='/apply' element={<Apply />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/userProfile' element={<UserProfile />} />
+              <Route path="/beneficiaryProfile" element={<BeneficiaryProfile />} />
+              <Route path="/" element={<Admin />} />
+              <Route 
+                path='/*'
+                element={
+                  <div class="main">
+                    <div class="hero">
+                        <img src={PruLogo} alt="Pru Life U.K. Logo" class="main-logo"/>
+                    </div> 
+                    <div class="main-text">
+                        <h1>PRU Life U.K.</h1>
+                        <h2>Group Term Life Insurance</h2>
+                        <h3>Individual Application</h3>
+                    </div>
+                    <div class="register-btn">
+                      <a href='/register' class="reg-btn">REGISTER</a>
+                    </div>
+                    {/* <div class="navigate">
+                      <Link to="/" className="log-in">Are you an administrator? Log in.</Link>
+                    </div> */}
+                  </div>
+                }
+              />
+            </Routes>
+            </main>
+            <Footer />
+          </div>
+        </Router>
+      </div>
+    </>
+  )
+}
+
+export default App;

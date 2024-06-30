@@ -1,10 +1,8 @@
 import { useState } from 'react'
 
-import '../App.css'
-
 // Import assets
-import PruLogo from '../assets/pru-logo-test.png';
-import UserIcon from '../assets/user-icon.png';
+import PruLogo from '../../assets/pru-logo-test.png';
+import UserIcon from '../../assets/user-icon.png';
 
 import React from 'react';
 import axios from 'axios';

@@ -6,20 +6,6 @@
     font-family: 'Roboto';
 }
 
-#root {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-}
-
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
 @font-face {
     font-family: 'Roboto';
     src: url();
@@ -29,27 +15,19 @@ body {
     background: linear-gradient(155.14deg, #FFFFFF 5.44%, #FFDDE0 149.41%);
 }
 
-label {
-    text-align: start;
-}
 nav {
     background: linear-gradient(90.45deg, #AA1421 8.45%, #ED1B30 91.94%);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-nav ul, .left-nav, .right-nav, .rightt-nav {
+nav ul, .left-nav, .right-nav {
     display: flex;
     align-items: center;
 }
 
-.nav {
-    display: flex;
+nav ul {
     justify-content: space-between;
     list-style: none;
-    padding: 0;
-}
-
-.nav ul {
     padding: 0;
 }
 
@@ -63,17 +41,6 @@ a {
     font-size: 25px;
 }
 
-.right-nav a:hover{
-    opacity: 0.8;
-}
-
-.rightt-nav a{
-    color: white;
-    font-weight: 500;
-    font-size: 25px;
-    margin-right: 11px;
-}
-
 nav {
     padding: 10px 20px;
 }
@@ -82,22 +49,8 @@ nav ul li {
     padding: 0 10px;
 }
 
-li {
-    list-style-type: none;
-}
-
-li img {
-    display: block;
-    max-width: 100%;
-}
-
 a img {
     vertical-align: bottom;
-}
-
-a.logo {
-    margin: 0;
-    padding: 0;
 }
 
 .nav-logo {
@@ -130,21 +83,12 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 3.5%;
+    padding-bottom: 5%;
     font-weight: 600;
 }
 
-.main-text h2 {
-    height: 50px;
-}
-
 main img {
-    height: 350px;
-}
-
-main .hero {
-    margin-top: 10 px;
-    text-align: center;
+    height: 420px;
 }
 
 main h1 {
@@ -164,7 +108,10 @@ main h3 {
     font-size: 25px;
 }
 
-.admin-btn, .register-btn {
+
+.reg-btn {
+    background: #AA1421;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     font-size: 30px;
     color: white;
@@ -173,24 +120,13 @@ main h3 {
     font-weight: 500;
 }
 
-.reg-btn {
-    color: white;
-}
-
 /* Register & Login */
-.login {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 7% 0;
-}
-
-.login-lbl {
+.register-lbl, .login-lbl {
     color: #69747A;
     font-size: 25px;
 }
 
-.login-lbl span{
+.register-lbl span, .login-lbl span{
     color: #ED1B30;
     font-weight: 600;
 }
@@ -203,7 +139,7 @@ main h3 {
     padding-top: 10px;
 }
 
-.login-hdr {
+.register-hdr, .login-hdr {
     width: 100%;
     background: #ED1B30;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -212,7 +148,7 @@ main h3 {
     justify-content: center;
 }
 
-.log-hdr {
+.reg-hdr, .log-hdr {
     color: white;
     font-size: 32px;
     padding: 2%;
@@ -223,16 +159,6 @@ main h3 {
     flex-direction: column;
     align-items: center;
     padding: 5%;
-}
-
-.fill {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.tick label {
-    padding-left: 5px;
 }
 
 .fill, .tick {
@@ -334,12 +260,6 @@ form p a {
     flex-grow: 15;
 }
 
-.banner-left, .banner-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
 .banner-right {
     flex-grow: 0;
 }
@@ -365,10 +285,6 @@ form p a {
     background: #E9E9E9;
     border: 1px solid #D0D0D0;
     border-radius: 10px;
-}
-
-.form-hdr, .form-subhdr {
-    display: flex;
 }
 
 .required {
@@ -581,15 +497,7 @@ form p a {
     font-weight: 700;
     font-size: 28px;
     color: #000000;
-    padding-top: 5%;
-}
-
-.form-container h2 {
-    padding-top: 2%;   
-}
-
-#prim {
-    padding-top: 0.5%;
+    padding: 20px 0;
 }
 
 /* Line 10 */
@@ -636,39 +544,11 @@ form .application-btn {
     margin-top: 5%;
 }
 
-.info-nav {
-    padding-top: 5%;
-}
-
-#logOut {
-    display: flex;
-    justify-content: flex-end;
-    background-color: white;
-    color: black;
-    border: 2px salmon solid;
-    border-radius: 15px;
-    transition: border-width 0.6s linear;
-}
-
-#logOut:hover {
-    background: linear-gradient(97.45deg, #ED1B30 19.21%, #870F1B 113.67%);
-    color: white;
-    font-weight: 500;
-    border-width: 5px;
-}
-
 /* User Profile */
-.header {
-    display: flex;
-    justify-content: flex-start;
-    margin: 5%;
-}
-
-.profile-hero, .db-hero {
+.profile-hero {
     display: flex;
     align-items: center;
     margin: 2% 0 7% 0;
-    margin-top: 12px;
 }
 
 .hero-img img {
@@ -693,67 +573,58 @@ form .application-btn {
     font-size: 20px;
 }
 
-.info-header {
-    width: 100%;
-    background: linear-gradient(90.49deg, #AA1421 9.31%, #44080D 99.97%);
-    border-radius: 15px 15px 0px 0px;
-    color: white;
-    font-size: 30px;
-    font-weight: 500;
-    padding: 20px 30px;
-}
-
-.information {
-    width: 100%;
-}
-
-.primary, .secondary, .member-info, .company-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.secondary {
-    padding-top: 5%;
+#infoHeader {
+    font-weight: 300;
+    font-size: 38px;
+    padding-bottom: 20px;
+    background: none;
+    color: #69747A;
 }
 
 .personal-info {
-    width: 90%;
+    width: 100%;
     background: rgba(246, 246, 246, 0.39);
     border: 1px solid #D0D0D0;
-    border-radius: 10px;
+    border-radius: 0 0 10px 10px;
+}
+
+.header-info {
+    padding-right: 2%;
+}
+
+.display-nav.active a {
+    background: none;
+    border: none;
+    color: white;
+    font-weight: bold;
 }
 
 .personal-header {
-    width: 90%;
+    background: #F6F6F6;
+    border: 1px solid #D0D0D0;
+    border-radius: 10px 10px 0px 0px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 25px 0;
-    align-items: flex-end;
-    text-align: start;
+    padding: 15px 35px;
+    width: 100%;
 }
 
 .personal-header h2 {
     color: #ED1B30;
-    font-size: 51px;
+    font-size: 45px;
 }
 
 .personal-header h3 {
     color: #AA1421;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
-}
-
-.personal-info {
-    text-align: start;
 }
 
 .edit-btn, .cancel-btn, .save-btn {
     border-radius: 15px;
-    font-size: 24px;
-    padding: 15px 80px;
-    background: #ED1B30;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 30px;
+    padding: 15px 50px;
     border: none;
 }
 
@@ -769,10 +640,6 @@ form .application-btn {
     background: #ED1B30;
     color: white;
     font-weight: bold;
-}
-
-.edit-btn.active {
-    background: #007246;
 }
 
 .cancel {
@@ -795,8 +662,15 @@ form .application-btn {
     background: #007246;
 }
 
-.user-info, .employer-info, .beneficiary-info {
+.user-info, .beneficiary-info {
     padding: 20px 70px;
+}
+
+.information {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .info {
@@ -814,6 +688,11 @@ form .application-btn {
     padding-right: 25px;
 }
 
+.info-header {
+    text-align: start;
+    padding-left: 0;
+}
+
 .info-input {
     width: 50%;
     font-weight: 700;
@@ -826,41 +705,20 @@ form .application-btn {
     color: black;
 }
 
-.info-nav ul {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-}
-
-.info-nav li {
-    text-decoration: none;
-    list-style: none;
-}
-
-.info-nav a {
-    color: #787878;
-    font-size: 24px;
-}
-
-.display-nav {
-    padding: 20px 50px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+.b1, .b2 {
+    background: #F6F6F6;
+    border: 1px solid rgba(208, 208, 208, 0.51);
     border-radius: 10px;
+    color: #ED1B30;
+    font-size: 25px;
+    padding: 15px 20px;
+    margin-bottom: 2%;
 }
 
-.display-nav.active {
-    background: #ED1B30;
+.b1 a, .b2 a {
+    color: #ED1B30;
+    font-weight: 500;
 }
-
-.display-nav.active .user, .display-nav.active .employer, .display-nav.active .beneficiary {
-    color: white;
-    font-weight: bold;
-}
-
-
-
-
 
 /* Beneficiary Profile */
 .return-profile {
@@ -871,145 +729,31 @@ form .application-btn {
     justify-content: flex-end;
 }
 
-
-/* Admin Page */
-.dashboard-rectangle {
-    width: 100%;
-    height: 550px;
-    background: #FF000E;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 2px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 100px;
-}
-
-.dashboard {
-    width: 85%;
-    height: 440px;
-    background-color: white;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+.beneficiary-information, .applicant-information {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    border-radius: 15px;
-}
-
-.dashboard .text {
-    font-size: 32px;
-    font-weight: bold;
-    color: #ED1B30;
-    padding: 25px 0 15px 35px;
-    margin-bottom: 10px;
-}
-
-.dashboard hr {
-    width: 100%;
-}
-
-.dashboard-container {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 100%;
     align-items: center;
+    width: 100%;
 }
 
-.num-container {
-    height: 100%;
+.beneficiary-info {
     width: 100%;
+}
+
+.user-controls {
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#numContainer1 {
-    border-right: 0.5px rgb(161, 161, 161) solid;
-}
-
-#numContainer3 {
-    border-left: 0.5px rgb(161, 161, 161) solid;
-}
-
-.dashboard .Stroke2 {
-    width: 1px; /* Vertical stroke */
-    height: 100%; /* Full height of the parent container */
-    background: #C2BFBF;
-}
-
-.total-container h2, .total-container p {
-    color: black;
-    margin: 0 20px;
-    text-align: center;
-
-}
-
-.total-container h2 {
-    font-size: 50px;
-    color: #ED1B30;
-}
-
-.total-container p {
-    font-size: 20px;
-}
-
-.dashboard .StrokeNum{
-    font-size: 16px;
-    color: black;
-    margin: 0 20px;
-    text-align: center;
-}
-
-.search {
+    flex-direction: column;
     width: 100%;
-    max-width: 375px;
-    height: 45px;
-    margin: 1px 0 auto 0;
-    background-color: rgb(229, 229, 229);
-    border-color: rgb(255, 125, 120);
-    border-radius: 10px;
-    padding: 10px;
-    margin-top: 20px;
-    color: black;
 }
 
-.recent-container {
+.secondary-container {
     display: flex;
-    justify-content: space-evenly;
-    width: 100%;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
-
-.recent-rectangle {
-    height: 500px;
-    background: #FFFCFC;
-    width: 375px;
-    border-radius: 20px;
-}
-
-.recent-rectangle .recent-text {
-    font-size: 30px;
-    font-weight: bold;
-    color: #ED1B30;
-    text-align: left;
-    padding: 20px;
-}
-
-.form-container li {
+.logOut {
     display: flex;
     justify-content: flex-end;
-}
-
-.form-container li a {
-    color: gray;
-    font-style: italic;
-}
-
-
-/* Ensure footer stays clear of content */
-footer {
-    margin-top: 20px; /* Adjust as needed */
-    margin-bottom: 20px; /* Ensure sufficient space below the content */
-    width: 100%;
+    margin: 2% 0;
 }
