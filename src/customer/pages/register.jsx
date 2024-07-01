@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../../styles.css";
 
 function Register() {
+  const navigateTo = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     username: '',
@@ -41,8 +43,10 @@ function Register() {
       const response = await axios.post('http://localhost:5020/register', formData); 
       // Redirect or handle success message as needed
       console.log('Registration successful:', response);
-      // Example: Redirect to login page after successful registration
-      // history.push('/login');
+
+      // Redirect to application page
+      navigateTo('/apply');
+      
     } catch (error) {
       console.error('Registration failed:', error.response);
       alert('Registration failed. Please try again.');
