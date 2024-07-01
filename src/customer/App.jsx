@@ -29,23 +29,23 @@ function App() {
               <Route path='/register' element={<Register />} />
               <Route path='/userProfile' element={<UserProfile />} />
               <Route path="/beneficiaryProfile" element={<BeneficiaryProfile />} />
-              <Route path="/" element={<Admin />} />
+              {/* <Route path="/" element={<Admin />} /> */}
               <Route 
                 path='/*'
                 element={
-                  <div class="main">
-                    <div class="hero">
-                        <img src={PruLogo} alt="Pru Life U.K. Logo" class="main-logo"/>
+                  <div className="main">
+                    <div className="hero">
+                        <img src={PruLogo} alt="Pru Life U.K. Logo" className="main-logo"/>
                     </div> 
-                    <div class="main-text">
+                    <div className="main-text">
                         <h1>PRU Life U.K.</h1>
                         <h2>Group Term Life Insurance</h2>
                         <h3>Individual Application</h3>
                     </div>
-                    <div class="register-btn">
-                      <a href='/register' class="reg-btn">REGISTER</a>
+                    <div className="register-btn">
+                      <a href='/register' className="reg-btn">REGISTER</a>
                     </div>
-                    {/* <div class="navigate">
+                    {/* <div className="navigate">
                       <Link to="/" className="log-in">Are you an administrator? Log in.</Link>
                     </div> */}
                   </div>

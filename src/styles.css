@@ -173,6 +173,17 @@ main h3 {
     font-weight: 500;
 }
 
+.admin-btn {
+    background: #AA1421;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    font-size: 30px;
+    color: white;
+    border: none;
+    padding: 25px 80px;
+    font-weight: 500;
+}
+
 .reg-btn {
     color: white;
 }
@@ -1012,4 +1023,253 @@ footer {
     margin-top: 20px; /* Adjust as needed */
     margin-bottom: 20px; /* Ensure sufficient space below the content */
     width: 100%;
+}
+
+/* Sidebar */
+.nav-sidebar .top .logo {
+    display: flex;
+    color: white;
+    align-items: center;
+    flex-direction: column;
+}
+
+.nav-sidebar i {
+    font-size: 25px;
+}
+
+.sidenav-logo {
+    height: 30px;
+}
+
+.top .logo {
+    padding: 0;
+    margin: 0;
+}
+
+.nav-list {
+    padding: 0;
+}
+
+.nav-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 3%;
+    background-image: linear-gradient(to right bottom, #850101, #8f0102, #9a0002, #a40002, #af0001, #ba130c, #c52018, #d02b22, #dd3f37, #e9514c, #f46360, #ff7474);
+    transition: width 0.3s ease;
+}
+
+.logo span {
+    font-weight: bold;
+}
+
+.nav-sidebar.active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 20%;
+    background-image: linear-gradient(to right bottom, #850101, #8f0102, #9a0002, #a40002, #af0001, #ba130c, #c52018, #d02b22, #dd3f37, #e9514c, #f46360, #ff7474);
+}
+
+.nav-sidebar-content {
+    left: 250px;
+    margin: 50% 15%;
+}
+
+.nav-sidebar #btnMenu {
+    color: white;
+    height: 20px;
+}
+
+.nav-sidebar span, .nav-sidebar .nav-sidebar-content .top .logo {
+   opacity: 0; 
+}
+
+.nav-sidebar.active span, .nav-sidebar.active .nav-sidebar-content .top .logo {
+    opacity: 1; 
+ }
+
+.nav-sidebar ul li {
+    position: relative;
+    height: 50px;
+    width: 90%;
+    margin: 0.8rem auto;
+    line-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-sidebar ul li a {
+    color: white;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 0.8rem;
+}
+
+.nav-sidebar span {
+    padding-left: 20px;
+    font-size: 25px;
+}
+
+/* Database */
+.db-name {
+    font-size: 82px;
+    color: #ED1B30;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Upload, Add Button */
+.db-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.db-container {
+    width: 90%;
+    margin-left: 3%;
+}
+
+.action-db, .db-buttons  {
+    display: flex;
+    margin-left: 1px;
+}
+
+.action-db {
+    justify-content: space-between;
+}
+
+.upload-button, .add-button {
+    padding: 20px 50px;
+    font-size: 20px;
+    background-color: #ED1B30;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.upload-button {
+    margin-right: 20px;
+}
+
+.search-container {
+    display: flex;
+}
+
+.search {
+    border-radius: 5px 0 0 5px;
+    margin: 0;
+    width: 500px;
+}
+
+.search {
+    height: 45px;
+}
+
+.search-buttons {
+    display: flex;
+    align-self: baseline;
+    gap: 10px; /* Spacing between buttons */
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ED1B30;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    margin-left: 1px;
+}
+
+.reset-button, .save-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ED1B30;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.save-button {
+    margin-left: 10px;
+}
+
+.db {
+    width: 90%;
+    height: 824px;
+    margin: 50px auto;
+    border: 3px solid #b9b7b7;
+    background: #FFFCFC;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content:baseline;
+    align-items: baseline;
+    flex-direction: column;
+    position: relative;
+    
+}
+
+.line {
+    width: 100%;
+    border-top: 1px solid #ccc;
+    margin-top: 70px;
+}
+
+/* page */
+.page {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.page-num {
+    margin-bottom: 5px;
+}
+
+.page-linkto {
+    display: flex;
+    gap: 10px;
+}
+
+.prev-page, .next-page {
+    cursor: pointer;
+    color: gray;
+}
+.next-page {
+    color: red;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.prev-page:hover, .next-page:hover {
+    opacity: 0.5;
+}
+
+table {
+    height: 100%;
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+th, td {
+    color: black;
+}
+
+th {
+    padding: 10px;
 }

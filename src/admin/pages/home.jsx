@@ -19,7 +19,7 @@ function Home() {
                   <h1>PRU LIFE U.K.</h1>
                   <h2>Group Term Life Insurance</h2>
                   <h3>Individual Application</h3>
-                  <input class="search" type="text" placeholder="Search Employee, Beneficiary, Employee"/>
+                  <input className="search" type="text" placeholder="Search Employee, Beneficiary, Employee"/>
                 </div>
               </div>
             </div>

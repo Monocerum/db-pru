@@ -105,7 +105,7 @@ const BeneficiaryProfile = () => {
           </div>
           <div className="information">
             <div className="primary-container">
-              <h3 class="info-header" id="infoHeader">BENEFICIARY INFORMATION</h3>
+              <h3 className="info-header" id="infoHeader">BENEFICIARY INFORMATION</h3>
               <div className="primary">
                 <div className="beneficiary-information">
                   <div className="personal-header">
@@ -212,7 +212,7 @@ const BeneficiaryProfile = () => {
                   <div className="logOut">
                     <button className="logOut-btn" id="logOut">LOG OUT</button>
                   </div>
-                  <a href="user-profile.html" class="return-profile">Return to profile.</a>
+                  <a href="user-profile.html" className="return-profile">Return to profile.</a>
                 </div>
             </div>
             

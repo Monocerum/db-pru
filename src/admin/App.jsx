@@ -8,6 +8,7 @@ import Login from './pages/login';
 import UserProfile from './pages/userProfile';
 import BeneficiaryProfile from './pages/beneficiaryProfile';
 import EmployerProfile from './pages/employerProfile';
+import DBMembers from './pages/dbMembers';
 
 import React from 'react';
 import axios from 'axios';
@@ -29,20 +30,21 @@ function App() {
               <Route path='/userProfile' element={<UserProfile />} />
               <Route path="/beneficiaryProfile" element={<BeneficiaryProfile />} />
               <Route path="/employerProfile" element={<EmployerProfile />} />
+              <Route path="/dbMembers" element={<DBMembers />} />
               <Route 
                 path='/*'
                 element={
-                  <div class="main">
-                    <div class="hero">
-                        <img src={PruLogo} alt="Pru Life U.K. Logo" class="main-logo"/>
+                  <div className="main">
+                    <div className="hero">
+                        <img src={PruLogo} alt="Pru Life U.K. Logo" className="main-logo"/>
                     </div> 
-                    <div class="main-text">
+                    <div className="main-text">
                         <h1>PRU Life U.K.</h1>
                         <h2>Group Term Life Insurance</h2>
                         <h3>Individual Application</h3>
                     </div>
-                    <div class="login-btn">
-                      <a href='/login' class="admin-btn">ADMIN LOGIN</a>
+                    <div className="login-btn">
+                      <a href='/login' className="admin-btn">ADMIN LOGIN</a>
                     </div>
                   </div>
                 }
