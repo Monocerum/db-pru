@@ -313,6 +313,66 @@ app.get('/user-profile', (req, res) => {
 // Serve static files from the 'customer' directory
 app.use(express.static(path.join(__dirname, 'customer')));
 
+app.get('/', (req, res) => {
+    return res.json("From backend");
+})
+
+app.get('/applicants', (req, res) => {
+    const sql = "SELECT * FROM APPLICANT";
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in applicant table.');
+        }
+        return res.status(200).json(data);
+    });
+}); 
+
+app.get('/users', (req, res) => {
+    const sql = "SELECT * FROM LOGIN";
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in applicant table.');
+        }
+        return res.status(200).json(data);
+    });
+});
+
+app.get('/employers', (req, res) => {
+    const sql = "SELECT * FROM EMPLOYER";
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in applicant table.');
+        }
+        return res.status(200).json(data);
+    });
+});
+
+app.get('/beneficiaries', (req, res) => {
+    const sql = "SELECT * FROM BENEFICIARY";
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in applicant table.');
+        }
+        return res.status(200).json(data);
+    });
+});
+
 //Route for 'apply.jsx'
 app.get('/apply', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'customer', 'pages', 'apply.jsx'));

@@ -9,6 +9,7 @@ import UserProfile from './pages/userProfile';
 import BeneficiaryProfile from './pages/beneficiaryProfile';
 import EmployerProfile from './pages/employerProfile';
 import DBMembers from './pages/dbMembers';
+import DBUsers from './pages/dbUsers';
 
 import React from 'react';
 import axios from 'axios';
@@ -31,6 +32,7 @@ function App() {
               <Route path="/beneficiaryProfile" element={<BeneficiaryProfile />} />
               <Route path="/employerProfile" element={<EmployerProfile />} />
               <Route path="/dbMembers" element={<DBMembers />} />
+              <Route path="/dbUsers" element={<DBUsers />} />
               <Route 
                 path='/*'
                 element={

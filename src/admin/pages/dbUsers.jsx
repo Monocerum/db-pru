@@ -7,8 +7,8 @@ import API from 'axios';
 import axios from 'axios';
 
 
-function DBMembers() {
-  const [applicant, setApplicant] = useState([]);
+function DBUsers() {
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
       // axios.get('http://localhost:5020/applicants')
@@ -19,9 +19,9 @@ function DBMembers() {
       // .catch(error => {
       //   console.error('There was an error!', error);
       // });
-      fetch('http://localhost:5020/applicants')
+      fetch('http://localhost:5020/users')
       .then(response => response.json())
-      .then(applicant => setApplicant(applicant))
+      .then(user => setUser(user))
       .catch(error => console.error(error));
     });
     
@@ -146,54 +146,15 @@ function DBMembers() {
                       <th></th>
                       <th></th>
                       <th>ID</th>
-                      <th>Employer or Business Code</th>
-                      <th>Name</th>
-                      <th>Salutation</th>
-                      <th>Alias</th>
-                      <th>Age</th>
-                      <th>Birthdate</th>
-                      <th>Birthplace</th>
-                      <th>Civil Status</th>
-                      <th>Nationality</th>
-                      <th>Height</th>
-                      <th>Weight</th>
-                      <th>Sex</th>
-                      <th>Present Address</th>
-                      <th>Country</th>
-                      <th>ZIP</th>
-                      <th>Permanent Address</th>
-                      <th>Country</th>
-                      <th>ZIP</th>
-                      <th>Occupation</th>
-                      <th>Position</th>
-                      <th>Nature of Work/Business</th>
-                      <th>Source of Funds</th>
-                      <th>Gross Annual Income</th>
-                      <th>Net Worth</th>
-                      <th>Date Hired</th>
-                      <th>Date of Regularization</th>
-                      <th>Monthly Income</th>
-                      <th>SSS ID</th>
-                      <th>TIN ID</th>
-                      <th>Other ID</th>
-                      <th>Other ID Number</th>
-                      <th>Other ID #2</th>
-                      <th>Other ID #2 Number</th>
-                      <th>Mobile Number</th>
-                      <th>Telephone Number</th>
-                      <th>Email Address</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {applicant.map((a, key) =>
+                    {user.map((u, key) =>
                       <tr key={key}>
                         <td className="data-container"></td>
                         <td className="data-container"></td>
                         <td className="data-container"></td>
-                        <td className="data-container">{a.ApplicantID}</td>
-                        <td className="data-container">{a.EmployerCode}</td>
-                        <td className="data-container">{a.ApplicantName}</td>
-                        <td className="data-container">{a.Salutation}</td>
+                        <td className="data-container">{u.UserID}</td>
                       </tr>
                     )}
                     
@@ -257,4 +218,4 @@ function DBMembers() {
   );
 }
 
-export default DBMembers;
+export default DBUsers;
