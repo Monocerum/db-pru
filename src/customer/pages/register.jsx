@@ -4,7 +4,7 @@ import axios from 'axios';
 import "../../styles.css";
 
 function Register() {
-  const navigateTo = useNavigate();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -45,7 +45,7 @@ function Register() {
       console.log('Registration successful:', response);
 
       // Redirect to application page
-      navigateTo('/apply');
+      navigate('/apply');
       
     } catch (error) {
       console.error('Registration failed:', error.response);
