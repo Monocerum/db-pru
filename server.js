@@ -46,19 +46,21 @@ app.post('/register', (req, res) => {
     }
 
     // Insert into database
-    const sql = 'INSERT INTO LOGIN (EmailAddress, Username, Password) VALUES (?, ?, ?)';
+    const sql = 'INSERT INTO LOGIN (EmailAddress, Username, Password) VALUES (?, ?, ?); SELECT LAST_INSERT_ID() AS UserID;';
     db.query(sql, [email, username, password], (err, result) => {
         if (err) {
             console.error('Error registering user:', err);
             console.log(email, username, password);
             return res.status(500).send('Registration failed.');
         }
-        return res.status(200).send('Registration successful.')
+        const userId = result[1][0].UserID;
+
+        res.status(200).json({userId});
     });
 });
 
 // Route for application
-app.post('/submit-application', (req, res) => {
+app.post('/apply', (req, res) => {
     const {
         fullname, salutation, alias, age, bday, bplace, civil_status,
         nationality, height, weight, sex, ps_address, ps_country,
@@ -338,9 +340,9 @@ app.post('/login', (req, res) => {
 // Serve static files from the 'customer' directory
 app.use(express.static(path.join(__dirname, 'customer')));
 
-app.get('/', (req, res) => {
-    return res.json("From backend");
-})
+// app.get('/', (req, res) => {
+//     return res.json("From backend");
+// })
 
 app.get('/applicants', (req, res) => {
     const sql = "SELECT * FROM APPLICANT";
@@ -471,7 +473,7 @@ app.get('/beneficiary2-profile', (req, res) => {
 
 //Root route to handle other requests or home page
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'customer', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 //Start the server
