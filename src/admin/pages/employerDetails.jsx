@@ -9,31 +9,17 @@ import "../../styles.css";
 import PruLogo from "../../assets/pru-logo-main.svg";
 
 const EmployerProfile = () => {
-  const initialState = {
-    employerNum: "E000001",
-    employerName: "[Company Name]",
-    employerNature: "[Nature of Work/Business]",
-    employerTelno: "[Telephone Number]",
-    employerPsAdrs: "[Present Address]",
-    employerPsCountry: "[Present Country]",
-    employerPsZip: "[Present ZIP Code]",
-  };
-
   const [employer, setEmployer] = useState({});
-  const [secondary, setSecondary] = useState([]);
 
   const location = useLocation();
 
-  const searchParams = new URLSearchParams(location.search);
-  const ApplicantID = searchParams.get("applicantID");
-
   useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
     const EmployerCode = searchParams.get("employerCode");
-    console.log(ApplicantID);
 
-    if (ApplicantID) {
+    if (EmployerCode) {
       axios
-        .get(`http://localhost:5020/employers/${ApplicantID}/${EmployerCode}`)
+        .get(`http://localhost:5020/employers/${EmployerCode}`)
         .then((response) => {
           setEmployer(response.data);
           console.log(response.data);
@@ -44,7 +30,6 @@ const EmployerProfile = () => {
     }
   }, [location.search]);
 
-  const [state, setState] = useState(initialState);
   const [editActive, setEditStatus] = useState(false);
 
   const EditProfile = () => {
@@ -85,7 +70,6 @@ const EmployerProfile = () => {
         id={name}
         name={name}
         value={value}
-        onChange={handleChange}
         disabled={!editActive}
       />
     </div>
@@ -203,8 +187,17 @@ const EmployerProfile = () => {
                   }`}
                 >
                   <Link
-                    to={`/userProfile?applicantID=${ApplicantID}&employerCode=${employer.EmployerCode}`}
-                    className="user nav-label"
+                    to={`/userProfile`}
+                    className={`user nav-label ${
+                      activePage.pathname === "/employerDetails"
+                        ? "disabled"
+                        : ""
+                    }`}
+                    onClick={(e) => {
+                      if (activePage.pathname === "/employerDetails") {
+                        e.preventDefault();
+                      }
+                    }}
                   >
                     Member
                   </Link>
@@ -217,14 +210,14 @@ const EmployerProfile = () => {
                   }`}
                 >
                   <Link
-                    to={`/beneficiaryProfile?applicantID=${employer.ApplicantID}`}
+                    to={`/beneficiaryProfile`}
                     className={`beneficiary nav-label ${
-                      activePage.pathname === "/employerProfile"
+                      activePage.pathname === "/employerDetails"
                         ? "disabled"
                         : ""
                     }`}
                     onClick={(e) => {
-                      if (activePage.pathname === "/employerProfile") {
+                      if (activePage.pathname === "/employerDetails") {
                         e.preventDefault();
                       }
                     }}
@@ -234,11 +227,11 @@ const EmployerProfile = () => {
                 </li>
                 <li
                   className={`display-nav ${
-                    activePage.pathname === "/employerProfile" ? "active" : ""
+                    activePage.pathname === "/employerDetails" ? "active" : ""
                   }`}
                 >
                   <Link
-                    to={`/employerProfile?applicantID=${ApplicantID}&employerCode=${employer.EmployerCode}`}
+                    to={`/employerDetails?employerCode=${employer.EmployerCode}`}
                     className="employer nav-label"
                   >
                     Employer
@@ -247,7 +240,7 @@ const EmployerProfile = () => {
               </ul>
             </div>
             <div className="return-db">
-              <Link to="/dbMembers" className="return-profile">
+              <Link to="/dbEmployers" className="return-profile">
                 Return to database.
               </Link>
             </div>

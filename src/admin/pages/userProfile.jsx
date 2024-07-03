@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 
 // Styles
@@ -49,6 +50,28 @@ const UserProfile = () => {
 
   const [state, setState] = useState(initialState);
   const [editActive, setEditStatus] = useState(false);
+
+  const [applicant, setApplicant] = useState([]);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const ApplicantID = searchParams.get("applicantID");
+
+    console.log(ApplicantID);
+
+    if (ApplicantID) {
+      axios
+        .get(`http://localhost:5020/applicants/${ApplicantID}`)
+        .then((response) => {
+          setApplicant(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [location.search]);
 
   const EditProfile = () => {
     if (window.confirm("Do you want to edit the user profile?")) {
@@ -143,122 +166,130 @@ const UserProfile = () => {
                   {newInput(
                     "Membership Number",
                     "membershipNum",
-                    state.membershipNum
+                    applicant.ApplicantID
                   )}
-                  {newInput("Name", "memberName", state.memberName)}
+                  {newInput("Name", "memberName", applicant.ApplicantName)}
                   {newInput(
                     "Salutation",
                     "memberSalutation",
-                    state.memberSalutation
+                    applicant.Salutation
                   )}
                   {newInput(
                     "Other Legal Name/Alias",
                     "memberAlias",
-                    state.memberAlias
+                    applicant.Alias
                   )}
-                  {newInput("Age", "memberAge", state.memberAge)}
-                  {newInput("Sex", "memberSex", state.memberSex)}
-                  {newInput("Date of Birth", "memberDOB", state.memberDOB)}
-                  {newInput("Place of Birth", "memberPOB", state.memberPOB)}
-                  {newInput("Civil Status", "memberCS", state.memberCS)}
+                  {newInput("Age", "memberAge", applicant.Age)}
+                  {newInput("Sex", "memberSex", applicant.Sex)}
+                  {newInput("Date of Birth", "memberDOB", applicant.Birthdate)}
+                  {newInput(
+                    "Place of Birth",
+                    "memberPOB",
+                    applicant.Birthplace
+                  )}
+                  {newInput("Civil Status", "memberCS", applicant.CivilStatus)}
                   {newInput(
                     "Nationality",
                     "memberNationality",
-                    state.memberNationality
+                    applicant.Nationality
                   )}
-                  {newInput("Height", "memberHeight", state.memberHeight)}
-                  {newInput("Weight", "memberWeight", state.memberWeight)}
+                  {newInput("Height", "memberHeight", applicant.Height)}
+                  {newInput("Weight", "memberWeight", applicant.Weight)}
                   {newInput(
                     "Mobile Number",
                     "memberMobile",
-                    state.memberMobile
+                    applicant.MobileNumber
                   )}
+                  {newInput("Telephone Number", "memberTelno", applicant.TelNo)}
                   {newInput(
-                    "Telephone Number",
-                    "memberTelno",
-                    state.memberTelno
+                    "Email Address",
+                    "memberEmail",
+                    applicant.EmailAddress
                   )}
-                  {newInput("Email Address", "memberEmail", state.memberEmail)}
                   {newInput(
                     "Present Address",
                     "memberPsAdrs",
-                    state.memberPsAdrs
+                    applicant.PresentAddress
                   )}
                   {newInput(
                     "Present Country",
                     "memberPsCountry",
-                    state.memberPsCountry
+                    applicant.PrsntAdrsCountry
                   )}
                   {newInput(
                     "Present ZIP Code",
                     "memberPsZip",
-                    state.memberPsZip
+                    applicant.PrsntAdrsZIP
                   )}
                   {newInput(
                     "Permanent Address",
                     "memberPmAdrs",
-                    state.memberPmAdrs
+                    applicant.PermanentAddress
                   )}
                   {newInput(
                     "Permanent Country",
                     "memberPmCountry",
-                    state.memberPmCountry
+                    applicant.PermntAdrsCountry
                   )}
                   {newInput(
                     "Permanent ZIP Code",
                     "memberPmZip",
-                    state.memberPmZip
+                    applicant.PermntAdrsZIP
                   )}
                   {newInput(
                     "Occupation",
                     "memberOccupation",
-                    state.memberOccupation
+                    applicant.Occupation
                   )}
-                  {newInput("Position", "memberPosition", state.memberPosition)}
+                  {newInput("Position", "memberPosition", applicant.Position)}
                   {newInput(
                     "Nature of Work/Business",
                     "memberNature",
-                    state.memberNature
+                    applicant.ApplicantWorkNature
                   )}
-                  {newInput("Source of Funds", "memberSOF", state.memberSOF)}
+                  {newInput(
+                    "Source of Funds",
+                    "memberSOF",
+                    applicant.SourceOfFunds
+                  )}
                   {newInput(
                     "Gross Annual Income",
                     "memberGAI",
-                    state.memberGAI
+                    applicant.GrossAnnualIncome
                   )}
-                  {newInput("Net Worth", "memberNW", state.memberNW)}
-                  {newInput("Date Hired", "memberHired", state.memberHired)}
+                  {newInput("Net Worth", "memberNW", applicant.NetWorth)}
+                  {newInput("Date Hired", "memberHired", applicant.DateHired)}
                   {newInput(
                     "Date of Regularization",
                     "memberRegularization",
-                    state.memberRegularization
+                    applicant.DateOfRegularization
                   )}
                   {newInput(
                     "Monthly Income",
                     "memberIncome",
-                    state.memberIncome
+                    applicant.GrossAnnualIncome
                   )}
-                  {newInput("SSS/GSIS Number", "memberSSS", state.memberSSS)}
-                  {newInput("TIN ID", "memberTIN", state.memberTIN)}
+                  {newInput("SSS/GSIS Number", "memberSSS", applicant.SSSID)}
+                  {newInput("TIN ID", "memberTIN", applicant.TINID)}
                   {newInput(
                     "Other ID #1 Name",
                     "memberOtherID1",
-                    state.memberOtherID1
+                    applicant.OtherID
                   )}
                   {newInput(
                     "Other ID #1 Number",
                     "memberOtherIDNum1",
-                    state.memberOtherIDNum1
+                    applicant.OtherIDNumber
                   )}
                   {newInput(
                     "Other ID #2 Name",
                     "memberOtherID2",
-                    state.memberOtherID2
+                    applicant.OtherID2
                   )}
                   {newInput(
                     "Other ID #2 Number",
                     "memberOtherIDNum2",
-                    state.memberOtherIDNum2
+                    applicant.OtherID2Number
                   )}
                   <div className="btns">
                     <div className="cancel">
@@ -294,7 +325,10 @@ const UserProfile = () => {
                     activePage.pathname === "/userProfile" ? "active" : ""
                   }`}
                 >
-                  <Link to="/userProfile" className="user">
+                  <Link
+                    to={`/userProfile?applicantID=${applicant.ApplicantID}`}
+                    className="user nav-label"
+                  >
                     Member
                   </Link>
                 </li>
@@ -305,7 +339,10 @@ const UserProfile = () => {
                       : ""
                   }`}
                 >
-                  <Link to="/beneficiaryProfile" className="b1">
+                  <Link
+                    to={`/beneficiaryProfile?applicantID=${applicant.ApplicantID}`}
+                    className="beneficiary nav-label"
+                  >
                     Beneficiary
                   </Link>
                 </li>
@@ -314,11 +351,19 @@ const UserProfile = () => {
                     activePage.pathname === "/employerProfile" ? "active" : ""
                   }`}
                 >
-                  <Link to="/employerProfile" className="employer">
+                  <Link
+                    to={`/employerProfile?applicantID=${applicant.ApplicantID}&employerCode=${applicant.EmployerCode}`}
+                    className="employer nav-label"
+                  >
                     Employer
                   </Link>
                 </li>
               </ul>
+            </div>
+            <div className="return-db">
+              <Link to="/dbMembers" className="return-profile">
+                Return to database.
+              </Link>
             </div>
           </div>
         </div>

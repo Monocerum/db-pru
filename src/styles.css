@@ -829,7 +829,7 @@ form .application-btn {
     width: 70%;
     font-weight: 700;
     padding: 5px;
-    font-size: 20px;
+    font-size: 17px;
     text-align: center;
     background: rgba(225, 225, 225, 0.5);
     border-radius: 10px;
@@ -1298,4 +1298,16 @@ tr:hover {
 
 .user-data {
     padding: 10px 35px;
+}
+
+a.disabled, a.disabled:hover {
+    color: rgb(205, 205, 205);
+    cursor: auto;
+}
+
+.return-db {
+    display: flex;
+    justify-content: flex-end;
+    width: 95%;
+    padding-top: 5%;
 }

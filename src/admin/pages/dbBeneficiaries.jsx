@@ -105,7 +105,11 @@ function DBBeneficiaries() {
                     {beneficiary.map((b, key) => (
                       <tr key={key}>
                         <td className="data-container">
-                          <i className="bx bx-show-alt"></i>
+                          <Link
+                            to={`/beneficiaryDetails?applicantID=${b.ApplicantID}&beneficiaryCode=${b.BeneficiaryCode}`}
+                          >
+                            <i className="bx bx-show-alt"></i>
+                          </Link>
                         </td>
                         <td className="data-container">
                           <i className="bx bx-edit"></i>

@@ -358,20 +358,6 @@ app.get('/applicants', (req, res) => {
     });
 }); 
 
-app.get('/users', (req, res) => {
-    const sql = "SELECT * FROM LOGIN";
-    db.query(sql, (err, data) => {
-        if (err) {
-            console.error('Error executing query:', err);
-            return res.status(500).json({ error: 'Database query error' });
-        }
-        if (data.length === 0) {
-            console.log('No records found in applicant table.');
-        }
-        return res.status(200).json(data);
-    });
-});
-
 app.get('/applicants/:ApplicantID', (req, res) => {
     const ApplicantID = req.params.ApplicantID;
     const sql = "SELECT * FROM APPLICANT WHERE ApplicantID = ?";
@@ -387,6 +373,35 @@ app.get('/applicants/:ApplicantID', (req, res) => {
     });
 }); 
 
+app.get('/users', (req, res) => {
+    const sql = "SELECT * FROM LOGIN";
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in applicant table.');
+        }
+        return res.status(200).json(data);
+    });
+});
+
+app.get('/users/:UserID', (req, res) => {
+    const UserID = req.params.UserID;
+    const sql = "SELECT * FROM LOGIN WHERE UserID = ?";
+    db.query(sql, [UserID], (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in applicant table.');
+        }
+        return res.status(200).json(data[0]);
+    });
+});
+
 app.get('/employers', (req, res) => {
     const sql = "SELECT * FROM EMPLOYER";
     db.query(sql, (err, data) => {
@@ -398,6 +413,44 @@ app.get('/employers', (req, res) => {
             console.log('No records found in applicant table.');
         }
         return res.status(200).json(data);
+    });
+});
+
+// For company details in applicant profile
+app.get('/employers/:ApplicantID/:EmployerCode', (req, res) => {
+    const ApplicantID = req.params.ApplicantID;
+    const EmployerCode = req.params.EmployerCode;
+    const sql = `SELECT e.*
+                FROM EMPLOYER e
+                JOIN APPLICANT a ON e.EmployerCode = a.EmployerCode
+                WHERE a.ApplicantID = ? AND e.EmployerCode = ?`;
+    db.query(sql, [ApplicantID, EmployerCode], (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in employer table.');
+        }
+        return res.status(200).json(data[0]);
+    });
+});
+
+// For company details viewed from company relation
+app.get('/employers/:EmployerCode', (req, res) => {
+    const EmployerCode = req.params.EmployerCode;
+    const sql = `SELECT *
+                FROM EMPLOYER 
+                WHERE EmployerCode = ?`;
+    db.query(sql, [EmployerCode], (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in employer table.');
+        }
+        return res.status(200).json(data[0]);
     });
 });
 
@@ -415,9 +468,28 @@ app.get('/beneficiaries', (req, res) => {
     });
 });
 
+app.get('/beneficiaries/:ApplicantID/:BeneficiaryCode', (req, res) => {
+    const { ApplicantID, BeneficiaryCode } = req.params;
+    const sql = `SELECT b.*, a.ApplicantName
+                FROM BENEFICIARY b
+                JOIN APPLICANT a ON b.ApplicantID = a.ApplicantID
+                WHERE b.ApplicantID = ? AND b.BeneficiaryCode = ?`;
+    db.query(sql, [ApplicantID, BeneficiaryCode], (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in applicant table.');
+            return res.status(404).json({ error: 'No records found' });
+        }
+        return res.status(200).json(data[0]);
+    });
+});
+
 app.get('/primarybeneficiaries/:ApplicantID', (req, res) => {
     const ApplicantID = req.params.ApplicantID;
-    const sql = `SELECT b.*, A.ApplicantName
+    const sql = `SELECT b.*, a.ApplicantName
                 FROM BENEFICIARY b
                 JOIN APPLICANT a ON b.ApplicantID = a.ApplicantID
                 WHERE a.ApplicantID = ? 
@@ -431,13 +503,17 @@ app.get('/primarybeneficiaries/:ApplicantID', (req, res) => {
             console.log('No primary beneficiaries found for the specified ApplicantID.');
             return res.status(404).json({ message: 'No primary beneficiaries found.' });
         }
-        return res.status(200).json(data);
+        return res.status(200).json(data[0]);
     });
 });
 
 app.get('/secondarybeneficiaries/:ApplicantID', (req, res) => {
     const ApplicantID = req.params.ApplicantID;
-    const sql = "SELECT * FROM BENEFICIARY WHERE ApplicantID = ? AND BeneficiaryType = 'S'";
+    const sql = `SELECT b.*, a.ApplicantName
+                FROM BENEFICIARY b
+                JOIN APPLICANT a ON b.ApplicantID = a.ApplicantID
+                WHERE a.ApplicantID = ? 
+                AND b.BeneficiaryType = 'S'`;
     db.query(sql, [ApplicantID], (err, data) => {
         if (err) {
             console.error('Error executing query:', err);
@@ -447,7 +523,7 @@ app.get('/secondarybeneficiaries/:ApplicantID', (req, res) => {
             console.log('No secondary beneficiaries found for the specified ApplicantID.');
             return res.status(404).json({ message: 'No secondary beneficiaries found.' });
         }
-        return res.status(200).json(data);
+        return res.status(200).json(data[0]);
     });
 });
 
