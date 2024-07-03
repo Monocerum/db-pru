@@ -101,7 +101,9 @@ function DBUsers() {
                     {user.map((u, key) => (
                       <tr key={key}>
                         <td className="data-container user-data">
-                          <i className="bx bx-show-alt"></i>
+                          <Link to={`/loginProfile?userID=${u.UserID}`}>
+                            <i className="bx bx-show-alt"></i>
+                          </Link>
                         </td>
                         <td className="data-container user-data">
                           <i className="bx bx-edit"></i>

@@ -21,15 +21,7 @@ function DBMembers() {
       .catch((error) => {
         console.error(error);
       });
-
-    // fetch('http://localhost:5020/applicants')
-    // .then(response => response.json())
-    // .then(applicant => setApplicant(applicant))
-    // .catch(error => console.error(error));
   });
-
-  //   getUserData();
-  // })
 
   const activePage = useLocation();
 
@@ -133,7 +125,11 @@ function DBMembers() {
                     {applicant.map((a, key) => (
                       <tr key={key}>
                         <td className="data-container">
-                          <i className="bx bx-show-alt"></i>
+                          <Link
+                            to={`/userProfile?applicantID=${a.ApplicantID}`}
+                          >
+                            <i className="bx bx-show-alt"></i>
+                          </Link>
                         </td>
                         <td className="data-container">
                           <i className="bx bx-edit"></i>

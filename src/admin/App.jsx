@@ -7,11 +7,14 @@ import Apply from './pages/apply';
 import Login from './pages/login';
 import UserProfile from './pages/userProfile';
 import BeneficiaryProfile from './pages/beneficiaryProfile';
+import BeneficiaryDetails from './pages/indivBeneficiary';
 import EmployerProfile from './pages/employerProfile';
+import EmployerDetails from './pages/employerDetails';
 import DBMembers from './pages/dbMembers';
 import DBUsers from './pages/dbUsers';
 import DBBeneficiaries from './pages/dbBeneficiaries';
 import DBEmployers from './pages/dbEmployers';
+import LoginDetails from './pages/loginProfile';
 
 import React from 'react';
 import axios from 'axios';
@@ -32,7 +35,10 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/userProfile' element={<UserProfile />} />
               <Route path="/beneficiaryProfile" element={<BeneficiaryProfile />} />
+              <Route path="/beneficiaryDetails" element={<BeneficiaryDetails />} />
               <Route path="/employerProfile" element={<EmployerProfile />} />
+              <Route path="/employerDetails" element={<EmployerDetails />} />
+              <Route path="/loginProfile" element={<LoginDetails />} />
               <Route path="/dbMembers" element={<DBMembers />} />
               <Route path="/dbUsers" element={<DBUsers />} />
               <Route path="/dbBeneficiaries" element={<DBBeneficiaries />} />

@@ -95,7 +95,11 @@ function DBEmployers() {
                     {employer.map((e, key) => (
                       <tr key={key}>
                         <td className="data-container employer-data">
-                          <i className="bx bx-show-alt"></i>
+                          <Link
+                            to={`/employerDetails?employerCode=${e.EmployerCode}`}
+                          >
+                            <i className="bx bx-show-alt"></i>
+                          </Link>
                         </td>
                         <td className="data-container employer-data">
                           <i className="bx bx-edit"></i>

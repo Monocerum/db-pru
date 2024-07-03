@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import { Link, useLocation } from "react-router-dom";
 
 // Styles
 import "../../styles.css";
@@ -8,34 +8,25 @@ import "../../styles.css";
 // Assets
 import PruLogo from "../../assets/pru-logo-main.svg";
 
-const EmployerProfile = () => {
-  const initialState = {
-    employerNum: "E000001",
-    employerName: "[Company Name]",
-    employerNature: "[Nature of Work/Business]",
-    employerTelno: "[Telephone Number]",
-    employerPsAdrs: "[Present Address]",
-    employerPsCountry: "[Present Country]",
-    employerPsZip: "[Present ZIP Code]",
-  };
-
-  const [employer, setEmployer] = useState({});
-  const [secondary, setSecondary] = useState([]);
+const BeneficiaryDetails = () => {
+  const [beneficiary, setBeneficiary] = useState({});
 
   const location = useLocation();
 
-  const searchParams = new URLSearchParams(location.search);
-  const ApplicantID = searchParams.get("applicantID");
-
   useEffect(() => {
-    const EmployerCode = searchParams.get("employerCode");
+    const searchParams = new URLSearchParams(location.search);
+    const ApplicantID = searchParams.get("applicantID");
+    const BeneficiaryCode = searchParams.get("beneficiaryCode");
+
     console.log(ApplicantID);
 
     if (ApplicantID) {
       axios
-        .get(`http://localhost:5020/employers/${ApplicantID}/${EmployerCode}`)
+        .get(
+          `http://localhost:5020/beneficiaries/${ApplicantID}/${BeneficiaryCode}`
+        )
         .then((response) => {
-          setEmployer(response.data);
+          setBeneficiary(response.data);
           console.log(response.data);
         })
         .catch((error) => {
@@ -44,13 +35,10 @@ const EmployerProfile = () => {
     }
   }, [location.search]);
 
-  const [state, setState] = useState(initialState);
   const [editActive, setEditStatus] = useState(false);
 
   const EditProfile = () => {
-    if (
-      window.confirm("Do you want to edit the employer/work/business profile?")
-    ) {
+    if (window.confirm("Do you want to edit the beneficiary profile?")) {
       setEditStatus(true);
     }
   };
@@ -114,17 +102,20 @@ const EmployerProfile = () => {
             </div>
           </div>
           <div className="information">
-            <div className="company-info">
+            <div className="primary">
               <div className="personal-header">
                 <div className="header-info">
                   <h2>
-                    <span id="main-name">{employer.EmpOrBusName}</span>
+                    <span id="main-name beneficiary1Name">
+                      {beneficiary.BeneficiaryName}
+                    </span>
                   </h2>
+                  <h3>Beneficiary of {beneficiary.ApplicantName}</h3>
                 </div>
                 <div className="edit">
                   <button
                     className={`edit-btn ${editActive ? "active" : ""}`}
-                    id="employerEdit"
+                    id="userEdit"
                     onClick={EditProfile}
                     hidden={editActive}
                   >
@@ -134,39 +125,88 @@ const EmployerProfile = () => {
               </div>
               <div className="personal-info">
                 <div className="personal-info-header">
-                  <h3 className="info-header">Employer Details</h3>
+                  <h3 className="info-header">Beneficiary Details</h3>
                 </div>
-                <div className="employer-info">
+                <div className="beneficiary-info">
                   {newInput(
-                    "Employer Number",
-                    "employerNum",
-                    employer.EmployerCode
-                  )}
-                  {newInput("Name", "employerName", employer.EmpOrBusName)}
-                  {newInput(
-                    "Nature of Work/Business",
-                    "employerNature",
-                    employer.EmpOrBusNature
+                    "Beneficiary Number",
+                    "beneficiary2Num",
+                    beneficiary.BeneficiaryCode
                   )}
                   {newInput(
-                    "Telephone Number",
-                    "employerTelno",
-                    employer.EmpOrBusTelNo
+                    "Name",
+                    "beneficiary2Name",
+                    beneficiary.BeneficiaryName
+                  )}
+                  {newInput(
+                    "Sex",
+                    "beneficiary2Sex",
+                    beneficiary.BeneficiarySex
+                  )}
+                  {newInput(
+                    "Date of Birth",
+                    "beneficiary2DOB",
+                    beneficiary.BeneficiaryDOB
+                  )}
+                  {newInput(
+                    "Relationship to Insured",
+                    "beneficiary2Rel",
+                    beneficiary.BeneficiaryRelationship
+                  )}
+                  {newInput(
+                    "% Share",
+                    "beneficiary2Share",
+                    beneficiary.BeneficiaryPrcntShare
+                  )}
+                  {newInput(
+                    "Type of Beneficiary",
+                    "beneficiary2Type",
+                    beneficiary.BeneficiaryType
+                  )}
+                  {newInput(
+                    "Beneficiary Designation",
+                    "beneficiary2Desig",
+                    beneficiary.BeneficiaryDesignation
+                  )}
+                  {newInput(
+                    "Place of Birth",
+                    "beneficiary2POB",
+                    beneficiary.BeneficiaryPOB
+                  )}
+                  {newInput(
+                    "Nationality",
+                    "beneficiary2Nationality",
+                    beneficiary.BeneficiaryNationality
                   )}
                   {newInput(
                     "Present Address",
-                    "employerPsAdrs",
-                    employer.EmpOrBusAdrs
+                    "beneficiary2PsAdrs",
+                    beneficiary.BeneficiaryPrsntAdrs
                   )}
                   {newInput(
                     "Present Country",
-                    "employerPsCountry",
-                    employer.EmpOrBusCountry
+                    "beneficiary2PsCountry",
+                    beneficiary.BeneficiaryCountry
                   )}
                   {newInput(
                     "Present ZIP Code",
-                    "employerPsZip",
-                    employer.EmpOrBusZIP
+                    "beneficiary2PsZip",
+                    beneficiary.BeneficiaryZIP
+                  )}
+                  {newInput(
+                    "Mobile Number",
+                    "beneficiary2Mobile",
+                    beneficiary.BeneficiaryMobileNum
+                  )}
+                  {newInput(
+                    "Telephone Number",
+                    "beneficiary2Telno",
+                    beneficiary.BeneficiaryTelNo
+                  )}
+                  {newInput(
+                    "Email Address",
+                    "beneficiary2Email",
+                    beneficiary.BeneficiaryEmailAdrs
                   )}
                   <div className="btns">
                     <div className="cancel">
@@ -203,7 +243,7 @@ const EmployerProfile = () => {
                   }`}
                 >
                   <Link
-                    to={`/userProfile?applicantID=${ApplicantID}&employerCode=${employer.EmployerCode}`}
+                    to={`/userProfile?applicantID=${beneficiary.ApplicantID}&beneficiaryCode=${beneficiary.BeneficiaryCode}`}
                     className="user nav-label"
                   >
                     Member
@@ -211,23 +251,14 @@ const EmployerProfile = () => {
                 </li>
                 <li
                   className={`display-nav ${
-                    activePage.pathname === "/beneficiaryProfile"
+                    activePage.pathname === "/beneficiaryDetails"
                       ? "active"
                       : ""
                   }`}
                 >
                   <Link
-                    to={`/beneficiaryProfile?applicantID=${employer.ApplicantID}`}
-                    className={`beneficiary nav-label ${
-                      activePage.pathname === "/employerProfile"
-                        ? "disabled"
-                        : ""
-                    }`}
-                    onClick={(e) => {
-                      if (activePage.pathname === "/employerProfile") {
-                        e.preventDefault();
-                      }
-                    }}
+                    to={`/beneficiaryDetails?applicantID=${beneficiary.ApplicantID}&beneficiaryCode=${beneficiary.BeneficiaryCode}`}
+                    className="beneficiary nav-label"
                   >
                     Beneficiary
                   </Link>
@@ -238,8 +269,17 @@ const EmployerProfile = () => {
                   }`}
                 >
                   <Link
-                    to={`/employerProfile?applicantID=${ApplicantID}&employerCode=${employer.EmployerCode}`}
-                    className="employer nav-label"
+                    to={`/employerProfile?applicantID=${beneficiary.ApplicantID}&beneficiaryCode=${beneficiary.BeneficiaryCode}`}
+                    className={`employer nav-label ${
+                      activePage.pathname === "/beneficiaryDetails"
+                        ? "disabled"
+                        : ""
+                    }`}
+                    onClick={(e) => {
+                      if (activePage.pathname === "/beneficiaryDetails") {
+                        e.preventDefault();
+                      }
+                    }}
                   >
                     Employer
                   </Link>
@@ -247,7 +287,7 @@ const EmployerProfile = () => {
               </ul>
             </div>
             <div className="return-db">
-              <Link to="/dbMembers" className="return-profile">
+              <Link to="/dbBeneficiaries" className="return-profile">
                 Return to database.
               </Link>
             </div>
@@ -259,4 +299,4 @@ const EmployerProfile = () => {
   );
 };
 
-export default EmployerProfile;
+export default BeneficiaryDetails;

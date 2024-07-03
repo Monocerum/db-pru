@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 
 // Styles
@@ -42,6 +43,40 @@ const BeneficiaryProfile = () => {
     beneficiary2Telno: "[Telephone Number]",
     beneficiary2Email: "[Email Address]",
   };
+
+  const [primary, setPrimary] = useState({});
+  const [secondary, setSecondary] = useState({});
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const ApplicantID = searchParams.get("applicantID");
+
+    console.log(ApplicantID);
+
+    if (ApplicantID) {
+      axios
+        .get(`http://localhost:5020/primarybeneficiaries/${ApplicantID}`)
+        .then((response) => {
+          setPrimary(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      axios
+        .get(`http://localhost:5020/secondarybeneficiaries/${ApplicantID}`)
+        .then((response) => {
+          setSecondary(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [location.search]);
 
   const [state, setState] = useState(initialState);
   const [editActive, setEditStatus] = useState(false);
@@ -115,11 +150,11 @@ const BeneficiaryProfile = () => {
               <div className="personal-header">
                 <div className="header-info">
                   <h2>
-                    <span id="main-name beneficiary2Name">
-                      {state.beneficiary2Name}
+                    <span id="main-name beneficiary1Name">
+                      {primary.BeneficiaryName}
                     </span>
                   </h2>
-                  <h3>Secondary Beneficiary</h3>
+                  <h3>Primary Beneficiary of {primary.ApplicantName}</h3>
                 </div>
                 <div className="edit">
                   <button
@@ -139,75 +174,79 @@ const BeneficiaryProfile = () => {
                 <div className="beneficiary-info">
                   {newInput(
                     "Beneficiary Number",
-                    "beneficiary1Num",
-                    state.beneficiary1Num
+                    "beneficiary2Num",
+                    primary.BeneficiaryCode
                   )}
-                  {newInput("Name", "beneficiary1Name", state.beneficiary1Name)}
-                  {newInput("Sex", "beneficiary1Sex", state.beneficiary1Sex)}
+                  {newInput(
+                    "Name",
+                    "beneficiary2Name",
+                    primary.BeneficiaryName
+                  )}
+                  {newInput("Sex", "beneficiary2Sex", primary.BeneficiarySex)}
                   {newInput(
                     "Date of Birth",
-                    "beneficiary1DOB",
-                    state.beneficiary1DOB
+                    "beneficiary2DOB",
+                    primary.BeneficiaryDOB
                   )}
                   {newInput(
                     "Relationship to Insured",
-                    "beneficiary1Rel",
-                    state.beneficiary1Rel
+                    "beneficiary2Rel",
+                    primary.BeneficiaryRelationship
                   )}
                   {newInput(
                     "% Share",
-                    "beneficiary1Share",
-                    state.beneficiary1Share
+                    "beneficiary2Share",
+                    primary.BeneficiaryPrcntShare
                   )}
                   {newInput(
                     "Type of Beneficiary",
-                    "beneficiary1Type",
-                    state.beneficiary1Type
+                    "beneficiary2Type",
+                    primary.BeneficiaryType
                   )}
                   {newInput(
                     "Beneficiary Designation",
-                    "beneficiary1Desig",
-                    state.beneficiary1Desig
+                    "beneficiary2Desig",
+                    primary.BeneficiaryDesignation
                   )}
                   {newInput(
                     "Place of Birth",
-                    "beneficiary1POB",
-                    state.beneficiary1POB
+                    "beneficiary2POB",
+                    primary.BeneficiaryPOB
                   )}
                   {newInput(
                     "Nationality",
-                    "beneficiary1Nationality",
-                    state.beneficiary1Nationality
+                    "beneficiary2Nationality",
+                    primary.BeneficiaryNationality
                   )}
                   {newInput(
                     "Present Address",
-                    "beneficiary1PsAdrs",
-                    state.beneficiary1PsAdrs
+                    "beneficiary2PsAdrs",
+                    primary.BeneficiaryPrsntAdrs
                   )}
                   {newInput(
                     "Present Country",
-                    "beneficiary1PsCountry",
-                    state.beneficiary1PsCountry
+                    "beneficiary2PsCountry",
+                    primary.BeneficiaryCountry
                   )}
                   {newInput(
                     "Present ZIP Code",
-                    "beneficiary1PsZip",
-                    state.beneficiary1PsZip
+                    "beneficiary2PsZip",
+                    primary.BeneficiaryZIP
                   )}
                   {newInput(
                     "Mobile Number",
-                    "beneficiary1Mobile",
-                    state.beneficiary1Mobile
+                    "beneficiary2Mobile",
+                    primary.BeneficiaryMobileNum
                   )}
                   {newInput(
                     "Telephone Number",
-                    "beneficiary1Telno",
-                    state.beneficiary1Telno
+                    "beneficiary2Telno",
+                    primary.BeneficiaryTelNo
                   )}
                   {newInput(
                     "Email Address",
-                    "beneficiary1Email",
-                    state.beneficiary1Email
+                    "beneficiary2Email",
+                    primary.BeneficiaryEmailAdrs
                   )}
                   <div className="btns">
                     <div className="cancel">
@@ -238,9 +277,11 @@ const BeneficiaryProfile = () => {
               <div className="personal-header">
                 <div className="header-info">
                   <h2>
-                    <span id="main-name">{state.beneficiary1Name}</span>
+                    <span id="main-name beneficiary2Name">
+                      {secondary.BeneficiaryName}
+                    </span>
                   </h2>
-                  <h3>Primary Beneficiary</h3>
+                  <h3>Secondary Beneficiary of {secondary.ApplicantName}</h3>
                 </div>
                 <div className="edit">
                   <button
@@ -261,74 +302,78 @@ const BeneficiaryProfile = () => {
                   {newInput(
                     "Beneficiary Number",
                     "beneficiary2Num",
-                    state.beneficiary2Num
+                    secondary.BeneficiaryCode
                   )}
-                  {newInput("Name", "beneficiary2Name", state.beneficiary2Name)}
-                  {newInput("Sex", "beneficiary2Sex", state.beneficiary2Sex)}
+                  {newInput(
+                    "Name",
+                    "beneficiary2Name",
+                    secondary.BeneficiaryName
+                  )}
+                  {newInput("Sex", "beneficiary2Sex", secondary.BeneficiarySex)}
                   {newInput(
                     "Date of Birth",
                     "beneficiary2DOB",
-                    state.beneficiary2DOB
+                    secondary.BeneficiaryDOB
                   )}
                   {newInput(
                     "Relationship to Insured",
                     "beneficiary2Rel",
-                    state.beneficiary2Rel
+                    secondary.BeneficiaryRelationship
                   )}
                   {newInput(
                     "% Share",
                     "beneficiary2Share",
-                    state.beneficiary2Share
+                    secondary.BeneficiaryPrcntShare
                   )}
                   {newInput(
                     "Type of Beneficiary",
                     "beneficiary2Type",
-                    state.beneficiary2Type
+                    secondary.BeneficiaryType
                   )}
                   {newInput(
                     "Beneficiary Designation",
                     "beneficiary2Desig",
-                    state.beneficiary2Desig
+                    secondary.BeneficiaryDesignation
                   )}
                   {newInput(
                     "Place of Birth",
                     "beneficiary2POB",
-                    state.beneficiary2POB
+                    secondary.BeneficiaryPOB
                   )}
                   {newInput(
                     "Nationality",
                     "beneficiary2Nationality",
-                    state.beneficiary2Nationality
+                    secondary.BeneficiaryNationality
                   )}
                   {newInput(
                     "Present Address",
                     "beneficiary2PsAdrs",
-                    state.beneficiary2PsAdrs
+                    secondary.BeneficiaryPrsntAdrs
                   )}
                   {newInput(
                     "Present Country",
                     "beneficiary2PsCountry",
-                    state.beneficiary2PsCountry
+                    secondary.BeneficiaryCountry
                   )}
                   {newInput(
                     "Present ZIP Code",
                     "beneficiary2PsZip",
-                    state.beneficiary2PsZip
+                    secondary.BeneficiaryZIP
                   )}
                   {newInput(
                     "Mobile Number",
                     "beneficiary2Mobile",
-                    state.beneficiary2Mobile
+                    secondary.BeneficiaryMobileNum
                   )}
                   {newInput(
                     "Telephone Number",
                     "beneficiary2Telno",
-                    state.beneficiary2Telno
+                    secondary.BeneficiaryTelNo
                   )}
                   {newInput(
                     "Email Address",
                     "beneficiary2Email",
-                    state.beneficiary2Email
+                    secondary.BeneficiaryEmailAdrs
                   )}
                   <div className="btns">
                     <div className="cancel">
@@ -364,7 +409,10 @@ const BeneficiaryProfile = () => {
                     activePage.pathname === "/userProfile" ? "active" : ""
                   }`}
                 >
-                  <Link to="/userProfile" className="user">
+                  <Link
+                    to={`/userProfile?applicantID=${primary.ApplicantID}`}
+                    className="user nav-label"
+                  >
                     Member
                   </Link>
                 </li>
@@ -375,7 +423,14 @@ const BeneficiaryProfile = () => {
                       : ""
                   }`}
                 >
-                  <Link to="/beneficiaryProfile" className="beneficiary">
+                  <Link
+                    to={`/beneficiaryProfile?applicantID=${primary.ApplicantID}`}
+                    className={`beneficiary nav-label ${
+                      activePage.pathname === "/employerProfile"
+                        ? "disabled"
+                        : ""
+                    }`}
+                  >
                     Beneficiary
                   </Link>
                 </li>
@@ -384,11 +439,28 @@ const BeneficiaryProfile = () => {
                     activePage.pathname === "/employerProfile" ? "active" : ""
                   }`}
                 >
-                  <Link to="/employerProfile" className="employer">
+                  <Link
+                    to={`/employerProfile?employerCode=${primary.ApplicantID}`}
+                    className={`employer nav-label ${
+                      activePage.pathname === "/beneficiaryProfile"
+                        ? "disabled"
+                        : ""
+                    }`}
+                    onClick={(e) => {
+                      if (activePage.pathname === "/beneficiaryProfile") {
+                        e.preventDefault();
+                      }
+                    }}
+                  >
                     Employer
                   </Link>
                 </li>
               </ul>
+            </div>
+            <div className="return-db">
+              <Link to="/dbMembers" className="return-profile">
+                Return to database.
+              </Link>
             </div>
           </div>
         </div>
