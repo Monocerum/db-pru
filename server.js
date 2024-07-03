@@ -19,6 +19,11 @@ app.use(bodyParser.json());
 
 //MYSQL Connection
 const db = mysql.createConnection({
+    host: '127.0.0.1',
+    port: 3306,
+    user: 'monochrome',
+    password: 'monokuro',
+    database: 'dbpru'
 });
 
 db.connect((err) => {
@@ -362,6 +367,21 @@ app.get('/users', (req, res) => {
     });
 });
 
+app.get('/applicants/:ApplicantID', (req, res) => {
+    const ApplicantID = req.params.ApplicantID;
+    const sql = "SELECT * FROM APPLICANT WHERE ApplicantID = ?";
+    db.query(sql, [ApplicantID], (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in applicant table.');
+        }
+        return res.status(200).json(data[0]);
+    });
+}); 
+
 app.get('/employers', (req, res) => {
     const sql = "SELECT * FROM EMPLOYER";
     db.query(sql, (err, data) => {
@@ -385,6 +405,42 @@ app.get('/beneficiaries', (req, res) => {
         }
         if (data.length === 0) {
             console.log('No records found in applicant table.');
+        }
+        return res.status(200).json(data);
+    });
+});
+
+app.get('/primarybeneficiaries/:ApplicantID', (req, res) => {
+    const ApplicantID = req.params.ApplicantID;
+    const sql = `SELECT b.*, A.ApplicantName
+                FROM BENEFICIARY b
+                JOIN APPLICANT a ON b.ApplicantID = a.ApplicantID
+                WHERE a.ApplicantID = ? 
+                AND b.BeneficiaryType = 'P'`;
+    db.query(sql, [ApplicantID], (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No primary beneficiaries found for the specified ApplicantID.');
+            return res.status(404).json({ message: 'No primary beneficiaries found.' });
+        }
+        return res.status(200).json(data);
+    });
+});
+
+app.get('/secondarybeneficiaries/:ApplicantID', (req, res) => {
+    const ApplicantID = req.params.ApplicantID;
+    const sql = "SELECT * FROM BENEFICIARY WHERE ApplicantID = ? AND BeneficiaryType = 'S'";
+    db.query(sql, [ApplicantID], (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No secondary beneficiaries found for the specified ApplicantID.');
+            return res.status(404).json({ message: 'No secondary beneficiaries found.' });
         }
         return res.status(200).json(data);
     });
