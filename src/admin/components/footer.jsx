@@ -5,8 +5,6 @@ import axios from 'axios';
 import ribbonFooter from '../../assets/ribbon-footer.png';
 
 function Footer() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
         <footer>

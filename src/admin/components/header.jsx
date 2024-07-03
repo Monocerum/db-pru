@@ -8,8 +8,6 @@ import UserIcon from '../../assets/user-icon.png';
 
 
 function Header() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
         <header>
