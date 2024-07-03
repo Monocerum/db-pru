@@ -53,11 +53,12 @@ app.post('/register', (req, res) => {
             console.log(email, username, password);
             return res.status(500).send('Registration failed.');
         }
+        return res.status(200).send('Registration successful.')
     });
 });
 
 // Route for application
-app.post('/apply', (req, res) => {
+app.post('/submit-application', (req, res) => {
     const {
         fullname, salutation, alias, age, bday, bplace, civil_status,
         nationality, height, weight, sex, ps_address, ps_country,
