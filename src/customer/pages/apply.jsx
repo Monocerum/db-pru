@@ -134,7 +134,7 @@ function Apply() {
                 <div className="line-1 line">
             	    <div className="fill name-fill">
                     <label htmlFor="fullname">Full Name<span className="required">*</span></label>
-                    <input className="name-input" type="text" id="fullname" name="fullname" placeholder="Surname, Given Name, Middle Name" value={formData.fullname} onChange={handleInputChange}/>
+                    <input className="name-input" type="text" id="fullname" name="fullname" placeholder="Surname, Given Name, Middle Name" value={formData.fullname} onChange={handleInputChange} required/>
                   </div>
                   <div className="fill salutation-fill">
                     <label htmlFor="salutation">Salutation</label>
@@ -148,15 +148,15 @@ function Apply() {
                         <div className="line-2 line">
                             <div className="fill age-fill">
                                 <label htmlFor="age">Age<span className="required">*</span></label>
-                                <input className="age-input" type="text" id="age" name="age" placeholder="Age" value={formData.age} onChange={handleInputChange}/>
+                                <input className="age-input" type="text" id="age" name="age" placeholder="Age" value={formData.age} onChange={handleInputChange} required/>
                             </div>
                             <div className="fill bday-fill">
                                 <label htmlFor="bday">Birthdate<span className="required">*</span></label>
-                                <input className="bday-input" type="date" id="bday" name="bday" placeholder="Birthdate" value={formData.bday} onChange={handleInputChange}/>
+                                <input className="bday-input" type="date" id="bday" name="bday" placeholder="Birthdate" value={formData.bday} onChange={handleInputChange} required/>
                             </div>
                             <div className="fill bplace-fill">
                                 <label htmlFor="bplace">Birthplace<span className="required">*</span></label>
-                                <input className="bplace-input" type="text" id="bplace" name="bplace" placeholder="Birthplace" value={formData.bplace} onChange={handleInputChange}/>
+                                <input className="bplace-input" type="text" id="bplace" name="bplace" placeholder="Birthplace" value={formData.bplace} onChange={handleInputChange} required/>
                             </div>
                         </div>
                         <div className="line-3 line">
@@ -165,21 +165,21 @@ function Apply() {
                                     <div className="rdb">
                                         <div className="rdb-left">
                                             <div className="rdb-single radio">
-                                                <input type="radio" id="single" name="civil-status" value="Single"/>
+                                                <input type="radio" id="single" name="civil_status" value="S" required/>
                                                 <label htmlFor="single">Single</label>
                                             </div>
                                             <div className="rdb-married radio">
-                                                <input type="radio" id="married" name="civil-status" value="Married"/>
+                                                <input type="radio" id="married" name="civil_status" value="M" required/>
                                                 <label htmlFor="married">Married</label>
                                             </div>
                                         </div>
                                         <div className="rdb-right">
                                             <div className="rdb-widowed radio">
-                                                <input type="radio" id="widowed" name="civil-status" value="Widowed"/>
+                                                <input type="radio" id="widowed" name="civil_status" value="W" required/>
                                                 <label htmlFor="widowed">Widowed</label>
                                             </div>
                                             <div className="rdb-separated radio">
-                                                <input type="radio" id="separated" name="civil-status" value="Legally Separated"/>
+                                                <input type="radio" id="separated" name="civil_status" value="LS" required/>
                                                 <label htmlFor="separated">Legally Separated</label>
                                             </div>
                                         </div>
@@ -187,25 +187,25 @@ function Apply() {
                             </div>
                             <div className="fill nationality-fill">
                                 <label htmlFor="nationality">Nationality<span className="required">*</span></label>
-                                <input className="nationality-input" type="text" id="nationality" name="nationality" placeholder="Nationality" value={formData.nationality} onChange={handleInputChange}/>
+                                <input className="nationality-input" type="text" id="nationality" name="nationality" placeholder="Nationality" value={formData.nationality} onChange={handleInputChange} required/>
                             </div>
                             <div className="fill height-fill">
                                 <label htmlFor="height">Height<span className="required">*</span></label>
-                                <input className="height-input" type="text" id="height" name="height" placeholder="Input as F'IN&#34;" value={formData.height} onChange={handleInputChange}/>
+                                <input className="height-input" type="text" id="height" name="height" placeholder="ft' in&#34;" value={formData.height} onChange={handleInputChange} required/>
                             </div>
                             <div className="fill weight-fill">
                                 <label htmlFor="weight">Weight<span className="required">*</span></label>
-                                <input className="weight-input" type="text" id="weight" name="weight" placeholder="lbs" value={formData.weight} onChange={handleInputChange}/>
+                                <input className="weight-input" type="text" id="weight" name="weight" placeholder="lbs" value={formData.weight} onChange={handleInputChange} required/>
                             </div>
                             <div className="fill sex-fill">
                                 <p>Sex<span className="required">*</span></p>
                                 <div className="sex-rdb">
                                     <div className="rdb rdb-fem radio">
-                                        <input type="radio" id="fem" name="sex" value="Female"/>
+                                        <input type="radio" id="fem" name="sex" value="F" required/>
                                         <label htmlFor="fem">Female</label>
                                     </div>
                                     <div className="rdb rdb-male radio">
-                                        <input type="radio" id="male" name="sex" value="Male"/>
+                                        <input type="radio" id="male" name="sex" value="M" required/>
                                         <label htmlFor="male">Male</label>
                                     </div>
                                 </div>
@@ -218,10 +218,11 @@ function Apply() {
                                     className="ps-adrs-input" 
                                     type="text" 
                                     id="ps-address" 
-                                    name="ps-address" 
+                                    name="ps_address" 
                                     placeholder="Number, street, municipality/city, province" 
                                     value={psAddress} 
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <div className="ps-country-fill fill">
@@ -230,10 +231,11 @@ function Apply() {
                                     className="ps-country-input" 
                                     type="text" 
                                     id="ps-country" 
-                                    name="ps-country" 
+                                    name="ps_country" 
                                     placeholder="Country" 
                                     value={psCountry} 
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <div className="ps-zip-fill fill">
@@ -242,10 +244,11 @@ function Apply() {
                                     className="ps-zip-input" 
                                     type="text" 
                                     id="ps-zip" 
-                                    name="ps-zip" 
+                                    name="ps_zip" 
                                     placeholder="ZIP" 
                                     value={psZIP} 
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
                         </div>
@@ -264,7 +267,7 @@ function Apply() {
                                         <label htmlFor="same-adrs">Same as present address.</label>
                                     </div>
                                 </div>
-                                <input className="pm-adrs-input" type="text" id="pm-address" name="pm-address" placeholder="Number, street, municipality/city, province" value={pmAddress} disabled={tickSameAdrs} onChange={handleChange}/>
+                                <input className="pm-adrs-input" type="text" id="pm-address" name="pm_address" placeholder="Number, street, municipality/city, province" value={pmAddress} disabled={tickSameAdrs} onChange={handleChange} required/>
                             </div>
                             <div className="pm-country-fill fill">
                                 <label htmlFor="pm-country">Country<span className="required">*</span></label>
@@ -272,30 +275,31 @@ function Apply() {
                                     className="pm-country-input" 
                                     type="text" 
                                     id="pm-country" 
-                                    name="pm-country" 
+                                    name="pm_country" 
                                     placeholder="Country" 
                                     value={pmCountry} 
                                     disabled={tickSameAdrs} 
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <div className="pm-zip-fill fill">
                                 <label htmlFor="pm-zip">ZIP Code<span className="required">*</span></label>
-                                <input className="pm-zip-input" type="text" id="pm-zip" name="pm-zip" placeholder="ZIP" value={pmZIP} disabled={tickSameAdrs} onChange={handleChange}/>
+                                <input className="pm-zip-input" type="text" id="pm-zip" name="pm_zip" placeholder="ZIP" value={pmZIP} disabled={tickSameAdrs} onChange={handleChange} required/>
                             </div>
                         </div>
                         <div className="line-7 line">
                             <div className="occupation-fill fill">
                                 <label htmlFor="occupation">Occupation<span className="required">*</span></label>
-                                <input className="occupation-input" type="text" id="occupation" name="occupation" placeholder="state exact duties; if member of AFP/PNP, state rank" value={formData.occupation} onChange={handleInputChange}/>
+                                <input className="occupation-input" type="text" id="occupation" name="occupation" placeholder="State Duties/Rank" value={formData.occupation} onChange={handleInputChange} required/>
                             </div>
                             <div className="position-fill fill">
                                 <label htmlFor="position">Position<span className="required">*</span></label>
-                                <input className="position-input" type="text" id="position" name="position" placeholder="Position" value={formData.position} onChange={handleInputChange}/>
+                                <input className="position-input" type="text" id="position" name="position" placeholder="Position" value={formData.position} onChange={handleInputChange} required/>
                             </div>
                             <div className="work-nature-fill fill">
                                 <label htmlFor="work-nature">Nature of Work/Business (if self-employed)</label>
-                                <input className="work-nature-input" type="text" id="workNature" name="work-nature" placeholder="Nature of Work/Business" value={formData.workNature} onChange={handleInputChange}/>
+                                <input className="work-nature-input" type="text" id="workNature" name="work_nature" placeholder="Nature of Work/Business" value={formData.workNature} onChange={handleInputChange} required/>
                             </div>
                         </div>
                         <div className="line-8 line">
@@ -304,44 +308,44 @@ function Apply() {
                                     <div className="sof">
                                         <div className="sof-left">
                                             <div className="rdb rdb-salary radio">
-                                                <input type="radio" id="salary" name="sof" value="Salary" placeholder="Salary RDB"/>
+                                                <input type="radio" id="salary" name="sof" value="Salary" placeholder="Salary RDB" required/>
                                                 <label htmlFor="salary">Salary</label>
                                             </div>
                                             <div className="rdb rdb-business radio">
-                                                <input type="radio" id="business" name="sof" value="Business" placeholder="Business RDB"/>
+                                                <input type="radio" id="business" name="sof" value="Business" placeholder="Business RDB" required/>
                                                 <label htmlFor="business">Business</label>
                                             </div>
                                         </div>
                                         <div className="sof-right">
                                             <div className="rdb rdb-others radio">
-                                                <input type="radio" id="others" name="sof" value="Others" placeholder="Others RDB"/>
+                                                <input type="radio" id="others" name="sof" value="Others" placeholder="Others RDB" required/>
                                                 <label htmlFor="sof">Others</label>
-                                                <input className="sof-input" type="text" id="sof" name="sof" placeholder="Source of Funds" value={formData.sof} onChange={handleInputChange}/>
+                                                <input className="sof-input" type="text" id="sof" name="sof_text" placeholder="Source of Funds" value={formData.sof} onChange={handleInputChange}/>
                                             </div>
                                         </div>
                                     </div>
                             </div> 
                             <div className="gai-fill fill">
                                 <label htmlFor="gai">Gross Annual Income<span className="required">*</span></label>
-                                <input className="gai-input" type="text" id="gai" name="gai" placeholder="Gross Annual Income" value={formData.gai} onChange={handleInputChange}/>
+                                <input className="gai-input" type="text" id="gai" name="gai" placeholder="Gross Annual Income" value={formData.gai} onChange={handleInputChange} required/>
                             </div>
                             <div className="nw-fill fill">
                                 <label htmlFor="nw">Net Worth<span className="required">*</span></label>
-                                <input className="nw-input" type="text" id="nw" name="nw" placeholder="Net Worth" value={formData.nw} onChange={handleInputChange}/>
+                                <input className="nw-input" type="text" id="nw" name="nw" placeholder="Net Worth" value={formData.nw} onChange={handleInputChange} required/>
                             </div>
                         </div>
                         <div className="line-9 line">
                             <div className="fill hired-fill">
                                 <label htmlFor="hired">Date Hired<span className="required">*</span></label>
-                                <input className="hired-input" type="date" id="hired" name="hired" placeholder="Date Hired" value={formData.hired} onChange={handleInputChange}/>
+                                <input className="hired-input" type="date" id="hired" name="hired" placeholder="Date Hired" value={formData.hired} onChange={handleInputChange} required/>
                             </div>
                             <div className="fill regular-fill">
                                 <label htmlFor="regular">Date of Regularization<span className="required">*</span></label>
-                                <input className="regular-input" type="date" id="regular" name="regular" placeholder="Date of Regularization"/>
+                                <input className="regular-input" type="date" id="regular" name="regular" placeholder="Date of Regularization" value={formData.regular} onChange={handleInputChange} required/>
                             </div>
                             <div className="income-fill fill">
                                 <label htmlFor="income">Monthly Income<span className="required">*</span></label>
-                                <input className="income-input" type="text" id="income" name="income" placeholder="Monthly Income" value={formData.income} onChange={handleInputChange}/>
+                                <input className="income-input" type="text" id="income" name="income" placeholder="Monthly Income" value={formData.income} onChange={handleInputChange} required/>
                             </div>
                         </div>
                         <div className="form-subhdr">
@@ -350,11 +354,11 @@ function Apply() {
                         <div className="line-10 line">
                             <div className="sss-fill fill">
                                 <label htmlFor="sss">SSS/GSIS<span className="required">*</span></label>
-                                <input className="sss-input" type="text" id="sss" name="sss" placeholder="SSS/GSIS" value={formData.sss} onChange={handleInputChange}/>
+                                <input className="sss-input" type="text" id="sss" name="sss" placeholder="SSS/GSIS" value={formData.sss} onChange={handleInputChange} required/>
                             </div>
                             <div className="tin-fill fill">
                                 <label htmlFor="tin">TIN<span className="required">*</span></label>
-                                <input className="tin-input" type="text" id="tin" name="tin" placeholder="TIN" value={formData.tin} onChange={handleInputChange}/>
+                                <input className="tin-input" type="text" id="tin" name="tin" placeholder="TIN" value={formData.tin} onChange={handleInputChange} required/>
                             </div>
                         </div>
                         <div className="line-11 line">
@@ -386,7 +390,7 @@ function Apply() {
                             </div>
                             <div className="email-fill fill">
                                 <label htmlFor="email">Email Address<span className="required">*</span></label>
-                                <input className="email-input" type="text" id="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleInputChange}/>
+                                <input className="email-input" type="text" id="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleInputChange} required/>
                             </div>
                         </div>
                     </div>
@@ -398,29 +402,29 @@ function Apply() {
                         <div className="line-13 line">
                             <div className="fill name-fill">
                                 <label htmlFor="empname">Name of Employer/Name of Business<span className="required">*</span></label>
-                                <input className="empname-input" type="text" id="empname" name="empname" placeholder="Name of Employer/Name of Business" value={formData.empname} onChange={handleInputChange}/>
+                                <input className="empname-input" type="text" id="empname" name="employerName" placeholder="Name of Employer/Name of Business" value={formData.empname} onChange={handleInputChange} required/>
                             </div>
                             <div className="fill work-nature-fill">
                                 <label htmlFor="empwn">Nature of Work of Employer/Business</label>
-                                <input className="empwn" type="text" id="empwn" name="empwn" placeholder="Nature of Work of Employer/Business" value={formData.empwn} onChange={handleInputChange}/>
+                                <input className="empwn" type="text" id="empwn" name="employerWorkNature" placeholder="Nature of Work of Employer/Business" value={formData.empwn} onChange={handleInputChange} required/>
                             </div>
                             <div className="tel-fill fill">
                                 <label htmlFor="emptel">Telephone Number<span className="required">*</span></label>
-                                <input className="emptel" type="text" id="emptel" name="emptel" placeholder="Telephone Number" value={formData.emptel} onChange={handleInputChange}/>
+                                <input className="emptel" type="text" id="emptel" name="employerTel" placeholder="Telephone Number" value={formData.emptel} onChange={handleInputChange} required/>
                             </div>
                         </div>
                         <div className="line-14 line">
                             <div className="fill ps-address-fill">
                                 <label htmlFor="empadrs">Employer Address/Business Address<span className="required">*</span></label>
-                                <input className="empadrs" type="text" id="empadrs" name="empadrs" placeholder="Number, street, municipality/city, province" value={formData.empadrs} onChange={handleInputChange}/>
+                                <input className="empadrs" type="text" id="empadrs" name="employerAdrs" placeholder="Number, street, municipality/city, province" value={formData.empadrs} onChange={handleInputChange} required/>
                             </div>
                             <div className="fill ps-country-fill">
                                 <label htmlFor="empcountry">Country<span className="required">*</span></label>
-                                <input className="empcountry" type="text" id="empcountry" name="empcountry" placeholder="Country" value={formData.empcountry} onChange={handleInputChange}/>
+                                <input className="empcountry" type="text" id="empcountry" name="employerCountry" placeholder="Country" value={formData.empcountry} onChange={handleInputChange} required/>
                             </div>
                             <div className="fill ps-zip-fill">
                                 <label htmlFor="empzip">ZIP Code<span className="required">*</span></label>
-                                <input className="empzip" type="text" id="empzip" name="empzip" placeholder="ZIP" value={formData.empzip} onChange={handleInputChange}/>
+                                <input className="empzip" type="text" id="empzip" name="employerZip" placeholder="ZIP" value={formData.empzip} onChange={handleInputChange} required/>
                             </div>
                         </div>
                     </div>
@@ -435,21 +439,21 @@ function Apply() {
                             <div className="line-15 line">
                                 <div className="fill name-fill">
                                     <label htmlFor="b1name">Full Name<span className="required">*</span></label>
-                                    <input className="beneficiary1-name-input" type="text" id="b1name" name="b1name" placeholder="Surname, Given Name, Middle Name" value={formData.b1name} onChange={handleInputChange}/>
+                                    <input className="beneficiary1-name-input" type="text" id="b1name" name="beneficiary1Name" placeholder="Surname, Given Name, Middle Name" value={formData.b1name} onChange={handleInputChange} required/>
                                 </div>
                                 <div className="fill bday-fill">
                                     <label htmlFor="b1bday">Birthdate<span className="required">*</span></label>
-                                    <input className="beneficiary1-bday-input" type="date" id="b1bday" name="b1bday" placeholder="Birthdate" value={formData.b1bday} onChange={handleInputChange}/>
+                                    <input className="beneficiary1-bday-input" type="date" id="b1bday" name="beneficiary1Bday" placeholder="Birthdate" value={formData.b1bday} onChange={handleInputChange} required/>
                                 </div>
                                 <div className="fill sex-fill">
                                     <p>Sex<span className="required">*</span></p>
                                     <div className="sex-rdb">
                                         <div className="rdb rdb-fem radio">
-                                            <input type="radio" id="beneficiary1-fem" name="beneficiary1-sex" value="Female" />
+                                            <input type="radio" id="beneficiary1-fem" name="beneficiary1Sex" value="F" required/>
                                             <label htmlFor="beneficiary1-fem">Female</label>
                                         </div>
                                         <div className="rdb rdb-male radio">
-                                            <input type="radio" id="beneficiary1-male" name="beneficiary1-sex" value="Male" />
+                                            <input type="radio" id="beneficiary1-male" name="beneficiary1Sex" value="M" required/>
                                             <label htmlFor="beneficiary1-male">Male</label>
                                         </div>
                                     </div>
@@ -458,21 +462,21 @@ function Apply() {
                             <div className="line-16 line">
                                 <div className="fill rel-fill">
                                     <label htmlFor="b1rel">Relationship to Insured<span className="required">*</span></label>
-                                    <input className="beneficiary1-relationship-input" type="text" id="b1rel" name="b1rel" placeholder="Relationship to Insured" value={formData.b1rel} onChange={handleInputChange}/>
+                                    <input className="beneficiary1-relationship-input" type="text" id="b1rel" name="beneficiary1Relationship" placeholder="Relationship to Insured" value={formData.b1rel} onChange={handleInputChange} required/>
                                 </div>
                                 <div className="fill share-fill">
                                     <label htmlFor="b1share">% Share<span className="required">*</span></label>
-                                    <input className="beneficiary1-share-input" type="text" id="b1share" name="b1share" placeholder="% Share" value={formData.b1share} onChange={handleInputChange}/>
+                                    <input className="beneficiary1-share-input" type="text" id="b1share" name="beneficiary1Share" placeholder="% Share" value={formData.b1share} onChange={handleInputChange} required/>
                                 </div>
                                 <div className="fill type-fill">
                                     <p>Type of Beneficiary<span className="required">*</span></p>
                                     <div className="type-rdb">
                                         <div className="rdb rdb-prim radio">
-                                            <input type="radio" id="beneficiary1-primary" name="beneficiary1-type" value="Primary" />
+                                            <input type="radio" id="beneficiary1-primary" name="beneficiary1Type" value="P" required/>
                                             <label htmlFor="beneficiary1-primary">Primary</label>
                                         </div>
                                         <div className="rdb rdb-sec radio">
-                                            <input type="radio" id="beneficiary1-secondary" name="beneficiary1-type" value="Secondary" />
+                                            <input type="radio" id="beneficiary1-secondary" name="beneficiary1Type" value="S" required/>
                                             <label htmlFor="beneficiary1-secondary">Secondary</label>
                                         </div>
                                     </div>
@@ -481,11 +485,11 @@ function Apply() {
                                     <p>Beneficiary Designation<span className="required">*</span></p>
                                     <div className="desig-rdb">
                                         <div className="rdb rdb-revo radio">
-                                            <input type="radio" id="beneficiary1-revo" name="beneficiary1-designation" value="Revocable" />
+                                            <input type="radio" id="beneficiary1-revo" name="beneficiary1Designation" value="R" required/>
                                             <label htmlFor="beneficiary1-revo">Revocable</label>
                                         </div>
                                         <div className="rdb rdb-irrevo radio">
-                                            <input type="radio" id="beneficiary1-irrevo" name="beneficiary1-designation" value="Irrevocable" />
+                                            <input type="radio" id="beneficiary1-irrevo" name="beneficiary1Designation" value="I" required/>
                                             <label htmlFor="beneficiary1-irrevo">Irrevocable</label>
                                         </div>
                                     </div>
@@ -494,39 +498,39 @@ function Apply() {
                             <div className="line-17 line">
                                 <div className="fill bplace-fill">
                                     <label htmlFor="b1bplace">Place of Birth<span className="required">*</span></label>
-                                    <input className="beneficiary1-bplace-input" type="text" id="b1bplace" name="b1bplace" placeholder="Number, street, municipality/city, province" value={formData.b1bplace} onChange={handleInputChange}/>
+                                    <input className="beneficiary1-bplace-input" type="text" id="b1bplace" name="beneficiary1Bplace" placeholder="Number, street, municipality/city, province" value={formData.b1bplace} onChange={handleInputChange} required/>
                                 </div>
                                 <div className="fill nationality-fill">
                                     <label htmlFor="b1nationality">Nationality<span className="required">*</span></label>
-                                    <input className="beneficiary1-nationality-input" type="text" id="b1nationality" name="b1nationality" placeholder="Nationality" value={formData.b1nationality} onChange={handleInputChange}/>
+                                    <input className="beneficiary1-nationality-input" type="text" id="b1nationality" name="beneficiary1Nationality" placeholder="Nationality" value={formData.b1nationality} onChange={handleInputChange} required/>
                                 </div>
                             </div>
                             <div className="line-18 line">
                                 <div className="ps-address-fill fill">
                                     <label htmlFor="b1psadrs">Present Address<span className="required">*</span></label>
-                                    <input className="beneficiary1-ps-adrs-input" type="text" id="b1psadrs" name="b1psadrs" placeholder="Number, street, municipality/city, province" value={formData.b1psadrs} onChange={handleInputChange}/>
+                                    <input className="beneficiary1-ps-adrs-input" type="text" id="b1psadrs" name="beneficiary1PsAddress" placeholder="Number, street, municipality/city, province" value={formData.b1psadrs} onChange={handleInputChange} required/>
                                 </div>
                                 <div className="ps-country-fill fill">
                                     <label htmlFor="b1pscountry">Country<span className="required">*</span></label>
-                                    <input className="beneficiary1-ps-country-input" type="text" id="b1pscountry" name="b1pscountry" placeholder="Country" value={formData.b1pscountry} onChange={handleInputChange}/>
+                                    <input className="beneficiary1-ps-country-input" type="text" id="b1pscountry" name="beneficiary1PsCountry" placeholder="Country" value={formData.b1pscountry} onChange={handleInputChange} required/>
                                 </div>
                                 <div className="ps-zip-fill fill">
                                     <label htmlFor="b1pszip">ZIP Code<span className="required">*</span></label>
-                                    <input className="beneficiary1-ps-zip-input" type="text" id="b1pszip" name="b1pszip" placeholder="ZIP" value={formData.b1pszip} onChange={handleInputChange}/>
+                                    <input className="beneficiary1-ps-zip-input" type="text" id="b1pszip" name="beneficiary1PsZip" placeholder="ZIP" value={formData.b1pszip} onChange={handleInputChange} required/>
                                 </div>
                             </div>
                             <div className="line-19 line">
                                 <div className="mobile-fill fill">
                                     <label htmlFor="b1mobile">Mobile Number<span className="required">*</span></label>
-                                    <input className="beneficiary1-mobile" type="text" id="b1mobile" name="b1mobile" placeholder="Mobile Number" value={formData.b1mobile} onChange={handleInputChange}/>
+                                    <input className="beneficiary1-mobile" type="text" id="b1mobile" name="beneficiary1Mobile" placeholder="Mobile Number" value={formData.b1mobile} onChange={handleInputChange} required/>
                                 </div>
                                 <div className="tel-fill fill">
                                     <label htmlFor="b1tel">Telephone Number</label>
-                                    <input className="beneficiary1-tel-input" type="text" id="b1tel" name="b1tel" placeholder="Telephone Number" value={formData.b1tel} onChange={handleInputChange}/>
+                                    <input className="beneficiary1-tel-input" type="text" id="b1tel" name="beneficiary1Mobile" placeholder="Telephone Number" value={formData.b1tel} onChange={handleInputChange}/>
                                 </div>
                                 <div className="email-fill fill">
                                     <label htmlFor="b1email">Email Address<span className="required">*</span></label>
-                                    <input className="beneficiary1-email-input" type="text" id="b1email" name="b1email" placeholder="Email Address" value={formData.b1email} onChange={handleInputChange}/>
+                                    <input className="beneficiary1-email-input" type="text" id="b1email" name="beneficiary1Email" placeholder="Email Address" value={formData.b1email} onChange={handleInputChange} required/>
                                 </div>
                             </div>
                         <br />
@@ -536,21 +540,21 @@ function Apply() {
                         <div className="line-15 line">
                             <div className="fill name-fill">
                                 <label htmlFor="b2name">Full Name<span className="required">*</span></label>
-                                <input className="beneficiary2-name-input" type="text" id="b2name" name="b2name" placeholder="Surname, Given Name, Middle Name" value={formData.b2name} onChange={handleInputChange}/>
+                                <input className="beneficiary2-name-input" type="text" id="b2name" name="beneficiary2Name" placeholder="Surname, Given Name, Middle Name" value={formData.b2name} onChange={handleInputChange}/>
                             </div>
                             <div className="fill bday-fill">
                                 <label htmlFor="b2bday">Birthdate<span className="required">*</span></label>
-                                <input className="beneficiary2-bday-input" type="date" id="b2bday" name="b2bday" placeholder="Birthdate" value={formData.b2bday} onChange={handleInputChange}/>
+                                <input className="beneficiary2-bday-input" type="date" id="b2bday" name="beneficiary2Bday" placeholder="Birthdate" value={formData.b2bday} onChange={handleInputChange}/>
                             </div>
                             <div className="fill sex-fill">
                                 <p>Sex<span className="required">*</span></p>
                                 <div className="sex-rdb">
                                     <div className="rdb rdb-fem radio">
-                                        <input type="radio" id="beneficiary2-fem" name="beneficiary2-sex" value="Female"/>
+                                        <input type="radio" id="beneficiary2-fem" name="beneficiary2Sex" value="F"/>
                                         <label htmlFor="beneficiary2-fem">Female</label>
                                     </div>
                                     <div className="rdb rdb-male radio">
-                                        <input type="radio" id="beneficiary2-male" name="beneficiary2-sex" value="Male"/>
+                                        <input type="radio" id="beneficiary2-male" name="beneficiary2Sex" value="M"/>
                                         <label htmlFor="beneficiary2-male">Male</label>
                                     </div>
                                 </div>
@@ -559,21 +563,21 @@ function Apply() {
                         <div className="line-16 line">
                             <div className="fill rel-fill">
                                 <label htmlFor="b2rel">Relationship to Insured<span className="required">*</span></label>
-                                <input className="beneficiary2-relationship-input" type="text" id="b2rel" name="b2rel" placeholder="Relationship to Insured" value={formData.b2rel} onChange={handleInputChange}/>
+                                <input className="beneficiary2-relationship-input" type="text" id="b2rel" name="beneficiary2Relationship" placeholder="Relationship to Insured" value={formData.b2rel} onChange={handleInputChange}/>
                             </div>
                             <div className="fill share-fill">
                                 <label htmlFor="b2share">% Share<span className="required">*</span></label>
-                                <input className="beneficiary2-share-input" type="text" id="b2share" name="b2share" placeholder="% Share" value={formData.b2share} onChange={handleInputChange}/>
+                                <input className="beneficiary2-share-input" type="text" id="b2share" name="beneficiary2Share" placeholder="% Share" value={formData.b2share} onChange={handleInputChange}/>
                             </div>
                             <div className="fill type-fill">
                                 <p>Type of Beneficiary<span className="required">*</span></p>
                                 <div className="type-rdb">
                                     <div className="rdb rdb-prim radio">
-                                        <input type="radio" id="beneficiary2-primary" name="beneficiary2-type" value="Primary"/>
+                                        <input type="radio" id="beneficiary2-primary" name="beneficiary2Type" value="P"/>
                                         <label htmlFor="beneficiary2-primary">Primary</label>
                                     </div>
                                     <div className="rdb rdb-sec radio">
-                                        <input type="radio" id="beneficiary2-secondary" name="beneficiary2-type" value="Secondary"/>
+                                        <input type="radio" id="beneficiary2-secondary" name="beneficiary2Type" value="S"/>
                                         <label htmlFor="beneficiary2-secondary">Secondary</label>
                                     </div>
                                 </div>
@@ -582,11 +586,11 @@ function Apply() {
                                 <p>Beneficiary Designation<span className="required">*</span></p>
                                 <div className="desig-rdb">
                                     <div className="rdb rdb-revo radio">
-                                        <input type="radio" id="beneficiary2-revo" name="beneficiary2-designation" value="Revocable"/>
+                                        <input type="radio" id="beneficiary2-revo" name="beneficiary2Designation" value="R"/>
                                         <label htmlFor="beneficiary2-revo">Revocable</label>
                                     </div>
                                     <div className="rdb rdb-irrevo radio">
-                                        <input type="radio" id="beneficiary2-irrevo" name="beneficiary2-designation" value="Irrevocable"/>
+                                        <input type="radio" id="beneficiary2-irrevo" name="beneficiary2Designation" value="I"/>
                                         <label htmlFor="beneficiary2-irrevo">Irrevocable</label>
                                     </div>
                                 </div>
@@ -595,39 +599,39 @@ function Apply() {
                         <div className="line-17 line">
                             <div className="fill bplace-fill">
                                 <label htmlFor="b2bplace">Place of Birth<span className="required">*</span></label>
-                                <input className="beneficiary2-bplace-input" type="text" id="b2bplace" name="b2bplace" placeholder="Number, street, municipality/city, province" value={formData.b2bplace} onChange={handleInputChange}/>
+                                <input className="beneficiary2-bplace-input" type="text" id="b2bplace" name="beneficiary2Bplace" placeholder="Number, street, municipality/city, province" value={formData.b2bplace} onChange={handleInputChange}/>
                             </div>
                             <div className="fill nationality-fill">
                                 <label htmlFor="b2nationality">Nationality<span className="required">*</span></label>
-                                <input className="beneficiary2-nationality-input" type="text" id="b2nationality" name="b2nationality" placeholder="Nationality" value={formData.b2nationality} onChange={handleInputChange}/>
+                                <input className="beneficiary2-nationality-input" type="text" id="b2nationality" name="beneficiary2Nationality" placeholder="Nationality" value={formData.b2nationality} onChange={handleInputChange}/>
                             </div>
                         </div>
                         <div className="line-18 line">
                             <div className="ps-address-fill fill">
                                 <label htmlFor="b2psadrs">Present Address<span className="required">*</span></label>
-                                <input className="beneficiary2-ps-adrs-input" type="text" id="b2psadrs" name="b2psadrs" placeholder="Number, street, municipality/city, province" value={formData.b2psadrs} onChange={handleInputChange}/>
+                                <input className="beneficiary2-ps-adrs-input" type="text" id="b2psadrs" name="beneficiary2PsAddress" placeholder="Number, street, municipality/city, province" value={formData.b2psadrs} onChange={handleInputChange}/>
                             </div>
                             <div className="ps-country-fill fill">
                                 <label htmlFor="b2pscountry">Country<span className="required">*</span></label>
-                                <input className="beneficiary2-ps-country-input" type="text" id="b2pscountry" name="b2pscountry" placeholder="Country" value={formData.b2pscountry} onChange={handleInputChange}/>
+                                <input className="beneficiary2-ps-country-input" type="text" id="b2pscountry" name="beneficiary2PsCountry" placeholder="Country" value={formData.b2pscountry} onChange={handleInputChange}/>
                             </div>
                             <div className="ps-zip-fill fill">
                                 <label htmlFor="b2pszip">ZIP Code<span className="required">*</span></label>
-                                <input className="beneficiary2-ps-zip-input" type="text" id="b2pszip" name="b2pszip" placeholder="ZIP" value={formData.b2pszip} onChange={handleInputChange}/>
+                                <input className="beneficiary2-ps-zip-input" type="text" id="b2pszip" name="beneficiary2PsZip" placeholder="ZIP" value={formData.b2pszip} onChange={handleInputChange}/>
                             </div>
                         </div>
                         <div className="line-19 line">
                             <div className="mobile-fill fill">
                                 <label htmlFor="b2mobile">Mobile Number<span className="required">*</span></label>
-                                <input className="beneficiary2-mobile-input" type="text" id="b2mobile" name="b2mobile" placeholder="Mobile Number" value={formData.b2mobile} onChange={handleInputChange}/>
+                                <input className="beneficiary2-mobile-input" type="text" id="b2mobile" name="beneficiary2Mobile" placeholder="Mobile Number" value={formData.b2mobile} onChange={handleInputChange}/>
                             </div>
                             <div className="tel-fill fill">
                                 <label htmlFor="b2tel">Telephone Number</label>
-                                <input className="beneficiary2-tel-input" type="text" id="b2tel" name="b2tel" placeholder="Telephone Number" value={formData.b2tel} onChange={handleInputChange}/>
+                                <input className="beneficiary2-tel-input" type="text" id="b2tel" name="beneficiary2Tel" placeholder="Telephone Number" value={formData.b2tel} onChange={handleInputChange}/>
                             </div>
                             <div className="email-fill fill">
                                 <label htmlFor="b2email">Email Address<span className="required">*</span></label>
-                                <input className="beneficiary2-email-input" type="text" id="b2email" name="b2email" placeholder="Email Address" value={formData.b2email} onChange={handleInputChange}/>
+                                <input className="beneficiary2-email-input" type="text" id="b2email" name="beneficiary2Email" placeholder="Email Address" value={formData.b2email} onChange={handleInputChange}/>
                             </div>
                         </div>
                     </div>
@@ -637,9 +641,9 @@ function Apply() {
                 </div>
                 </form>
 			<div>
-            <div className="logOut">
+            {/* <div className="logOut">
                 <button className="logOut-btn" id="logOut">LOG OUT</button>
-            </div>
+            </div> */}
         </div>
         </div>			
         </main>
