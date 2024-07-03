@@ -1,9 +1,8 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ribbonFooter from '../../assets/ribbon-footer.png';
-
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+
+// Assets
+import ribbonFooter from '../../assets/ribbon-footer.png';
 
 function Footer() {
   const [count, setCount] = useState(0)

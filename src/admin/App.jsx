@@ -10,6 +10,8 @@ import BeneficiaryProfile from './pages/beneficiaryProfile';
 import EmployerProfile from './pages/employerProfile';
 import DBMembers from './pages/dbMembers';
 import DBUsers from './pages/dbUsers';
+import DBBeneficiaries from './pages/dbBeneficiaries';
+import DBEmployers from './pages/dbEmployers';
 
 import React from 'react';
 import axios from 'axios';
@@ -33,6 +35,8 @@ function App() {
               <Route path="/employerProfile" element={<EmployerProfile />} />
               <Route path="/dbMembers" element={<DBMembers />} />
               <Route path="/dbUsers" element={<DBUsers />} />
+              <Route path="/dbBeneficiaries" element={<DBBeneficiaries />} />
+              <Route path="/dbEmployers" element={<DBEmployers />} />
               <Route 
                 path='/*'
                 element={

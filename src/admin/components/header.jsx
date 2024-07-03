@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
 
 // Import assets
 import PruLogo from '../../assets/pru-logo-test.png';
 import UserIcon from '../../assets/user-icon.png';
 
-import React from 'react';
-import axios from 'axios';
+
+
 function Header() {
   const [count, setCount] = useState(0)
 

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
+
+// Styles
 import "../../styles.css";
-import PruLogo from '../../assets/pru-logo-main.svg';
+
+// Assets
+import PruLogo from "../../assets/pru-logo-main.svg";
 
 const EmployerProfile = () => {
   const initialState = {
@@ -14,11 +18,13 @@ const EmployerProfile = () => {
     employerPsZip: "[Present ZIP Code]",
   };
 
-  const [state, setState] = useState(initialState); 
+  const [state, setState] = useState(initialState);
   const [editActive, setEditStatus] = useState(false);
 
   const EditProfile = () => {
-    if (window.confirm("Do you want to edit the employer/work/business profile?")) {
+    if (
+      window.confirm("Do you want to edit the employer/work/business profile?")
+    ) {
       setEditStatus(true);
     }
   };
@@ -68,7 +74,11 @@ const EmployerProfile = () => {
           <div className="header">
             <div className="profile-hero">
               <div className="hero-img">
-                <img src={PruLogo} alt="Pru Life U.K." className="profile-img" />
+                <img
+                  src={PruLogo}
+                  alt="Pru Life U.K."
+                  className="profile-img"
+                />
               </div>
               <div className="hero-text">
                 <h1>PRU LIFE U.K.</h1>
@@ -81,10 +91,19 @@ const EmployerProfile = () => {
             <div className="company-info">
               <div className="personal-header">
                 <div className="header-info">
-                  <h2><span id="main-name">{state.employerName}</span></h2>
+                  <h2>
+                    <span id="main-name">{state.employerName}</span>
+                  </h2>
                 </div>
                 <div className="edit">
-                  <button className={`edit-btn ${editActive ? 'active' : ''}`} id="employerEdit" onClick={EditProfile} hidden={editActive}>EDIT</button>
+                  <button
+                    className={`edit-btn ${editActive ? "active" : ""}`}
+                    id="employerEdit"
+                    onClick={EditProfile}
+                    hidden={editActive}
+                  >
+                    EDIT
+                  </button>
                 </div>
               </div>
               <div className="personal-info">
@@ -92,21 +111,55 @@ const EmployerProfile = () => {
                   <h3 className="info-header">Employer Details</h3>
                 </div>
                 <div className="employer-info">
-                  {newInput("Employer Number", "employerNum", state.employerNum)}
+                  {newInput(
+                    "Employer Number",
+                    "employerNum",
+                    state.employerNum
+                  )}
                   {newInput("Name", "employerName", state.employerName)}
-                  {newInput("Nature of Work/Business", "employerNature", state.employerNature)}
-                  {newInput("Telephone Number", "employerTelno", state.employerTelno)}
-                  {newInput("Present Address", "employerPsAdrs", state.employerPsAdrs)}
-                  {newInput("Present Country", "employerPsCountry", state.employerPsCountry)}
-                  {newInput("Present ZIP Code", "employerPsZip", state.employerPsZip)}
+                  {newInput(
+                    "Nature of Work/Business",
+                    "employerNature",
+                    state.employerNature
+                  )}
+                  {newInput(
+                    "Telephone Number",
+                    "employerTelno",
+                    state.employerTelno
+                  )}
+                  {newInput(
+                    "Present Address",
+                    "employerPsAdrs",
+                    state.employerPsAdrs
+                  )}
+                  {newInput(
+                    "Present Country",
+                    "employerPsCountry",
+                    state.employerPsCountry
+                  )}
+                  {newInput(
+                    "Present ZIP Code",
+                    "employerPsZip",
+                    state.employerPsZip
+                  )}
                   <div className="btns">
                     <div className="cancel">
-                      <button className="cancel-btn" id="userCancel" onClick={cancelEdit} hidden={!editActive}>
+                      <button
+                        className="cancel-btn"
+                        id="userCancel"
+                        onClick={cancelEdit}
+                        hidden={!editActive}
+                      >
                         CANCEL EDITING
                       </button>
                     </div>
                     <div className="save">
-                      <button className="save-btn" id="userSave" onClick={saveEdit} hidden={!editActive}>
+                      <button
+                        className="save-btn"
+                        id="userSave"
+                        onClick={saveEdit}
+                        hidden={!editActive}
+                      >
                         SAVE
                       </button>
                     </div>
@@ -118,19 +171,39 @@ const EmployerProfile = () => {
             <br />
             <div className="info-nav">
               <ul>
-                <li className={`display-nav ${activePage.pathname === '/userProfile' ? 'active' : ''}`}>
-                  <Link to="/userProfile" className="user">Member</Link>
+                <li
+                  className={`display-nav ${
+                    activePage.pathname === "/userProfile" ? "active" : ""
+                  }`}
+                >
+                  <Link to="/userProfile" className="user">
+                    Member
+                  </Link>
                 </li>
-                <li className={`display-nav ${activePage.pathname === '/beneficiaryProfile' ? 'active' : ''}`}>
-                  <Link to="/beneficiaryProfile" className="b1">Beneficiary</Link>
+                <li
+                  className={`display-nav ${
+                    activePage.pathname === "/beneficiaryProfile"
+                      ? "active"
+                      : ""
+                  }`}
+                >
+                  <Link to="/beneficiaryProfile" className="b1">
+                    Beneficiary
+                  </Link>
                 </li>
-                <li className={`display-nav ${activePage.pathname === '/employerProfile' ? 'active' : ''}`}>
-                  <Link to="/employerProfile" className="employer">Employer</Link>
+                <li
+                  className={`display-nav ${
+                    activePage.pathname === "/employerProfile" ? "active" : ""
+                  }`}
+                >
+                  <Link to="/employerProfile" className="employer">
+                    Employer
+                  </Link>
                 </li>
               </ul>
             </div>
-            </div>
           </div>
+        </div>
       </main>
       <footer></footer>
     </div>

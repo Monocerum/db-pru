@@ -9,27 +9,19 @@ import "../../styles.css";
 import PruLogo from "../../assets/pru-logo.svg";
 import SideNav from "../components/sidenav";
 
-function DBMembers() {
-  const [applicant, setApplicant] = useState([]);
+function DBBeneficiaries() {
+  const [beneficiary, setBeneficiary] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5020/applicants")
+      .get("http://localhost:5020/beneficiaries")
       .then((response) => {
-        setApplicant(response.data);
+        setBeneficiary(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
-
-    // fetch('http://localhost:5020/applicants')
-    // .then(response => response.json())
-    // .then(applicant => setApplicant(applicant))
-    // .catch(error => console.error(error));
   });
-
-  //   getUserData();
-  // })
 
   const activePage = useLocation();
 
@@ -57,7 +49,7 @@ function DBMembers() {
             </div>
             <div className="db-container">
               <div className="db-header">
-                <h2 className="db-name">Members</h2>
+                <h2 className="db-name">Beneficiaries</h2>
                 <div className="action-buttons">
                   <ul>
                     <Link to="/apply" className="upload-button action-btn">
@@ -90,47 +82,27 @@ function DBMembers() {
                       <th></th>
                       <th></th>
                       <th></th>
-                      <th>ID</th>
-                      <th>Employer or Business Code</th>
+                      <th>Beneficiary Code</th>
+                      <th>Applicant ID</th>
                       <th>Name</th>
-                      <th>Salutation</th>
-                      <th>Alias</th>
-                      <th>Age</th>
                       <th>Birthdate</th>
-                      <th>Birthplace</th>
-                      <th>Civil Status</th>
-                      <th>Nationality</th>
-                      <th>Height</th>
-                      <th>Weight</th>
                       <th>Sex</th>
+                      <th>Relationship to Insured</th>
+                      <th>Percent Share</th>
+                      <th>Type of Beneficiary</th>
+                      <th>Designation</th>
+                      <th>Place of Birth</th>
+                      <th>Nationality</th>
                       <th>Present Address</th>
                       <th>Country</th>
                       <th>ZIP</th>
-                      <th>Permanent Address</th>
-                      <th>Country</th>
-                      <th>ZIP</th>
-                      <th>Occupation</th>
-                      <th>Position</th>
-                      <th>Nature of Work/Business</th>
-                      <th>Source of Funds</th>
-                      <th>Gross Annual Income</th>
-                      <th>Net Worth</th>
-                      <th>Date Hired</th>
-                      <th>Date of Regularization</th>
-                      <th>Monthly Income</th>
-                      <th>SSS ID</th>
-                      <th>TIN ID</th>
-                      <th>Other ID</th>
-                      <th>Other ID Number</th>
-                      <th>Other ID #2</th>
-                      <th>Other ID #2 Number</th>
                       <th>Mobile Number</th>
                       <th>Telephone Number</th>
                       <th>Email Address</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {applicant.map((a, key) => (
+                    {beneficiary.map((b, key) => (
                       <tr key={key}>
                         <td className="data-container">
                           <i className="bx bx-show-alt"></i>
@@ -141,51 +113,39 @@ function DBMembers() {
                         <td className="data-container">
                           <i className="bx bx-trash"></i>
                         </td>
-                        <td className="data-container">{a.ApplicantID}</td>
-                        <td className="data-container">{a.EmployerCode}</td>
-                        <td className="data-container">{a.ApplicantName}</td>
-                        <td className="data-container">{a.Salutation}</td>
-                        <td className="data-container">{a.Alias}</td>
-                        <td className="data-container">{a.Age}</td>
-                        <td className="data-container">{a.Birthdate}</td>
-                        <td className="data-container">{a.Birthplace}</td>
-                        <td className="data-container">{a.CivilStatus}</td>
-                        <td className="data-container">{a.Nationality}</td>
-                        <td className="data-container">{a.Height}</td>
-                        <td className="data-container">{a.Weight}</td>
-                        <td className="data-container">{a.Sex}</td>
-                        <td className="data-container">{a.PresentAddress}</td>
-                        <td className="data-container">{a.PrsntAdrsCountry}</td>
-                        <td className="data-container">{a.PrsntAdrsZIP}</td>
-                        <td className="data-container">{a.PermanentAddress}</td>
+                        <td className="data-container">{b.BeneficiaryCode}</td>
+                        <td className="data-container">{b.ApplicantID}</td>
+                        <td className="data-container">{b.BeneficiaryName}</td>
+                        <td className="data-container">{b.BeneficiaryDOB}</td>
+                        <td className="data-container">{b.BeneficiarySex}</td>
                         <td className="data-container">
-                          {a.PermntAdrsCountry}
+                          {b.BeneficiaryRelationship}
                         </td>
-                        <td className="data-container">{a.PermntAdrsZIP}</td>
-                        <td className="data-container">{a.Occupation}</td>
-                        <td className="data-container">{a.Position}</td>
                         <td className="data-container">
-                          {a.ApplicantWorkNature}
+                          {b.BeneficiaryPrcntShare}
                         </td>
-                        <td className="data-container">{a.SourceOfFunds}</td>
+                        <td className="data-container">{b.BeneficiaryType}</td>
                         <td className="data-container">
-                          {a.GrossAnnualIncome}
+                          {b.BeneficiaryDesignation}
                         </td>
-                        <td className="data-container">{a.NetWorth}</td>
-                        <td className="data-container">{a.DateHired}</td>
+                        <td className="data-container">{b.BeneficiaryPOB}</td>
                         <td className="data-container">
-                          {a.DateOfRegularization}
+                          {b.BeneficiaryNationality}
                         </td>
-                        <td className="data-container">{a.MonthlyIncome}</td>
-                        <td className="data-container">{a.SSSID}</td>
-                        <td className="data-container">{a.TINID}</td>
-                        <td className="data-container">{a.OtherID}</td>
-                        <td className="data-container">{a.OtherIDNumber}</td>
-                        <td className="data-container">{a.OtherID2}</td>
-                        <td className="data-container">{a.OtherID2Number}</td>
-                        <td className="data-container">{a.MobileNumber}</td>
-                        <td className="data-container">{a.TelNo}</td>
-                        <td className="data-container">{a.EmailAddress}</td>
+                        <td className="data-container">
+                          {b.BeneficiaryPrsntAdrs}
+                        </td>
+                        <td className="data-container">
+                          {b.BeneficiaryCountry}
+                        </td>
+                        <td className="data-container">{b.BeneficiaryZIP}</td>
+                        <td className="data-container">
+                          {b.BeneficiaryMobileNum}
+                        </td>
+                        <td className="data-container">{b.BeneficiaryTelNo}</td>
+                        <td className="data-container">
+                          {b.BeneficiaryEmailAdrs}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -242,4 +202,4 @@ function DBMembers() {
   );
 }
 
-export default DBMembers;
+export default DBBeneficiaries;

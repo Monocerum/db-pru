@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
+
+// Styles
 import "../../styles.css";
-import PruLogo from '../../assets/pru-logo-main.svg';
+
+// Assets
+import PruLogo from "../../assets/pru-logo-main.svg";
 
 const UserProfile = () => {
   const initialState = {
@@ -43,7 +47,7 @@ const UserProfile = () => {
     memberOtherIDNum2: "[ID Number]",
   };
 
-  const [state, setState] = useState(initialState); 
+  const [state, setState] = useState(initialState);
   const [editActive, setEditStatus] = useState(false);
 
   const EditProfile = () => {
@@ -97,7 +101,11 @@ const UserProfile = () => {
           <div className="header">
             <div className="profile-hero">
               <div className="hero-img">
-                <img src={PruLogo} alt="Pru Life U.K." className="profile-img" />
+                <img
+                  src={PruLogo}
+                  alt="Pru Life U.K."
+                  className="profile-img"
+                />
               </div>
               <div className="hero-text">
                 <h1>PRU LIFE U.K.</h1>
@@ -117,7 +125,14 @@ const UserProfile = () => {
                   <h3>Company Name</h3>
                 </div>
                 <div className="edit">
-                  <button className={`edit-btn ${editActive ? 'active' : ''}`} id="userEdit" onClick={EditProfile} hidden={editActive}>EDIT</button>
+                  <button
+                    className={`edit-btn ${editActive ? "active" : ""}`}
+                    id="userEdit"
+                    onClick={EditProfile}
+                    hidden={editActive}
+                  >
+                    EDIT
+                  </button>
                 </div>
               </div>
               <div className="personal-info">
@@ -125,50 +140,144 @@ const UserProfile = () => {
                   <h3 className="info-header">Applicant Details</h3>
                 </div>
                 <div className="user-info">
-                  {newInput("Membership Number", "membershipNum", state.membershipNum)}
+                  {newInput(
+                    "Membership Number",
+                    "membershipNum",
+                    state.membershipNum
+                  )}
                   {newInput("Name", "memberName", state.memberName)}
-                  {newInput("Salutation", "memberSalutation", state.memberSalutation)}
-                  {newInput("Other Legal Name/Alias", "memberAlias", state.memberAlias)}
+                  {newInput(
+                    "Salutation",
+                    "memberSalutation",
+                    state.memberSalutation
+                  )}
+                  {newInput(
+                    "Other Legal Name/Alias",
+                    "memberAlias",
+                    state.memberAlias
+                  )}
                   {newInput("Age", "memberAge", state.memberAge)}
                   {newInput("Sex", "memberSex", state.memberSex)}
                   {newInput("Date of Birth", "memberDOB", state.memberDOB)}
                   {newInput("Place of Birth", "memberPOB", state.memberPOB)}
                   {newInput("Civil Status", "memberCS", state.memberCS)}
-                  {newInput("Nationality", "memberNationality", state.memberNationality)}
+                  {newInput(
+                    "Nationality",
+                    "memberNationality",
+                    state.memberNationality
+                  )}
                   {newInput("Height", "memberHeight", state.memberHeight)}
                   {newInput("Weight", "memberWeight", state.memberWeight)}
-                  {newInput("Mobile Number", "memberMobile", state.memberMobile)}
-                  {newInput("Telephone Number", "memberTelno", state.memberTelno)}
+                  {newInput(
+                    "Mobile Number",
+                    "memberMobile",
+                    state.memberMobile
+                  )}
+                  {newInput(
+                    "Telephone Number",
+                    "memberTelno",
+                    state.memberTelno
+                  )}
                   {newInput("Email Address", "memberEmail", state.memberEmail)}
-                  {newInput("Present Address", "memberPsAdrs", state.memberPsAdrs)}
-                  {newInput("Present Country", "memberPsCountry", state.memberPsCountry)}
-                  {newInput("Present ZIP Code", "memberPsZip", state.memberPsZip)}
-                  {newInput("Permanent Address", "memberPmAdrs", state.memberPmAdrs)}
-                  {newInput("Permanent Country", "memberPmCountry", state.memberPmCountry)}
-                  {newInput("Permanent ZIP Code", "memberPmZip", state.memberPmZip)}
-                  {newInput("Occupation", "memberOccupation", state.memberOccupation)}
+                  {newInput(
+                    "Present Address",
+                    "memberPsAdrs",
+                    state.memberPsAdrs
+                  )}
+                  {newInput(
+                    "Present Country",
+                    "memberPsCountry",
+                    state.memberPsCountry
+                  )}
+                  {newInput(
+                    "Present ZIP Code",
+                    "memberPsZip",
+                    state.memberPsZip
+                  )}
+                  {newInput(
+                    "Permanent Address",
+                    "memberPmAdrs",
+                    state.memberPmAdrs
+                  )}
+                  {newInput(
+                    "Permanent Country",
+                    "memberPmCountry",
+                    state.memberPmCountry
+                  )}
+                  {newInput(
+                    "Permanent ZIP Code",
+                    "memberPmZip",
+                    state.memberPmZip
+                  )}
+                  {newInput(
+                    "Occupation",
+                    "memberOccupation",
+                    state.memberOccupation
+                  )}
                   {newInput("Position", "memberPosition", state.memberPosition)}
-                  {newInput("Nature of Work/Business", "memberNature", state.memberNature)}
+                  {newInput(
+                    "Nature of Work/Business",
+                    "memberNature",
+                    state.memberNature
+                  )}
                   {newInput("Source of Funds", "memberSOF", state.memberSOF)}
-                  {newInput("Gross Annual Income", "memberGAI", state.memberGAI)}
+                  {newInput(
+                    "Gross Annual Income",
+                    "memberGAI",
+                    state.memberGAI
+                  )}
                   {newInput("Net Worth", "memberNW", state.memberNW)}
                   {newInput("Date Hired", "memberHired", state.memberHired)}
-                  {newInput("Date of Regularization", "memberRegularization", state.memberRegularization)}
-                  {newInput("Monthly Income", "memberIncome", state.memberIncome)}
+                  {newInput(
+                    "Date of Regularization",
+                    "memberRegularization",
+                    state.memberRegularization
+                  )}
+                  {newInput(
+                    "Monthly Income",
+                    "memberIncome",
+                    state.memberIncome
+                  )}
                   {newInput("SSS/GSIS Number", "memberSSS", state.memberSSS)}
                   {newInput("TIN ID", "memberTIN", state.memberTIN)}
-                  {newInput("Other ID #1 Name", "memberOtherID1", state.memberOtherID1)}
-                  {newInput("Other ID #1 Number", "memberOtherIDNum1", state.memberOtherIDNum1)}
-                  {newInput("Other ID #2 Name", "memberOtherID2", state.memberOtherID2)}
-                  {newInput("Other ID #2 Number", "memberOtherIDNum2", state.memberOtherIDNum2)}
+                  {newInput(
+                    "Other ID #1 Name",
+                    "memberOtherID1",
+                    state.memberOtherID1
+                  )}
+                  {newInput(
+                    "Other ID #1 Number",
+                    "memberOtherIDNum1",
+                    state.memberOtherIDNum1
+                  )}
+                  {newInput(
+                    "Other ID #2 Name",
+                    "memberOtherID2",
+                    state.memberOtherID2
+                  )}
+                  {newInput(
+                    "Other ID #2 Number",
+                    "memberOtherIDNum2",
+                    state.memberOtherIDNum2
+                  )}
                   <div className="btns">
                     <div className="cancel">
-                      <button className="cancel-btn" id="userCancel" onClick={cancelEdit} hidden={!editActive}>
+                      <button
+                        className="cancel-btn"
+                        id="userCancel"
+                        onClick={cancelEdit}
+                        hidden={!editActive}
+                      >
                         CANCEL EDITING
                       </button>
                     </div>
                     <div className="save">
-                      <button className="save-btn" id="userSave" onClick={saveEdit} hidden={!editActive}>
+                      <button
+                        className="save-btn"
+                        id="userSave"
+                        onClick={saveEdit}
+                        hidden={!editActive}
+                      >
                         SAVE
                       </button>
                     </div>
@@ -180,19 +289,39 @@ const UserProfile = () => {
             <br />
             <div className="info-nav">
               <ul>
-                <li className={`display-nav ${activePage.pathname === '/userProfile' ? 'active' : ''}`}>
-                  <Link to="/userProfile" className="user">Member</Link>
+                <li
+                  className={`display-nav ${
+                    activePage.pathname === "/userProfile" ? "active" : ""
+                  }`}
+                >
+                  <Link to="/userProfile" className="user">
+                    Member
+                  </Link>
                 </li>
-                <li className={`display-nav ${activePage.pathname === '/beneficiaryProfile' ? 'active' : ''}`}>
-                  <Link to="/beneficiaryProfile" className="b1">Beneficiary</Link>
+                <li
+                  className={`display-nav ${
+                    activePage.pathname === "/beneficiaryProfile"
+                      ? "active"
+                      : ""
+                  }`}
+                >
+                  <Link to="/beneficiaryProfile" className="b1">
+                    Beneficiary
+                  </Link>
                 </li>
-                <li className={`display-nav ${activePage.pathname === '/employerProfile' ? 'active' : ''}`}>
-                  <Link to="/employerProfile" className="employer">Employer</Link>
+                <li
+                  className={`display-nav ${
+                    activePage.pathname === "/employerProfile" ? "active" : ""
+                  }`}
+                >
+                  <Link to="/employerProfile" className="employer">
+                    Employer
+                  </Link>
                 </li>
               </ul>
             </div>
-            </div>
           </div>
+        </div>
       </main>
       <footer></footer>
     </div>

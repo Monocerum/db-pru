@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "../../styles.css";
-import PruLogo from "../../assets/pru-logo.svg";
-import PruLogoWhite from "../../assets/pru-logo-white.png";
-import API from 'axios';
-import axios from 'axios';
+import axios from "axios";
 
+// Styles
+import "../../styles.css";
+
+// Assets
+import PruLogo from "../../assets/pru-logo.svg";
+import SideNav from "../components/sidenav";
 
 function DBUsers() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-      // axios.get('http://localhost:5020/applicants')
-      // .then(response => {
-      //   console.log('Response data:', response.data);
-      // })
-      // .then(applicant => setApplicant(applicant))
-      // .catch(error => {
-      //   console.error('There was an error!', error);
-      // });
-      fetch('http://localhost:5020/users')
-      .then(response => response.json())
-      .then(user => setUser(user))
-      .catch(error => console.error(error));
-    });
-    
+    axios
+      .get("http://localhost:5020/users")
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  });
+
   //   getUserData();
   // })
 
@@ -40,59 +38,7 @@ function DBUsers() {
     <>
       <div>
         <main className="cont">
-          <div className={`nav-sidebar ${isActive ? "active" : ""}`}>
-            <div className="nav-sidebar-content">
-              <div className="top">
-                <div className="logo">
-                  <img
-                    src={PruLogoWhite}
-                    alt="Pru Life Logo"
-                    className="sidenav-logo"
-                  />
-                  <span>PRU LIFE U.K.</span>
-                </div>
-              </div>
-              <ul className="nav-list">
-                <li>
-                  <i
-                    className="bx bx-menu-alt-left"
-                    id="btnMenu"
-                    onClick={toggleSidebar}
-                  ></i>
-                </li>
-                <li>
-                  <Link to="/home">
-                    <i className="bx bx-grid-alt"></i>
-                    <span className="nav-item">Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/dbMembers">
-                    <i className="bx bx-user"></i>
-                    <span className="nav-item">Members</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <i className="bx bx-file"></i>
-                    <span className="nav-item">Employers</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <i className="bx bx-user-check"></i>
-                    <span className="nav-item">Beneficiaries</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/login">
-                    <i className="bx bx-log-out-circle"></i>
-                    <span className="nav-item">Logout</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <SideNav />
           <div className="main">
             <div className="header">
               <div className="profile-hero">
@@ -112,7 +58,7 @@ function DBUsers() {
             </div>
             <div className="db-container">
               <div className="db-header">
-                <h2 className="db-name">Members</h2>
+                <h2 className="db-name">Users</h2>
                 <div className="action-buttons">
                   <ul>
                     <Link to="/apply" className="upload-button action-btn">
@@ -145,28 +91,38 @@ function DBUsers() {
                       <th></th>
                       <th></th>
                       <th></th>
-                      <th>ID</th>
+                      <th>User ID</th>
+                      <th>Email</th>
+                      <th>Username</th>
+                      <th>Password</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {user.map((u, key) =>
+                    {user.map((u, key) => (
                       <tr key={key}>
-                        <td className="data-container"></td>
-                        <td className="data-container"></td>
-                        <td className="data-container"></td>
-                        <td className="data-container">{u.UserID}</td>
+                        <td className="data-container user-data">
+                          <i className="bx bx-show-alt"></i>
+                        </td>
+                        <td className="data-container user-data">
+                          <i className="bx bx-edit"></i>
+                        </td>
+                        <td className="data-container user-data">
+                          <i className="bx bx-trash"></i>
+                        </td>
+                        <td className="data-container user-data">{u.UserID}</td>
+                        <td className="data-container user-data">
+                          {u.EmailAddress}
+                        </td>
+                        <td className="data-container user-data">
+                          {u.Username}
+                        </td>
+                        <td className="data-container user-data">
+                          {u.Password}
+                        </td>
                       </tr>
-                    )}
-                    
+                    ))}
                   </tbody>
                 </table>
-                <div className="page">
-                  <span className="page-num">Page 1/5</span>
-                  <div className="page-linkto">
-                    <span className="prev-page">Previous</span>
-                    <span className="next-page">Next</span>
-                  </div>
-                </div>
               </div>
               <div className="info-nav">
                 <ul>
@@ -175,7 +131,7 @@ function DBUsers() {
                       activePage.pathname === "/dbUsers" ? "active" : ""
                     }`}
                   >
-                    <Link to="/dbUsers" className="user">
+                    <Link to="/dbUsers" className="user nav-label">
                       User
                     </Link>
                   </li>
@@ -184,27 +140,28 @@ function DBUsers() {
                       activePage.pathname === "/dbMembers" ? "active" : ""
                     }`}
                   >
-                    <Link to="/dbMembers" className="applicant">
+                    <Link to="/dbMembers" className="applicant nav-label">
                       Member
                     </Link>
                   </li>
                   <li
                     className={`display-nav ${
-                      activePage.pathname === "/beneficiaryProfile"
-                        ? "active"
-                        : ""
+                      activePage.pathname === "/dbBeneficiaries" ? "active" : ""
                     }`}
                   >
-                    <Link to="/" className="b1">
+                    <Link
+                      to="/dbBeneficiaries"
+                      className="beneficiary nav-label"
+                    >
                       Beneficiary
                     </Link>
                   </li>
                   <li
                     className={`display-nav ${
-                      activePage.pathname === "/employerProfile" ? "active" : ""
+                      activePage.pathname === "/dbEmployers" ? "active" : ""
                     }`}
                   >
-                    <Link to="/" className="employer">
+                    <Link to="/dbEmployers" className="employer nav-label">
                       Employer
                     </Link>
                   </li>
