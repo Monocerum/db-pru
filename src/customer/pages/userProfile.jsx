@@ -5,49 +5,9 @@ import "../customer_styles.css";
 import PruLogo from '../../assets/pru-logo-main.svg';
 
 const UserProfile = () => {
-  const initialState = {
-    membershipNum: "A000001",
-    memberName: "SURNAME, First Name Middle Name",
-    memberSalutation: "[Salutation]",
-    memberAlias: "[Other Legal Name/Alias]",
-    memberAge: "[Age]",
-    memberSex: "[Sex]",
-    memberDOB: "[Date of Birth]",
-    memberPOB: "[Place of Birth]",
-    memberCS: "[Civil Status]",
-    memberNationality: "[Nationality]",
-    memberHeight: "[Height]",
-    memberWeight: "[Weight]",
-    memberMobile: "[Mobile Number]",
-    memberTelno: "[Telephone Number]",
-    memberEmail: "[Email Address]",
-    memberPsAdrs: "[Present Address]",
-    memberPsCountry: "[Present Country]",
-    memberPsZip: "[Present ZIP Code]",
-    memberPmAdrs: "[Permanent Address]",
-    memberPmCountry: "[Permanent Country]",
-    memberPmZip: "[Permanent ZIP Code]",
-    memberOccupation: "[Occupation]",
-    memberPosition: "[Position]",
-    memberNature: "[Nature of Work/Business]",
-    memberSOF: "[Source of Funds]",
-    memberGAI: "[Gross Annual Income]",
-    memberNW: "[Net Worth]",
-    memberHired: "[Date Hired]",
-    memberRegularization: "[Date of Regularization]",
-    memberIncome: "[Monthly Income]",
-    memberSSS: "[SSS/GSIS]",
-    memberTIN: "[TIN ID]",
-    memberOtherID1: "[ID Name]",
-    memberOtherIDNum1: "[ID Number]",
-    memberOtherID2: "[ID Name]",
-    memberOtherIDNum2: "[ID Number]",
-  };
-
-  const [applicant, setApplicant] = useState(initialState); 
+  const [applicant, setApplicant] = useState([]); 
 
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -67,32 +27,6 @@ const UserProfile = () => {
     }
   }, [location.search]);
 
-  const [editActive, setEditStatus] = useState(false);
-
-  const EditProfile = () => {
-    if (window.confirm("Do you want to edit the beneficiary profile?")) {
-      setEditStatus(true);
-    }
-  };
-
-  const cancelEdit = () => {
-    if (window.confirm("Do you want to cancel editing?")) {
-      setEditStatus(false);
-      setState(initialState);
-    }
-  };
-
-  const saveEdit = () => {
-    if (window.confirm("Do you want to save?")) {
-      setEditStatus(false);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
-  };
-
   const newInput = (label, name, value) => (
     <div className="info" key={name}>
       <label htmlFor={name} className="info-label">
@@ -105,8 +39,7 @@ const UserProfile = () => {
         id={name}
         name={name}
         value={value}
-        onChange={handleChange}
-        disabled={!editActive}
+        disabled
       />
     </div>
   );
@@ -140,9 +73,6 @@ const UserProfile = () => {
                         <span id="main-salutation">{applicant.Salutation}</span>{" "}
                         <span id="main-name">{applicant.ApplicantName}</span>
                       </h2>
-                    </div>
-                    <div className="edit">
-                      <button className={`edit-btn ${editActive ? 'active' : ''}`} id="editUser" onClick={EditProfile} hidden={editActive}>EDIT</button>
                     </div>
                   </div>
                   <div className="personal-info">
@@ -183,19 +113,6 @@ const UserProfile = () => {
                         {newInput("Other ID #1 Number", "memberOtherIDNum1", applicant.OtherIDNumber)}
                         {newInput("Other ID #2 Name", "memberOtherID2", applicant.OtherID2)}
                         {newInput("Other ID #2 Number", "memberOtherIDNum2", applicant.OtherID2Number)}
-                      
-                      <div className="btns">
-                        <div className="cancel">
-                          <button className="cancel-btn" id="userCancel" onClick={cancelEdit} hidden={!editActive}>
-                            CANCEL EDITING
-                          </button>
-                        </div>
-                        <div className="save">
-                          <button className="save-btn" id="userSave" onClick={saveEdit} hidden={!editActive}>
-                            SAVE
-                          </button>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -214,7 +131,7 @@ const UserProfile = () => {
                 <div className="logOut">
                   <button className="logOut-btn" id="logOut">LOG OUT</button>
                 </div>
-                <a href="user-profile.html" className="return-profile">Return to profile.</a>
+                <Link to={`/userProfile?applicantID=${applicant.ApplicantID}`} className="return-profile">Return to profile.</Link>
               </div>
             </div>
             <br />

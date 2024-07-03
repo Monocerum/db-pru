@@ -1,14 +1,12 @@
-import { useState } from 'react'
+import { Link } from "react-router-dom";
 
 // Import assets
 import PruLogo from '../../assets/pru-logo-test.png';
 import UserIcon from '../../assets/user-icon.png';
 
 import React from 'react';
-import axios from 'axios';
-function Header() {
-  const [count, setCount] = useState(0)
 
+function Header() {
   return (
     <>
         <header>
@@ -16,14 +14,14 @@ function Header() {
                 <div className="nav">
                     <div className="left-nav">
                         <ul>
-                            <li><a href='../pages/entry' className="logo"><img src={PruLogo} alt="Pru Life Logo" className="nav-logo"/></a></li>
-                            <li><a href='../pages/entry' className="nav-label">PRU Life U.K.</a></li>
+                            <li><Link to='/' className="logo"><img src={PruLogo} alt="Pru Life Logo" className="nav-logo"/></Link></li>
+                            <li><Link to='/' className="nav-label">PRU Life U.K.</Link></li>
                         </ul>
                     </div>
                     <div className="right-nav">
                         <ul>
-                            <li><a href='../pages/login'><img src={UserIcon} alt="User Icon" className="user-icon"/></a></li>
-                            <li><a href='../pages/login'>Login</a></li>
+                            <li><Link to='/login' className="user-icon"><img src={UserIcon} alt="User Icon" className="user-icon"/></Link></li>
+                            <li><Link to='/login' className="login">Login</Link></li>
                         </ul>
                     </div>
                     {/* If nakalog-in, 'yung lalabas kapag clinick user icon is 'yung user profile; if hindi nakalog-in, redirect sa login page.
