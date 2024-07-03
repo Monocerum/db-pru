@@ -22,7 +22,7 @@ function Login() {
       
       if (response.status === 200) {
         const { applicantId } = response.data;
-        navigate(`./userProfile`);
+        navigate(`/userProfile?applicantID=${applicantId}`);
       }
 
     } catch (error) {
@@ -62,7 +62,7 @@ function Login() {
                       <div className="fill">
                         <label htmlFor="password">Password</label>
                         <input 
-                          type="type" 
+                          type="password" 
                           id="password" 
                           name="password" 
                           placeholder="Password"

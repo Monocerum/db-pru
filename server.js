@@ -320,7 +320,7 @@ app.post('/login', (req, res) => {
             }
 
             const applicantId = applicantResult[0].ApplicantID;
-            req.session.user = user;
+            // req.sessioncookie.user = user;
 
             res.status(200).json({applicantId});
         });
