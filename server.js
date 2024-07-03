@@ -19,11 +19,6 @@ app.use(bodyParser.json());
 
 //MYSQL Connection
 const db = mysql.createConnection({
-    host: '127.0.0.1',
-    port: 3306,
-    user: 'monochrome',
-    password: 'monokuro',
-    database: 'dbpru'
 });
 
 db.connect((err) => {
@@ -53,18 +48,17 @@ app.post('/register', (req, res) => {
             console.log(email, username, password);
             return res.status(500).send('Registration failed.');
         }
-        res.redirect('./apply');
     });
 });
 
-// Route after application
+// Route for application
 app.post('/submit-form', (req, res) => {
     const {
         fullname, salutation, alias, age, bday, bplace, civil_status,
         nationality, height, weight, sex, ps_address, ps_country,
         ps_zip, pm_address, pm_country, pm_zip, occupation, position,
         work_nature, sof, gai, nw, hired, regular, income, sss, tin,
-        otherid, otheridnum, mobile, tel, email, 
+        otherid, otheridnum, otherid2, otherid2num, mobile, tel, email, 
         employerName, employerWorkNature, employerTel, employerAdrs,
         employerCountry, employerZip, 
         beneficiary1Name, beneficiary1Bday, beneficiary1Sex, beneficiary1Relationship,
@@ -119,6 +113,30 @@ app.post('/submit-form', (req, res) => {
 
     // Validate beneficiary2 input if provided
     let beneficiary2Fields = [];
+    let tempSql = `INSERT INTO TEMP (
+        ApplicantName, Salutation, Alias, Age, Birthdate, Birthplace, CivilStatus,
+        Nationality, Height, Weight, Sex, PresentAddress, PrsntAdrsCountry, PrsntAdrsZIP,
+        PermanentAddress, PermntAdrsCountry, PermntAdrsZIP, Occupation, Position, ApplicantWorkNature,
+        SourceOfFunds, GrossAnnualIncome, NetWorth, DateHired, DateOfRegularization, MonthlyIncome,
+        SSSID, TINID, OtherID, OtherIDNumber, OtherID2, OtherID2Num, MobileNumber, TelNo, EmailAddress,
+        EmpOrBusName, EmpOrBusNature, EmpOrBusTelNo, EmpOrBusAdrs, EmpOrBusCountry, EmpOrBusZIP,
+        Beneficiary1Name, Beneficiary1DOB, Beneficiary1Sex, Beneficiary1Relationship, Beneficiary1PrcntShare,
+        Beneficiary1Type, Beneficiary1Designation, Beneficiary1POB, Beneficiary1Nationality, Beneficiary1PrsntAdrs,
+        Beneficiary1Country, Beneficiary1ZIP, Beneficiary1MobileNm, Beneficiary1TelNo, Beneficiary1EmailAdrs`;
+
+    const sqlValues = [
+        fullname, salutation, alias, age, bday, bplace, civil_status,
+        nationality, height, weight, sex, ps_address, ps_country,
+        ps_zip, pm_address, pm_country, pm_zip, occupation, position,
+        work_nature, sof, gai, nw, hired, regular, income, sss, tin,
+        otherid, otheridnum, otherid2, otherid2num, mobile, tel, email, employerName, employerWorkNature,
+        employerTel, employerAdrs, employerCountry, employerZip,
+        beneficiary1Name, beneficiary1Bday, beneficiary1Sex, beneficiary1Relationship,
+        beneficiary1Share, beneficiary1Type, beneficiary1Designation, beneficiary1Bplace,
+        beneficiary1Nationality, beneficiary1PsAddress, beneficiary1PsCountry,
+        beneficiary1PsZip, beneficiary1Mobile, beneficiary1Tel, beneficiary1Email
+    ];
+
     if (beneficiary2Name) {
         const requiredBen2 = [
             'beneficiary2Name', 'beneficiary2Bday', 'beneficiary2Relationship',
@@ -139,37 +157,16 @@ app.post('/submit-form', (req, res) => {
             beneficiary2PsCountry, beneficiary2PsZip, beneficiary2Mobile,
             beneficiary2Tel, beneficiary2Email
         ];
-    }
 
-    // Store the data in the temporary database
-    const tempSql = `INSERT INTO TEMP (
-        ApplicantName, Salutation, Alias, Age, Birthdate, Birthplace, CivilStatus,
-        Nationality, Height, Weight, Sex, PresentAddress, PrsntAdrsCountry, PrsntAdrsZIP,
-        PermanentAddress, PermntAdrsCountry, PermntAdrsZIP, Occupation, Position, ApplicantWorkNature,
-        SourceOfFunds, GrossAnnualIncome, NetWorth, DateHired, DateOfRegularization, MonthlyIncome,
-        SSSID, TINID, OtherID, OtherIDNumber, MobileNumber, TelNo, EmailAddress,
-        EmpOrBusName, EmpOrBusNature, EmpOrBusTelNo, EmpOrBusAdrs, EmpOrBusCountry, EmpOrBusZIP,
-        Beneficiary1Name, Beneficiary1DOB, Beneficiary1Sex, Beneficiary1Relationship, Beneficiary1PrcntShare,
-        Beneficiary1Type, Beneficiary1Designation, Beneficiary1POB, Beneficiary1Nationality, Beneficiary1PrsntAdrs,
-        Beneficiary1Country, Beneficiary1ZIP, Beneficiary1MobileNm, Beneficiary1TelNo, Beneficiary1EmailAdrs,
-        Beneficiary2Name, Beneficiary2DOB, Beneficiary2Sex, Beneficiary2Relationship, Beneficiary2PrcntShare,
+        tempSql += `, Beneficiary2Name, Beneficiary2DOB, Beneficiary2Sex, Beneficiary2Relationship, Beneficiary2PrcntShare,
         Beneficiary2Type, Beneficiary2Designation, Beneficiary2POB, Beneficiary2Nationality, Beneficiary2PrsntAdrs,
         Beneficiary2Country, Beneficiary2ZIP, Beneficiary2MobileNm, Beneficiary2TelNo, Beneficiary2EmailAdrs
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    } else {
+        tempSql += `) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    }
 
-    db.query(tempSql, [
-        fullname, salutation, alias, age, bday, bplace, civil_status,
-        nationality, height, weight, sex, ps_address, ps_country,
-        ps_zip, pm_address, pm_country, pm_zip, occupation, position,
-        work_nature, sof, gai, nw, hired, regular, income, sss, tin,
-        otherid, otheridnum, mobile, tel, email, employerName, employerWorkNature,
-        employerTel, employerAdrs, employerCountry, employerZip,
-        beneficiary1Name, beneficiary1Bday, beneficiary1Sex, beneficiary1Relationship,
-        beneficiary1Share, beneficiary1Type, beneficiary1Designation, beneficiary1Bplace,
-        beneficiary1Nationality, beneficiary1PsAddress, beneficiary1PsCountry,
-        beneficiary1PsZip, beneficiary1Mobile, beneficiary1Tel, beneficiary1Email,
-        ...beneficiary2Fields
-    ], (err, result) => {
+    db.query(tempSql, [...sqlValues, ...beneficiary2Fields], (err, result) => {
         if (err) {
             console.error('Error inserting data:', err);
             return res.status(500).json({ error: 'Database error, please try again later.' });
@@ -180,8 +177,6 @@ app.post('/submit-form', (req, res) => {
         // Process and move data to main applicant, employer, and beneficiary tables
         processTempData(tempId, req.body, res);
     });
-
-    res.redirect(`/user-profile?applicantId=${applicantId}`);
 });
 
 function processTempData(tempId, tempData, res) {
@@ -228,8 +223,8 @@ function insertApplicant(employerCode, tempData, res) {
         Nationality, Height, Weight, Sex, PresentAddress, PrsntAdrsCountry, PrsntAdrsZIP,
         PermanentAddress, PermntAdrsCountry, PermntAdrsZIP, Occupation, Position, ApplicantWorkNature,
         SourceOfFunds, GrossAnnualIncome, NetWorth, DateHired, DateOfRegularization, MonthlyIncome,
-        SSSID, TINID, OtherID, OtherIDNumber, MobileNumber, TelNo, EmailAddress, EmployerCode
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        SSSID, TINID, OtherID, OtherIDNumber, OtherID2, OtherID2Num, MobileNumber, TelNo, EmailAddress, EmployerCode
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     db.query(applicantInsertSql, [
         tempData.fullname, tempData.salutation, tempData.alias, tempData.age, tempData.bday,
@@ -237,8 +232,8 @@ function insertApplicant(employerCode, tempData, res) {
         tempData.sex, tempData.ps_address, tempData.ps_country, tempData.ps_zip, tempData.pm_address,
         tempData.pm_country, tempData.pm_zip, tempData.occupation, tempData.position, tempData.work_nature,
         tempData.sof, tempData.gai, tempData.nw, tempData.hired, tempData.regular, tempData.income,
-        tempData.sss, tempData.tin, tempData.otherid, tempData.otheridnum, tempData.mobile, tempData.tel,
-        tempData.email, employerCode
+        tempData.sss, tempData.tin, tempData.otherid, tempData.otheridnum, tempData.otherid2, tempData.otherid2num,
+        tempData.mobile, tempData.tel, tempData.email, employerCode
     ], (err, applicantResult) => {
         if (err) {
             console.error('Error inserting applicant data:', err);
@@ -256,7 +251,7 @@ function insertBeneficiaries(applicantId, tempData, res) {
         ApplicantID, BeneficiaryName, BeneficiaryDOB, BeneficiarySex, BeneficiaryRelationship,
         BeneficiaryPrcntShare, BeneficiaryType, BeneficiaryDesignation, BeneficiaryPOB,
         BeneficiaryNationality, BeneficiaryPrsntAdrs, BeneficiaryCountry, BeneficiaryZIP,
-        BeneficiaryMobileNm, BeneficiaryTelNo, BeneficiaryEmailAdrs
+        BeneficiaryMobileNum, BeneficiaryTelNo, BeneficiaryEmailAdrs
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     const beneficiaries = [
@@ -287,26 +282,48 @@ function insertBeneficiaries(applicantId, tempData, res) {
             }
         });
     });
+
+    // res.redirect(`/userProfile?applicantId=${applicantId}`);
 }
 
-//Route for 'user-profile.html'
-app.get('/user-profile', (req, res) => {
-    const applicantId = req.query.applicantId; // Assuming you pass applicantId as a query parameter
+// Route for user login
+app.post('/login', (req, res) => {
+    const { Username, Password } = req.body;
 
-    // Fetch applicant details from the database
-    const sql = `SELECT * FROM APPLICANT WHERE ApplicantID = ?`;
-    db.query(sql, [applicantId], (err, result) => {
+    if (!Username || !Password) {
+        return res.status(400).send('Please fill in the requirements.');
+    }
+
+    const loginSql = 'SELECT * FROM LOGIN WHERE Username = ? AND Password = ?';
+    db.query(loginSql, [Username, Password], (err, results) => {
         if (err) {
-            console.error('Error fetching applicant details:', err);
-            return res.status(500).send('Database error fetching applicant details.');
+            console.error('Error authenticating user: ', err);
+            return res.status(500).send('Login failed. Please try again.');
         }
 
-        if (result.length === 0) {
-            return res.status(404).send('Applicant not found.');
+        if (results.length === 0) {
+            return res.status(401).send('Invalid Inputs.');
         }
 
-        const applicant = result[0];
-        res.render(path.join(__dirname, 'customer', 'user-profile.html'), { applicant });
+        const user = results[0];
+
+        // Retrieving ApplicantID through EmailAddress
+        const getApplicantIdSql = 'SELECT ApplicantID FROM APPLICANT WHERE EmailAddress = ?';
+        db.query(getApplicantIdSql, [user.EmailAddress], (err, applicantResult) => {
+            if (err) {
+                console.error('Error retrieving applicant ID:', err);
+                return res.status(500).send('Error retrieving applicant details.');
+            }
+
+            if (applicantResult.length === 0) {
+                return res.status(404).send('Applicant not found.');
+            }
+
+            const applicantId = applicantResult[0].ApplicantID;
+            req.session.user = user;
+
+            res.status(200).json({applicantId});
+        });
     });
 });
 

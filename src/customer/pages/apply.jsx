@@ -76,7 +76,7 @@ function Apply() {
   const fields = ['fullname', 'salutation', 'alias', 'age', 'bday', 'bplace', 'single', 'married', 'widowed', 'separated', 
     'nationality', 'height', 'weight', 'fem', 'male', 'ps-address', 'ps-country', 'ps-zip', 'pm-address', 'pm-country', 'pm-zip',
     'occupation', 'position', 'work-nature',  'salary', 'business', 'sof', 'gai', 'nw', 'hired', 'regular', 'income',
-    'sss', 'tin', 'otherid', 'otheridnum', 'mobile', 'tel', 'email', 'employer-name', 'employer-work-nature', 'employer-tel',
+    'sss', 'tin', 'otherid', 'otheridnum', 'otherid2', 'otherid2num', 'mobile', 'tel', 'email', 'employer-name', 'employer-work-nature', 'employer-tel',
     'employer-adrs', 'employer-country', 'employer-zip', 'beneficiary1-name', 'beneficiary1-bday', 'beneficiary1-fem', 'beneficiary1-male',
     'beneficiary1-relationship', 'beneficiary1-share', 'beneficiary1-primary', 'beneficiary1-secondary', 'beneficiary1-revo', 'beneficiary1-irrevo',
     'beneficiary1-bplace', 'beneficiary1-nationality', 'beneficiary1-ps-address', 'beneficiary1-ps-country', 'beneficiary1-ps-zip',
@@ -99,7 +99,7 @@ function Apply() {
 		const { id, value } = e.target;
 			setFormData({
 			...formData,
-			[id]: value.toUpperCase()
+			[id]: id.includes('email', 'beneficiary1-email', 'beneficiary2-email') ? value : value.toUpperCase()
 		});
 	};
 
@@ -359,12 +359,20 @@ function Apply() {
                         </div>
                         <div className="line-11 line">
                             <div className="otherid-fill fill">
-                                <label htmlFor="otherid">Other ID</label>
+                                <label htmlFor="otherid">Other ID #1</label>
                                 <input className="otherid-input" type="text" id="otherid" name="otherid" placeholder="ID Name" value={formData.otherid} onChange={handleInputChange}/>                        
                             </div>
                             <div className="otheridnum-fill fill">
-                                <label htmlFor="otheridnum">Other ID Number</label>
+                                <label htmlFor="otheridnum">Other ID Number #1</label>
                                 <input className="otheridnum-input" type="text" id="otheridnum" name="otheridnum" placeholder="ID Number" value={formData.otheridnum} onChange={handleInputChange}/>
+                            </div>
+                            <div className="otherid-fill fill">
+                                <label htmlFor="otherid2">Other ID #2</label>
+                                <input className="otherid-input" type="text" id="otherid2" name="otherid2" placeholder="ID Name" value={formData.otherid2} onChange={handleInputChange}/>                        
+                            </div>
+                            <div className="otheridnum-fill fill">
+                                <label htmlFor="otherid2num">Other ID Number #2</label>
+                                <input className="otheridnum-input" type="text" id="otherid2num" name="otherid2num" placeholder="ID Number" value={formData.otherid2num} onChange={handleInputChange}/>
                             </div>
                         </div>
                         <div className="line-12 line">
