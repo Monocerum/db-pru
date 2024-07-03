@@ -46,16 +46,25 @@ app.post('/register', (req, res) => {
     }
 
     // Insert into database
-    const sql = 'INSERT INTO LOGIN (EmailAddress, Username, Password) VALUES (?, ?, ?); SELECT LAST_INSERT_ID() AS UserID;';
+    const sql = 'INSERT INTO LOGIN (EmailAddress, Username, Password) VALUES (?, ?, ?)';
     db.query(sql, [email, username, password], (err, result) => {
         if (err) {
             console.error('Error registering user:', err);
             console.log(email, username, password);
             return res.status(500).send('Registration failed.');
         }
-        const userId = result[1][0].UserID;
+        // Query to get the last inserted UserID
+        const getUserIdSql = 'SELECT LAST_INSERT_ID() AS UserID';
+        db.query(getUserIdSql, (err, results) => {
+            if (err) {
+                console.error('Error fetching UserID:', err);
+                return res.status(500).send('Registration failed.');
+            }
 
-        res.status(200).json({userId});
+            const userId = results[0].UserID;
+
+            res.status(200).json({ userId });
+        });
     });
 });
 
