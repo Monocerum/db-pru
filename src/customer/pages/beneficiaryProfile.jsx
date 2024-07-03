@@ -5,47 +5,10 @@ import "../customer_styles.css";
 import PruLogo from '../../assets/pru-logo-main.svg';
 
 const BeneficiaryProfile = () => {
-  const initialState = {
-    memberName: "SURNAME, First Name Middle Name",
-    beneficiary1Num: "B000001",
-    beneficiary1Name: "SURNAME, First Name Middle Name",
-    beneficiary1DOB: "[Date of Birth]",
-    beneficiary1Sex: "[Sex]",
-    beneficiary1Rel: "[Relationship]",
-    beneficiary1Share: "[% Share]",
-    beneficiary1Type: "[Beneficiary Type]",
-    beneficiary1Desig: "[Beneficiary Designation]",
-    beneficiary1POB: "[Place of Birth]",
-    beneficiary1Nationality: "[Nationality]",
-    beneficiary1PsAdrs: "[Present Address]",
-    beneficiary1PsCountry: "[Present Country]",
-    beneficiary1PsZip: "[Present ZIP Code]",
-    beneficiary1Mobile: "[Mobile Number]",
-    beneficiary1Telno: "[Telephone Number]",
-    beneficiary1Email: "[Email Address]",
-    beneficiary2Num: "B000002",
-    beneficiary2Name: "SURNAME, First Name Middle Name",
-    beneficiary2DOB: "[Date of Birth]",
-    beneficiary2Sex: "[Sex]",
-    beneficiary2Rel: "[Relationship]",
-    beneficiary2Share: "[% Share]",
-    beneficiary2Type: "[Beneficiary Type]",
-    beneficiary2Desig: "[Beneficiary Designation]",
-    beneficiary2POB: "[Place of Birth]",
-    beneficiary2Nationality: "[Nationality]",
-    beneficiary2PsAdrs: "[Present Address]",
-    beneficiary2PsCountry: "[Present Country]",
-    beneficiary2PsZip: "[Present ZIP Code]",
-    beneficiary2Mobile: "[Mobile Number]",
-    beneficiary2Telno: "[Telephone Number]",
-    beneficiary2Email: "[Email Address]",
-  };
-
   const [primary, setPrimary] = useState([]); 
   const [secondary, setSecondary] = useState([]); 
 
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -76,32 +39,6 @@ const BeneficiaryProfile = () => {
     }
   }, [location.search]);
 
-  const [editActive, setEditStatus] = useState(false);
-
-  const EditProfile = () => {
-    if (window.confirm("Do you want to edit the beneficiary profile?")) {
-      setEditStatus(true);
-    }
-  };
-
-  const cancelEdit = () => {
-    if (window.confirm("Do you want to cancel editing?")) {
-      setEditStatus(false);
-      setState(initialState);
-    }
-  };
-
-  const saveEdit = () => {
-    if (window.confirm("Do you want to save?")) {
-      setEditStatus(false);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
-  };
-
   const newInput = (label, name, value) => (
     <div className="info" key={name}>
       <label htmlFor={name} className="info-label">
@@ -114,8 +51,7 @@ const BeneficiaryProfile = () => {
         id={name}
         name={name}
         value={value}
-        onChange={handleChange}
-        disabled={!editActive}
+        disabled
       />
     </div>
   );
@@ -152,9 +88,6 @@ const BeneficiaryProfile = () => {
                         </div>
                       ))}
                     </div>
-                    <div className="edit">
-                      <button className={`edit-btn ${editActive ? 'active' : ''}`} id="editBeneficiary1" onClick={EditProfile} hidden={editActive}>EDIT BENEFICIARY</button>
-                    </div>
                   </div>
                   <div className="personal-info">
                     <div className="beneficiary-info">
@@ -178,18 +111,6 @@ const BeneficiaryProfile = () => {
                           {newInput("Email Address", "beneficiary2Email", beneficiary.BeneficiaryEmailAdrs)}
                         </div>
                       ))}
-                      <div className="btns">
-                        <div className="cancel">
-                          <button className="cancel-btn" id="userCancel" onClick={cancelEdit} hidden={!editActive}>
-                            CANCEL EDITING
-                          </button>
-                        </div>
-                        <div className="save">
-                          <button className="save-btn" id="userSave" onClick={saveEdit} hidden={!editActive}>
-                            SAVE
-                          </button>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -206,9 +127,6 @@ const BeneficiaryProfile = () => {
                           <h3>Primary Beneficiary of {beneficiary.ApplicantName}</h3>
                         </div>
                       ))}
-                    </div>
-                    <div className="edit">
-                      <button className={`edit-btn ${editActive ? 'active' : ''}`} id="beneficiaryEdit" onClick={EditProfile} hidden={editActive}>EDIT BENEFICIARY</button>
                     </div>
                   </div>
                   <div className="personal-info">
@@ -233,18 +151,6 @@ const BeneficiaryProfile = () => {
                           {newInput("Email Address", "beneficiary2Email", beneficiary.BeneficiaryEmailAdrs)}
                         </div>
                       ))}
-                      <div className="btns">
-                        <div className="cancel">
-                          <button className="cancel-btn" id="userCancel" onClick={cancelEdit} hidden={!editActive}>
-                            CANCEL EDITING
-                          </button>
-                        </div>
-                        <div className="save">
-                          <button className="save-btn" id="userSave" onClick={saveEdit} hidden={!editActive}>
-                            SAVE
-                          </button>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -267,7 +173,11 @@ const BeneficiaryProfile = () => {
                   <div className="logOut">
                     <button className="logOut-btn" id="logOut">LOG OUT</button>
                   </div>
-                  <a href="user-profile.html" className="return-profile">Return to profile.</a>
+                  {primary.map((beneficiary, key) => (
+                    <React.Fragment key={key}>
+                      <Link to={`/userProfile?applicantID=${beneficiary.ApplicantID}`} className="return-profile">Return to profile.</Link>
+                    </React.Fragment>
+                  ))}
                 </div>
             </div>
             
