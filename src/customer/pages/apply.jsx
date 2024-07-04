@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // Styles
@@ -10,6 +10,8 @@ import '../../styles.css';
 import PruLogo from '../../assets/pru-logo-main.svg';
 
 function Apply() {
+  const navigate = useNavigate();
+  
   const [tickSameAdrs, tickChecked] = useState(false);
   const [psAddress, setPsAddress] = useState('');
   const [psCountry, setPsCountry] = useState('');
@@ -103,6 +105,19 @@ function Apply() {
 		});
 	};
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+          const response = await axios.post('http://localhost:5020/apply', formData);
+          if (response.status === 200) {
+            const { applicantId } = response.data;
+            navigate(`/userProfile?applicantID=${applicantId}`);
+          }
+        } catch (error) {
+          console.error('Error submitting application:', error);
+        }
+      };
+
   return (
     <>
       <div className="application-page">
@@ -125,7 +140,7 @@ function Apply() {
             </div>
             </div>
             <div className="form-container">
-              <form action="submit" className="employee-form application-form">
+              <form onSubmit={handleSubmit} className="employee-form application-form">
               <div className="form-apply">
               <div className="employee">
                 <div className="form-hdr">

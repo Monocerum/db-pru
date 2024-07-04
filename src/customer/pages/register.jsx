@@ -41,11 +41,14 @@ function Register() {
     try {
       // Send POST request to server
       const response = await axios.post('http://localhost:5020/register', formData); 
+      const { data } = response;
+      const userId = data.userId;
+      
       // Redirect or handle success message as needed
-      console.log('Registration successful:', response);
+      console.log('Registration successful. UserID', userId);
 
       // Redirect to application page
-      navigate('/apply');
+      navigate(`/apply?userID=${userId}`);
       
     } catch (error) {
       console.error('Registration failed:', error.response);
