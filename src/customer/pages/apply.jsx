@@ -71,13 +71,25 @@ function Apply() {
     }
   }
 
+  const handleRadio = (e) => {
+    const { name, value, type } = e.target;
+    if (type === 'radio') {
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: value,
+        ...(name === 'sof' && value !== 'Others' && { sof_text: '' })
+      }));
+    }
+  };
+  
+
   const checkboxChange = () => {
     tickChecked(!tickSameAdrs);
   }
 
   const fields = ['fullname', 'salutation', 'alias', 'age', 'bday', 'bplace', 'single', 'married', 'widowed', 'separated', 
     'nationality', 'height', 'weight', 'fem', 'male', 'ps-address', 'ps-country', 'ps-zip', 'pm-address', 'pm-country', 'pm-zip',
-    'occupation', 'position', 'work-nature',  'salary', 'business', 'sof', 'gai', 'nw', 'hired', 'regular', 'income',
+    'occupation', 'position', 'work-nature',  'salary', 'business', 'sof', 'sof_text', 'gai', 'nw', 'hired', 'regular', 'income',
     'sss', 'tin', 'otherid', 'otheridnum', 'otherid2', 'otherid2num', 'mobile', 'tel', 'email', 'employer-name', 'employer-work-nature', 'employer-tel',
     'employer-adrs', 'employer-country', 'employer-zip', 'beneficiary1-name', 'beneficiary1-bday', 'beneficiary1-fem', 'beneficiary1-male',
     'beneficiary1-relationship', 'beneficiary1-share', 'beneficiary1-primary', 'beneficiary1-secondary', 'beneficiary1-revo', 'beneficiary1-irrevo',
@@ -180,21 +192,21 @@ function Apply() {
                                     <div className="rdb">
                                         <div className="rdb-left">
                                             <div className="rdb-single radio">
-                                                <input type="radio" id="single" name="civil_status" value="S" required/>
+                                                <input type="radio" id="single" name="civil_status" value="S" onChange={handleRadio} required/>
                                                 <label htmlFor="single">Single</label>
                                             </div>
                                             <div className="rdb-married radio">
-                                                <input type="radio" id="married" name="civil_status" value="M" required/>
+                                                <input type="radio" id="married" name="civil_status" value="M" onChange={handleRadio} required/>
                                                 <label htmlFor="married">Married</label>
                                             </div>
                                         </div>
                                         <div className="rdb-right">
                                             <div className="rdb-widowed radio">
-                                                <input type="radio" id="widowed" name="civil_status" value="W" required/>
+                                                <input type="radio" id="widowed" name="civil_status" value="W" onChange={handleRadio} required/>
                                                 <label htmlFor="widowed">Widowed</label>
                                             </div>
                                             <div className="rdb-separated radio">
-                                                <input type="radio" id="separated" name="civil_status" value="LS" required/>
+                                                <input type="radio" id="separated" name="civil_status" value="LS" onChange={handleRadio} required/>
                                                 <label htmlFor="separated">Legally Separated</label>
                                             </div>
                                         </div>
@@ -216,11 +228,11 @@ function Apply() {
                                 <p>Sex<span className="required">*</span></p>
                                 <div className="sex-rdb">
                                     <div className="rdb rdb-fem radio">
-                                        <input type="radio" id="fem" name="sex" value="F" required/>
+                                        <input type="radio" id="fem" name="sex" value="F" onChange={handleRadio} required/>
                                         <label htmlFor="fem">Female</label>
                                     </div>
                                     <div className="rdb rdb-male radio">
-                                        <input type="radio" id="male" name="sex" value="M" required/>
+                                        <input type="radio" id="male" name="sex" value="M" onChange={handleRadio} required/>
                                         <label htmlFor="male">Male</label>
                                     </div>
                                 </div>
@@ -323,19 +335,19 @@ function Apply() {
                                     <div className="sof">
                                         <div className="sof-left">
                                             <div className="rdb rdb-salary radio">
-                                                <input type="radio" id="salary" name="sof" value="Salary" placeholder="Salary RDB" required/>
+                                                <input type="radio" id="salary" name="sof" value="Salary" placeholder="Salary RDB" onChange={handleRadio} required/>
                                                 <label htmlFor="salary">Salary</label>
                                             </div>
                                             <div className="rdb rdb-business radio">
-                                                <input type="radio" id="business" name="sof" value="Business" placeholder="Business RDB" required/>
+                                                <input type="radio" id="business" name="sof" value="Business" placeholder="Business RDB" onChange={handleRadio} required/>
                                                 <label htmlFor="business">Business</label>
                                             </div>
                                         </div>
                                         <div className="sof-right">
                                             <div className="rdb rdb-others radio">
-                                                <input type="radio" id="others" name="sof" value="Others" placeholder="Others RDB" required/>
+                                                <input type="radio" id="others" name="sof" value="Others" placeholder="Others RDB" onChange={handleRadio} required/>
                                                 <label htmlFor="sof">Others</label>
-                                                <input className="sof-input" type="text" id="sof" name="sof_text" placeholder="Source of Funds" value={formData.sof} onChange={handleInputChange}/>
+                                                <input className="sof-input" type="text" id="sof_text" name="sof_text" placeholder="Source of Funds" value={formData.sof} onChange={handleInputChange}/>
                                             </div>
                                         </div>
                                     </div>
@@ -464,11 +476,11 @@ function Apply() {
                                     <p>Sex<span className="required">*</span></p>
                                     <div className="sex-rdb">
                                         <div className="rdb rdb-fem radio">
-                                            <input type="radio" id="beneficiary1-fem" name="beneficiary1Sex" value="F" required/>
+                                            <input type="radio" id="beneficiary1-fem" name="beneficiary1Sex" value="F" onChange={handleRadio} required/>
                                             <label htmlFor="beneficiary1-fem">Female</label>
                                         </div>
                                         <div className="rdb rdb-male radio">
-                                            <input type="radio" id="beneficiary1-male" name="beneficiary1Sex" value="M" required/>
+                                            <input type="radio" id="beneficiary1-male" name="beneficiary1Sex" value="M" onChange={handleRadio} required/>
                                             <label htmlFor="beneficiary1-male">Male</label>
                                         </div>
                                     </div>
@@ -487,11 +499,11 @@ function Apply() {
                                     <p>Type of Beneficiary<span className="required">*</span></p>
                                     <div className="type-rdb">
                                         <div className="rdb rdb-prim radio">
-                                            <input type="radio" id="beneficiary1-primary" name="beneficiary1Type" value="P" required/>
+                                            <input type="radio" id="beneficiary1-primary" name="beneficiary1Type" value="P" onChange={handleRadio} required/>
                                             <label htmlFor="beneficiary1-primary">Primary</label>
                                         </div>
                                         <div className="rdb rdb-sec radio">
-                                            <input type="radio" id="beneficiary1-secondary" name="beneficiary1Type" value="S" required/>
+                                            <input type="radio" id="beneficiary1-secondary" name="beneficiary1Type" value="S" onChange={handleRadio} required/>
                                             <label htmlFor="beneficiary1-secondary">Secondary</label>
                                         </div>
                                     </div>
@@ -500,11 +512,11 @@ function Apply() {
                                     <p>Beneficiary Designation<span className="required">*</span></p>
                                     <div className="desig-rdb">
                                         <div className="rdb rdb-revo radio">
-                                            <input type="radio" id="beneficiary1-revo" name="beneficiary1Designation" value="R" required/>
+                                            <input type="radio" id="beneficiary1-revo" name="beneficiary1Designation" value="R" onChange={handleRadio} required/>
                                             <label htmlFor="beneficiary1-revo">Revocable</label>
                                         </div>
                                         <div className="rdb rdb-irrevo radio">
-                                            <input type="radio" id="beneficiary1-irrevo" name="beneficiary1Designation" value="I" required/>
+                                            <input type="radio" id="beneficiary1-irrevo" name="beneficiary1Designation" value="I" onChange={handleRadio} required/>
                                             <label htmlFor="beneficiary1-irrevo">Irrevocable</label>
                                         </div>
                                     </div>
@@ -565,11 +577,11 @@ function Apply() {
                                 <p>Sex<span className="required">*</span></p>
                                 <div className="sex-rdb">
                                     <div className="rdb rdb-fem radio">
-                                        <input type="radio" id="beneficiary2-fem" name="beneficiary2Sex" value="F"/>
+                                        <input type="radio" id="beneficiary2-fem" name="beneficiary2Sex" value="F" onChange={handleRadio}/>
                                         <label htmlFor="beneficiary2-fem">Female</label>
                                     </div>
                                     <div className="rdb rdb-male radio">
-                                        <input type="radio" id="beneficiary2-male" name="beneficiary2Sex" value="M"/>
+                                        <input type="radio" id="beneficiary2-male" name="beneficiary2Sex" value="M" onChange={handleRadio}/>
                                         <label htmlFor="beneficiary2-male">Male</label>
                                     </div>
                                 </div>
@@ -588,11 +600,11 @@ function Apply() {
                                 <p>Type of Beneficiary<span className="required">*</span></p>
                                 <div className="type-rdb">
                                     <div className="rdb rdb-prim radio">
-                                        <input type="radio" id="beneficiary2-primary" name="beneficiary2Type" value="P"/>
+                                        <input type="radio" id="beneficiary2-primary" name="beneficiary2Type" value="P" onChange={handleRadio}/>
                                         <label htmlFor="beneficiary2-primary">Primary</label>
                                     </div>
                                     <div className="rdb rdb-sec radio">
-                                        <input type="radio" id="beneficiary2-secondary" name="beneficiary2Type" value="S"/>
+                                        <input type="radio" id="beneficiary2-secondary" name="beneficiary2Type" value="S" onChange={handleRadio}/>
                                         <label htmlFor="beneficiary2-secondary">Secondary</label>
                                     </div>
                                 </div>
@@ -601,11 +613,11 @@ function Apply() {
                                 <p>Beneficiary Designation<span className="required">*</span></p>
                                 <div className="desig-rdb">
                                     <div className="rdb rdb-revo radio">
-                                        <input type="radio" id="beneficiary2-revo" name="beneficiary2Designation" value="R"/>
+                                        <input type="radio" id="beneficiary2-revo" name="beneficiary2Designation" value="R" onChange={handleRadio}/>
                                         <label htmlFor="beneficiary2-revo">Revocable</label>
                                     </div>
                                     <div className="rdb rdb-irrevo radio">
-                                        <input type="radio" id="beneficiary2-irrevo" name="beneficiary2Designation" value="I"/>
+                                        <input type="radio" id="beneficiary2-irrevo" name="beneficiary2Designation" value="I" onChange={handleRadio}/>
                                         <label htmlFor="beneficiary2-irrevo">Irrevocable</label>
                                     </div>
                                 </div>
@@ -652,7 +664,7 @@ function Apply() {
                     </div>
                 </div>
                 <div className="btn">
-                    <input className="application-btn" type="Submit" value="SUBMIT" />
+                    <input className="application-btn" type="Submit" defaultValue="SUBMIT" />
                 </div>
                 </form>
 			<div>
