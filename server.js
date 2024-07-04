@@ -452,6 +452,59 @@ app.get('/employers/:EmployerCode', (req, res) => {
     });
 });
 
+app.put('/employers/:EmployerCode', (req, res) => {
+    const EmployerCode = req.params.EmployerCode;
+    const {
+        EmpOrBusName,
+        EmpOrBusNature,
+        EmpOrBusTelNo,
+        EmpOrBusAdrs,
+        EmpOrBusCountry,
+        EmpOrBusZIP
+    } = req.body;
+    const sql = `UPDATE EMPLOYER SET EmpOrBusName = ?, EmpOrBusNature = ?, EmpOrBusTelNo = ?, EmpOrBusAdrs = ?, EmpOrBusCountry = ?, EmpOrBusZIP = ? WHERE EmployerCode = ?`;
+    const values = [
+        EmpOrBusName,
+        EmpOrBusNature,
+        EmpOrBusTelNo,
+        EmpOrBusAdrs,
+        EmpOrBusCountry,
+        EmpOrBusZIP,
+        EmployerCode
+      ];
+
+    db.query(sql, values, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database update error' });
+        }
+        if (data.affectedRows === 0) {
+            console.log('Update success');
+        }
+        return res.status(200).json({ message: 'Update successful' });
+    });
+});
+
+app.post('/register', (req, res) => {
+    const { email, username, password } = req.body;
+
+    // Validate input
+    if (!email || !username || !password) {
+        return res.status(400).send('Please fill in all fields.');
+    }
+
+    // Insert into database
+    const sql = 'INSERT INTO LOGIN (EmailAddress, Username, Password) VALUES (?, ?, ?)';
+    db.query(sql, [email, username, password], (err, result) => {
+        if (err) {
+            console.error('Error registering user:', err);
+            console.log(email, username, password);
+            return res.status(500).send('Registration failed.');
+        }
+        return res.status(200).send('Registration successful.')
+    });
+});
+
 app.get('/beneficiaries', (req, res) => {
     const sql = "SELECT * FROM BENEFICIARY";
     db.query(sql, (err, data) => {
