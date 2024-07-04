@@ -380,7 +380,105 @@ app.get('/applicants/:ApplicantID', (req, res) => {
         }
         return res.status(200).json(data[0]);
     });
-}); 
+});
+
+app.put('/applicants/:ApplicantID', (req, res) => {
+    const ApplicantID = req.params.ApplicantID;
+    const {
+        ApplicantName,
+        Salutation,
+        Alias,
+        Age,
+        Birthdate,
+        Birthplace,
+        CivilStatus,
+        Nationality,
+        Height,
+        Weight,
+        Sex,
+        PresentAddress,
+        PrsntAdrsCountry,
+        PrsntAdrsZIP,
+        PermanentAddress,
+        PermntAdrsCountry,
+        PermntAdrsZIP,
+        Occupation,
+        Position,
+        ApplicantWorkNature,
+        SourceOfFunds,
+        GrossAnnualIncome,
+        NetWorth,
+        DateHired,
+        DateOfRegularization,
+        MonthlyIncome,
+        SSSID,
+        TINID,
+        OtherID,
+        OtherIDNumber,
+        OtherID2,
+        OtherID2Number,
+        MobileNumber,
+        TelNo,
+        EmailAddress,
+        EmployerCode
+    } = req.body;
+    const sql = `UPDATE APPLICANT SET ApplicantName = ?, Salutation = ?, Alias = ?, Age = ?, Birthdate = ?, Birthplace = ?, 
+        CivilStatus = ?, Nationality = ?, Height = ?, Weight = ?, Sex = ?, PresentAddress = ?, PrsntAdrsCountry = ?, 
+        PrsntAdrsZIP = ?, PermanentAddress = ?, PermntAdrsCountry = ?, PermntAdrsZIP = ?, Occupation = ?, Position = ?, 
+        ApplicantWorkNature = ?, SourceOfFunds = ?, GrossAnnualIncome = ?, NetWorth = ?, DateHired = ?, DateOfRegularization = ?,
+        MonthlyIncome = ?, SSSID = ?, TINID = ?, OtherID = ?, OtherIDNumber = ?, OtherID2 = ?, OtherID2Number = ?,
+        MobileNumber = ?, TelNo = ?, EmailAddress = ?, EmployerCode = ? WHERE ApplicantID = ?`;
+    const values = [
+        ApplicantName,
+        Salutation,
+        Alias,
+        Age,
+        Birthdate,
+        Birthplace,
+        CivilStatus,
+        Nationality,
+        Height,
+        Weight,
+        Sex,
+        PresentAddress,
+        PrsntAdrsCountry,
+        PrsntAdrsZIP,
+        PermanentAddress,
+        PermntAdrsCountry,
+        PermntAdrsZIP,
+        Occupation,
+        Position,
+        ApplicantWorkNature,
+        SourceOfFunds,
+        GrossAnnualIncome,
+        NetWorth,
+        DateHired,
+        DateOfRegularization,
+        MonthlyIncome,
+        SSSID,
+        TINID,
+        OtherID,
+        OtherIDNumber,
+        OtherID2,
+        OtherID2Number,
+        MobileNumber,
+        TelNo,
+        EmailAddress,
+        EmployerCode,
+        ApplicantID
+      ];
+
+    db.query(sql, values, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database update error' });
+        }
+        if (data.affectedRows === 0) {
+            console.log('Update success');
+        }
+        return res.status(200).json({ message: 'Update successful' });
+    });
+});
 
 app.get('/users', (req, res) => {
     const sql = "SELECT * FROM LOGIN";

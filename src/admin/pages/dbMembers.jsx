@@ -132,7 +132,11 @@ function DBMembers() {
                           </Link>
                         </td>
                         <td className="data-container">
-                          <i className="bx bx-edit"></i>
+                          <Link
+                            to={`/userProfile?applicantID=${a.ApplicantID}&autoEdit=true`}
+                          >
+                            <i className="bx bx-edit"></i>
+                          </Link>
                         </td>
                         <td className="data-container">
                           <i className="bx bx-trash"></i>

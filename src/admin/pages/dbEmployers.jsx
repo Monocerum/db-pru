@@ -22,7 +22,7 @@ function DBEmployers() {
         console.error(error);
       });
   });
-
+  
   const activePage = useLocation();
 
   return (
@@ -102,7 +102,11 @@ function DBEmployers() {
                           </Link>
                         </td>
                         <td className="data-container employer-data">
-                          <i className="bx bx-edit"></i>
+                          <Link
+                            to={`/employerDetails?employerCode=${e.EmployerCode}&autoEdit=true`}
+                          >
+                            <i className="bx bx-edit"></i>
+                          </Link>
                         </td>
                         <td className="data-container employer-data">
                           <i className="bx bx-trash"></i>

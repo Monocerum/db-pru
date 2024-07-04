@@ -87,10 +87,7 @@ const EmployerProfile = () => {
         onClick={e => console.log(name + value)}
       />
     </div>
-
-    
   );
-
 
   const activePage = useLocation();
 

@@ -10,27 +10,33 @@ import PruLogo from "../../assets/pru-logo-main.svg";
 
 const EmployerProfile = () => {
   const [employer, setEmployer] = useState({});
+  const [initialState, setInitialState] = useState({});
+  const [editActive, setEditStatus] = useState(false);
 
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const EmployerCode = searchParams.get("employerCode");
+  const autoEdit = searchParams.get("autoEdit");
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const EmployerCode = searchParams.get("employerCode");
-
     if (EmployerCode) {
       axios
         .get(`http://localhost:5020/employers/${EmployerCode}`)
         .then((response) => {
           setEmployer(response.data);
-          console.log(response.data);
+          setInitialState(response.data);
         })
         .catch((error) => {
           console.error(error);
         });
     }
-  }, [location.search]);
 
-  const [editActive, setEditStatus] = useState(false);
+    if (autoEdit === "true") {
+      setEditStatus(true);
+    }
+  }, [EmployerCode, location.search]);
+
+  
 
   const EditProfile = () => {
     if (
@@ -43,19 +49,30 @@ const EmployerProfile = () => {
   const cancelEdit = () => {
     if (window.confirm("Do you want to cancel editing?")) {
       setEditStatus(false);
-      setState(initialState);
+      setEmployer(initialState);
     }
   };
 
   const saveEdit = () => {
     if (window.confirm("Do you want to save?")) {
       setEditStatus(false);
+      axios
+        .put(`http://localhost:5020/employers/${EmployerCode}`, employer)
+        .then((response) => {
+          setEmployer(employer);
+          console.log("Save successful");
+        })
+        .catch((error) => {
+          setEmployer(initialState);
+          console.error("Error saving changes: ", error.response ? error.response.data : error.message);
+          alert("Please input appropriate values");
+        });
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
+    setEmployer((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const newInput = (label, name, value) => (
@@ -69,8 +86,10 @@ const EmployerProfile = () => {
         type="text"
         id={name}
         name={name}
-        value={value}
+        value={value || ""}
+        onChange={handleChange}
         disabled={!editActive}
+        onClick={e => console.log(name + value)}
       />
     </div>
   );
@@ -121,35 +140,48 @@ const EmployerProfile = () => {
                   <h3 className="info-header">Employer Details</h3>
                 </div>
                 <div className="employer-info">
+                  <div className="info" key={EmployerCode}>
+                    <label htmlFor={EmployerCode} className="info-label">
+                      {"Employer Code"}
+                    </label>
+                    <br />
+                    <input
+                      className="info-input"
+                      type="text"
+                      id={EmployerCode}
+                      name={EmployerCode}
+                      value={employer.EmployerCode}
+                      disabled
+                    />
+                  </div>
                   {newInput(
-                    "Employer Number",
-                    "employerNum",
-                    employer.EmployerCode
+                    "Name", 
+                    "EmpOrBusName", 
+                    employer.EmpOrBusName
                   )}
-                  {newInput("Name", "employerName", employer.EmpOrBusName)}
                   {newInput(
                     "Nature of Work/Business",
-                    "employerNature",
+                    "EmpOrBusNature",
                     employer.EmpOrBusNature
                   )}
                   {newInput(
                     "Telephone Number",
-                    "employerTelno",
+                    "EmpOrBusTelNo",
                     employer.EmpOrBusTelNo
                   )}
                   {newInput(
                     "Present Address",
-                    "employerPsAdrs",
+                    "EmpOrBusAdrs",
                     employer.EmpOrBusAdrs
                   )}
                   {newInput(
                     "Present Country",
-                    "employerPsCountry",
+                    "EmpOrBusCountry",
                     employer.EmpOrBusCountry
                   )}
                   {newInput(
                     "Present ZIP Code",
-                    "employerPsZip",
+                    "EmpOrBusZIP",
                     employer.EmpOrBusZIP
                   )}
                   <div className="btns">

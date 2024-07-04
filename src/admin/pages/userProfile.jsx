@@ -9,69 +9,32 @@ import "../../styles.css";
 import PruLogo from "../../assets/pru-logo-main.svg";
 
 const UserProfile = () => {
-  const initialState = {
-    membershipNum: "A000001",
-    memberName: "SURNAME, First Name Middle Name",
-    memberSalutation: "[Salutation]",
-    memberAlias: "[Other Legal Name/Alias]",
-    memberAge: "[Age]",
-    memberSex: "[Sex]",
-    memberDOB: "[Date of Birth]",
-    memberPOB: "[Place of Birth]",
-    memberCS: "[Civil Status]",
-    memberNationality: "[Nationality]",
-    memberHeight: "[Height]",
-    memberWeight: "[Weight]",
-    memberMobile: "[Mobile Number]",
-    memberTelno: "[Telephone Number]",
-    memberEmail: "[Email Address]",
-    memberPsAdrs: "[Present Address]",
-    memberPsCountry: "[Present Country]",
-    memberPsZip: "[Present ZIP Code]",
-    memberPmAdrs: "[Permanent Address]",
-    memberPmCountry: "[Permanent Country]",
-    memberPmZip: "[Permanent ZIP Code]",
-    memberOccupation: "[Occupation]",
-    memberPosition: "[Position]",
-    memberNature: "[Nature of Work/Business]",
-    memberSOF: "[Source of Funds]",
-    memberGAI: "[Gross Annual Income]",
-    memberNW: "[Net Worth]",
-    memberHired: "[Date Hired]",
-    memberRegularization: "[Date of Regularization]",
-    memberIncome: "[Monthly Income]",
-    memberSSS: "[SSS/GSIS]",
-    memberTIN: "[TIN ID]",
-    memberOtherID1: "[ID Name]",
-    memberOtherIDNum1: "[ID Number]",
-    memberOtherID2: "[ID Name]",
-    memberOtherIDNum2: "[ID Number]",
-  };
-
-  const [state, setState] = useState(initialState);
+  const [initialState, setInitialState] = useState({});
+  const [applicant, setApplicant] = useState([]);
   const [editActive, setEditStatus] = useState(false);
 
-  const [applicant, setApplicant] = useState([]);
-
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const ApplicantID = searchParams.get("applicantID");
+  const autoEdit = searchParams.get("autoEdit");
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const ApplicantID = searchParams.get("applicantID");
-
-    console.log(ApplicantID);
-
     if (ApplicantID) {
       axios
         .get(`http://localhost:5020/applicants/${ApplicantID}`)
         .then((response) => {
           setApplicant(response.data);
+          setInitialState(response.data);
         })
         .catch((error) => {
           console.error(error);
         });
     }
-  }, [location.search]);
+
+    if (autoEdit === "true") {
+      setEditStatus(true);
+    }
+  }, [ApplicantID, location.search]);
 
   const EditProfile = () => {
     if (window.confirm("Do you want to edit the user profile?")) {
@@ -82,19 +45,30 @@ const UserProfile = () => {
   const cancelEdit = () => {
     if (window.confirm("Do you want to cancel editing?")) {
       setEditStatus(false);
-      setState(initialState);
+      setApplicant(initialState);
     }
   };
 
   const saveEdit = () => {
     if (window.confirm("Do you want to save?")) {
       setEditStatus(false);
+      axios
+        .put(`http://localhost:5020/applicants/${ApplicantID}`, applicant)
+        .then((response) => {
+          setApplicant(applicant);
+          console.log("Save successful");
+        })
+        .catch((error) => {
+          setApplicant(initialState);
+          console.error("Error saving changes: ", error.response ? error.response.data : error.message);
+          alert("Please input appropriate values");
+        });
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
+    setApplicant((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const newInput = (label, name, value) => (
@@ -142,8 +116,8 @@ const UserProfile = () => {
               <div className="personal-header">
                 <div className="header-info">
                   <h2>
-                    <span id="main-salutation">{state.memberSalutation}</span>{" "}
-                    <span id="main-name">{state.memberName}</span>
+                    <span id="main-salutation">{applicant.Salutation}</span>{" "}
+                    <span id="main-name">{applicant.ApplicantName}</span>
                   </h2>
                   <h3>Company Name</h3>
                 </div>
@@ -165,131 +139,183 @@ const UserProfile = () => {
                 <div className="user-info">
                   {newInput(
                     "Membership Number",
-                    "membershipNum",
+                    "ApplicantID",
                     applicant.ApplicantID
                   )}
-                  {newInput("Name", "memberName", applicant.ApplicantName)}
+                  {newInput("Name", 
+                    "ApplicantName", 
+                    applicant.ApplicantName
+                  )}
                   {newInput(
                     "Salutation",
-                    "memberSalutation",
+                    "Salutation",
                     applicant.Salutation
                   )}
                   {newInput(
                     "Other Legal Name/Alias",
-                    "memberAlias",
+                    "Alias",
                     applicant.Alias
                   )}
-                  {newInput("Age", "memberAge", applicant.Age)}
-                  {newInput("Sex", "memberSex", applicant.Sex)}
-                  {newInput("Date of Birth", "memberDOB", applicant.Birthdate)}
+                  {newInput(
+                    "Age", 
+                    "Age", 
+                    applicant.Age
+                  )}
+                  {newInput(
+                    "Sex", 
+                    "Sex", 
+                    applicant.Sex
+                  )}
+                  {newInput(
+                    "Date of Birth", 
+                    "Birthdate", 
+                    applicant.Birthdate
+                  )}
                   {newInput(
                     "Place of Birth",
-                    "memberPOB",
+                    "Birthplace",
                     applicant.Birthplace
                   )}
                   {newInput("Civil Status", "memberCS", applicant.CivilStatus)}
                   {newInput(
                     "Nationality",
-                    "memberNationality",
+                    "Nationality",
                     applicant.Nationality
                   )}
-                  {newInput("Height", "memberHeight", applicant.Height)}
-                  {newInput("Weight", "memberWeight", applicant.Weight)}
+                  {newInput(
+                    "Height", 
+                    "Height", 
+                    applicant.Height
+                  )}
+                  {newInput(
+                    "Weight", 
+                    "Weight", 
+                    applicant.Weight
+                  )}
                   {newInput(
                     "Mobile Number",
-                    "memberMobile",
+                    "MobileNumber",
                     applicant.MobileNumber
                   )}
-                  {newInput("Telephone Number", "memberTelno", applicant.TelNo)}
+                  {newInput(
+                    "Telephone Number", 
+                    "TelNo", 
+                    applicant.TelNo
+                  )}
                   {newInput(
                     "Email Address",
-                    "memberEmail",
+                    "EmailAddress",
                     applicant.EmailAddress
                   )}
                   {newInput(
                     "Present Address",
-                    "memberPsAdrs",
+                    "PresentAddress",
                     applicant.PresentAddress
                   )}
                   {newInput(
                     "Present Country",
-                    "memberPsCountry",
+                    "PrsntAdrsCountry",
                     applicant.PrsntAdrsCountry
                   )}
                   {newInput(
                     "Present ZIP Code",
-                    "memberPsZip",
+                    "PrsntAdrsZIP",
                     applicant.PrsntAdrsZIP
                   )}
                   {newInput(
                     "Permanent Address",
-                    "memberPmAdrs",
+                    "PermanentAddress",
                     applicant.PermanentAddress
                   )}
                   {newInput(
                     "Permanent Country",
-                    "memberPmCountry",
+                    "PermntAdrsCountry",
                     applicant.PermntAdrsCountry
                   )}
                   {newInput(
                     "Permanent ZIP Code",
-                    "memberPmZip",
+                    "PermntAdrsZIP",
                     applicant.PermntAdrsZIP
                   )}
                   {newInput(
                     "Occupation",
-                    "memberOccupation",
+                    "Occupation",
                     applicant.Occupation
                   )}
-                  {newInput("Position", "memberPosition", applicant.Position)}
+                  {newInput(
+                    "Position", 
+                    "Position", 
+                    applicant.Position
+                  )}
                   {newInput(
                     "Nature of Work/Business",
-                    "memberNature",
+                    "ApplicantWorkNature",
                     applicant.ApplicantWorkNature
                   )}
                   {newInput(
                     "Source of Funds",
-                    "memberSOF",
+                    "SourceOfFunds",
                     applicant.SourceOfFunds
                   )}
                   {newInput(
                     "Gross Annual Income",
-                    "memberGAI",
+                    "GrossAnnualIncome",
                     applicant.GrossAnnualIncome
                   )}
-                  {newInput("Net Worth", "memberNW", applicant.NetWorth)}
-                  {newInput("Date Hired", "memberHired", applicant.DateHired)}
+                  {newInput(
+                    "Net Worth", 
+                    "NetWorth", 
+                    applicant.NetWorth
+                  )}
+                  {newInput(
+                    "Date Hired", 
+                    "DateHired", 
+                    applicant.DateHired
+                  )}
                   {newInput(
                     "Date of Regularization",
-                    "memberRegularization",
+                    "DateOfRegularization",
                     applicant.DateOfRegularization
                   )}
                   {newInput(
                     "Monthly Income",
-                    "memberIncome",
-                    applicant.GrossAnnualIncome
+                    "MonthlyIncome",
+                    applicant.MonthlyIncome
                   )}
-                  {newInput("SSS/GSIS Number", "memberSSS", applicant.SSSID)}
-                  {newInput("TIN ID", "memberTIN", applicant.TINID)}
+                  {newInput(
+                    "SSS/GSIS Number", 
+                    "SSSID", 
+                    applicant.SSSID
+                  )}
+                  {newInput(
+                    "TIN ID", 
+                    "memberTIN", 
+                    applicant.TINID
+                  )}
                   {newInput(
                     "Other ID #1 Name",
-                    "memberOtherID1",
+                    "OtherID",
                     applicant.OtherID
                   )}
                   {newInput(
                     "Other ID #1 Number",
-                    "memberOtherIDNum1",
+                    "OtherIDNumber",
                     applicant.OtherIDNumber
                   )}
                   {newInput(
                     "Other ID #2 Name",
-                    "memberOtherID2",
+                    "OtherID2",
                     applicant.OtherID2
                   )}
                   {newInput(
                     "Other ID #2 Number",
-                    "memberOtherIDNum2",
+                    "OtherID2Number",
                     applicant.OtherID2Number
+                  )}
+                  {newInput(
+                    "Employer Number",
+                    "EmployerCode",
+                    applicant.EmployerCode
                   )}
                   <div className="btns">
                     <div className="cancel">
