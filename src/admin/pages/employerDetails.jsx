@@ -36,8 +36,6 @@ const EmployerProfile = () => {
     }
   }, [EmployerCode, location.search]);
 
-  
-
   const EditProfile = () => {
     if (
       window.confirm("Do you want to edit the employer/work/business profile?")
@@ -64,7 +62,10 @@ const EmployerProfile = () => {
         })
         .catch((error) => {
           setEmployer(initialState);
-          console.error("Error saving changes: ", error.response ? error.response.data : error.message);
+          console.error(
+            "Error saving changes: ",
+            error.response ? error.response.data : error.message
+          );
           alert("Please input appropriate values");
         });
     }
@@ -89,7 +90,6 @@ const EmployerProfile = () => {
         value={value || ""}
         onChange={handleChange}
         disabled={!editActive}
-        onClick={e => console.log(name + value)}
       />
     </div>
   );
@@ -154,11 +154,7 @@ const EmployerProfile = () => {
                       disabled
                     />
                   </div>
-                  {newInput(
-                    "Name", 
-                    "EmpOrBusName", 
-                    employer.EmpOrBusName
-                  )}
+                  {newInput("Name", "EmpOrBusName", employer.EmpOrBusName)}
                   {newInput(
                     "Nature of Work/Business",
                     "EmpOrBusNature",

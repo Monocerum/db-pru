@@ -11,6 +11,7 @@ import SideNav from "../components/sidenav";
 
 function DBBeneficiaries() {
   const [beneficiary, setBeneficiary] = useState([]);
+  const activePage = useLocation();
 
   useEffect(() => {
     axios
@@ -22,8 +23,6 @@ function DBBeneficiaries() {
         console.error(error);
       });
   });
-
-  const activePage = useLocation();
 
   return (
     <>
@@ -52,9 +51,6 @@ function DBBeneficiaries() {
                 <h2 className="db-name">Beneficiaries</h2>
                 <div className="action-buttons">
                   <ul>
-                    <Link to="/apply" className="upload-button action-btn">
-                      Upload
-                    </Link>
                     <Link to="/apply" className="add-button action-btn">
                       Add
                     </Link>
@@ -112,27 +108,45 @@ function DBBeneficiaries() {
                           </Link>
                         </td>
                         <td className="data-container">
-                          <i className="bx bx-edit"></i>
+                          <Link
+                            to={`/beneficiaryDetails?applicantID=${b.ApplicantID}&beneficiaryCode=${b.BeneficiaryCode}&autoEdit=true`}
+                          >
+                            <i className="bx bx-edit"></i>
+                          </Link>
                         </td>
                         <td className="data-container">
                           <i className="bx bx-trash"></i>
                         </td>
-                        <td className="data-container">{b.BeneficiaryCode}</td>
-                        <td className="data-container">{b.ApplicantID}</td>
-                        <td className="data-container">{b.BeneficiaryName}</td>
-                        <td className="data-container">{b.BeneficiaryDOB}</td>
-                        <td className="data-container">{b.BeneficiarySex}</td>
+                        <td className="data-container">
+                          {b.BeneficiaryCode}
+                        </td>
+                        <td className="data-container">
+                          {b.ApplicantID}
+                        </td>
+                        <td className="data-container">
+                          {b.BeneficiaryName}
+                        </td>
+                        <td className="data-container">
+                          {b.BeneficiaryDOB}
+                        </td>
+                        <td className="data-container">
+                          {b.BeneficiarySex}
+                        </td>
                         <td className="data-container">
                           {b.BeneficiaryRelationship}
                         </td>
                         <td className="data-container">
                           {b.BeneficiaryPrcntShare}
                         </td>
-                        <td className="data-container">{b.BeneficiaryType}</td>
+                        <td className="data-container">
+                          {b.BeneficiaryType}
+                        </td>
                         <td className="data-container">
                           {b.BeneficiaryDesignation}
                         </td>
-                        <td className="data-container">{b.BeneficiaryPOB}</td>
+                        <td className="data-container">
+                          {b.BeneficiaryPOB}
+                        </td>
                         <td className="data-container">
                           {b.BeneficiaryNationality}
                         </td>
@@ -142,11 +156,15 @@ function DBBeneficiaries() {
                         <td className="data-container">
                           {b.BeneficiaryCountry}
                         </td>
-                        <td className="data-container">{b.BeneficiaryZIP}</td>
+                        <td className="data-container">
+                          {b.BeneficiaryZIP}
+                        </td>
                         <td className="data-container">
                           {b.BeneficiaryMobileNum}
                         </td>
-                        <td className="data-container">{b.BeneficiaryTelNo}</td>
+                        <td className="data-container">
+                          {b.BeneficiaryTelNo}
+                        </td>
                         <td className="data-container">
                           {b.BeneficiaryEmailAdrs}
                         </td>

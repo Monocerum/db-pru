@@ -22,7 +22,7 @@ function DBEmployers() {
         console.error(error);
       });
   });
-  
+
   const activePage = useLocation();
 
   return (
@@ -52,9 +52,6 @@ function DBEmployers() {
                 <h2 className="db-name">Employers</h2>
                 <div className="action-buttons">
                   <ul>
-                    <Link to="/apply" className="upload-button action-btn">
-                      Upload
-                    </Link>
                     <Link to="/apply" className="add-button action-btn">
                       Add
                     </Link>

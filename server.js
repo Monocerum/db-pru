@@ -488,7 +488,7 @@ app.get('/users', (req, res) => {
             return res.status(500).json({ error: 'Database query error' });
         }
         if (data.length === 0) {
-            console.log('No records found in applicant table.');
+            console.log('No records found in login table.');
         }
         return res.status(200).json(data);
     });
@@ -503,9 +503,36 @@ app.get('/users/:UserID', (req, res) => {
             return res.status(500).json({ error: 'Database query error' });
         }
         if (data.length === 0) {
-            console.log('No records found in applicant table.');
+            console.log('No records found in login table.');
         }
         return res.status(200).json(data[0]);
+    });
+});
+
+app.put('/users/:UserID', (req, res) => {
+    const UserID = req.params.UserID;
+    const {
+        EmailAddress,
+        Username,
+        Password
+    } = req.body;
+    const sql = `UPDATE LOGIN SET EmailAddress = ?, Username = ?, Password = ? WHERE UserID = ?`;
+    const values = [
+        EmailAddress,
+        Username,
+        Password,
+        UserID
+      ];
+
+    db.query(sql, values, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database update error' });
+        }
+        if (data.affectedRows === 0) {
+            console.log('Update success');
+        }
+        return res.status(200).json({ message: 'Update successful' });
     });
 });
 
@@ -517,7 +544,7 @@ app.get('/employers', (req, res) => {
             return res.status(500).json({ error: 'Database query error' });
         }
         if (data.length === 0) {
-            console.log('No records found in applicant table.');
+            console.log('No records found in employer table.');
         }
         return res.status(200).json(data);
     });
@@ -622,7 +649,7 @@ app.get('/beneficiaries', (req, res) => {
             return res.status(500).json({ error: 'Database query error' });
         }
         if (data.length === 0) {
-            console.log('No records found in applicant table.');
+            console.log('No records found in beneficiary table.');
         }
         return res.status(200).json(data);
     });
@@ -684,6 +711,58 @@ app.get('/secondarybeneficiaries/:ApplicantID', (req, res) => {
             return res.status(404).json({ message: 'No secondary beneficiaries found.' });
         }
         return res.status(200).json(data[0]);
+    });
+});
+
+app.put('/beneficiaries/:ApplicantID/:BeneficiaryCode', (req, res) => {
+    const { ApplicantID, BeneficiaryCode } = req.params;
+    const {
+        BeneficiaryName,
+        BeneficiaryDOB,
+        BeneficiarySex,
+        BeneficiaryRelationship,
+        BeneficiaryPrcntShare,
+        BeneficiaryType,
+        BeneficiaryDesignation,
+        BeneficiaryPOB,
+        BeneficiaryNationality,
+        BeneficiaryPrsntAdrs,
+        BeneficiaryCountry,
+        BeneficiaryZIP,
+        BeneficiaryMobileNum,
+        BeneficiaryTelNo,
+        BeneficiaryEmailAdrs
+    } = req.body;
+    const sql = `UPDATE BENEFICIARY SET BeneficiaryName = ?, BeneficiaryDOB = ?, BeneficiarySex = ?, BeneficiaryRelationship = ?, BeneficiaryPrcntShare = ?, BeneficiaryType = ?, BeneficiaryDesignation = ?, BeneficiaryPOB = ?, BeneficiaryNationality = ?, BeneficiaryPrsntAdrs = ?, BeneficiaryCountry = ?, BeneficiaryZIP = ?, BeneficiaryMobileNum = ?, BeneficiaryTelNo = ?, BeneficiaryEmailAdrs = ? WHERE BeneficiaryCode = ? AND ApplicantID = ?`;
+    const values = [
+        BeneficiaryName,
+        BeneficiaryDOB,
+        BeneficiarySex,
+        BeneficiaryRelationship,
+        BeneficiaryPrcntShare,
+        BeneficiaryType,
+        BeneficiaryDesignation,
+        BeneficiaryPOB,
+        BeneficiaryNationality,
+        BeneficiaryPrsntAdrs,
+        BeneficiaryCountry,
+        BeneficiaryZIP,
+        BeneficiaryMobileNum,
+        BeneficiaryTelNo,
+        BeneficiaryEmailAdrs,
+        BeneficiaryCode,
+        ApplicantID
+      ];
+
+    db.query(sql, values, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database update error' });
+        }
+        if (data.affectedRows === 0) {
+            console.log('Update success');
+        }
+        return res.status(200).json({ message: 'Update successful' });
     });
 });
 

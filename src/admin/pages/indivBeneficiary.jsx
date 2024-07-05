@@ -10,32 +10,34 @@ import PruLogo from "../../assets/pru-logo-main.svg";
 
 const BeneficiaryDetails = () => {
   const [beneficiary, setBeneficiary] = useState({});
+  const [initialState, setInitialState] = useState({});
+  const [editActive, setEditStatus] = useState(false);
 
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const ApplicantID = searchParams.get("applicantID");
+  const BeneficiaryCode = searchParams.get("beneficiaryCode");
+  const autoEdit = searchParams.get("autoEdit");
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const ApplicantID = searchParams.get("applicantID");
-    const BeneficiaryCode = searchParams.get("beneficiaryCode");
-
-    console.log(ApplicantID);
-
-    if (ApplicantID) {
+    if (ApplicantID && BeneficiaryCode) {
       axios
         .get(
           `http://localhost:5020/beneficiaries/${ApplicantID}/${BeneficiaryCode}`
         )
         .then((response) => {
           setBeneficiary(response.data);
-          console.log(response.data);
+          setInitialState(response.data);
         })
         .catch((error) => {
           console.error(error);
         });
     }
-  }, [location.search]);
 
-  const [editActive, setEditStatus] = useState(false);
+    if (autoEdit === "true") {
+      setEditStatus(true);
+    }
+  }, [location.search]);
 
   const EditProfile = () => {
     if (window.confirm("Do you want to edit the beneficiary profile?")) {
@@ -46,19 +48,31 @@ const BeneficiaryDetails = () => {
   const cancelEdit = () => {
     if (window.confirm("Do you want to cancel editing?")) {
       setEditStatus(false);
-      setState(initialState);
+      setBeneficiary(initialState);
     }
   };
 
   const saveEdit = () => {
     if (window.confirm("Do you want to save?")) {
       setEditStatus(false);
+
+      axios
+        .put(`http://localhost:5020/beneficiaries/${ApplicantID}/${beneficiary.BeneficiaryCode}`, beneficiary)
+        .then((response) => {
+          setBeneficiary(beneficiary);
+          console.log("Save successful");
+        })
+        .catch((error) => {
+          setBeneficiary(initialState);
+          console.error("Error saving changes: ", error.response ? error.response.data : error.message);
+          alert("Please input appropriate values");
+        });
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
+    setBeneficiary((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const newInput = (label, name, value) => (
@@ -128,84 +142,93 @@ const BeneficiaryDetails = () => {
                   <h3 className="info-header">Beneficiary Details</h3>
                 </div>
                 <div className="beneficiary-info">
-                  {newInput(
-                    "Beneficiary Number",
-                    "beneficiary2Num",
-                    beneficiary.BeneficiaryCode
-                  )}
+                  <div className="info" key={"BeneficiaryCode"}>
+                    <label htmlFor={"BeneficiaryCode"} className="info-label">
+                      {"Beneficiary Number"}
+                    </label>
+                    <br />
+                    <input
+                      className="info-input"
+                      type="text"
+                      id={"BeneficiaryCode"}
+                      name={"BeneficiaryCode"}
+                      value={beneficiary.BeneficiaryCode}
+                      disabled
+                    />
+                  </div>
                   {newInput(
                     "Name",
-                    "beneficiary2Name",
+                    "BeneficiaryName",
                     beneficiary.BeneficiaryName
                   )}
                   {newInput(
                     "Sex",
-                    "beneficiary2Sex",
+                    "BeneficiarySex",
                     beneficiary.BeneficiarySex
                   )}
                   {newInput(
                     "Date of Birth",
-                    "beneficiary2DOB",
+                    "BeneficiaryDOB",
                     beneficiary.BeneficiaryDOB
                   )}
                   {newInput(
                     "Relationship to Insured",
-                    "beneficiary2Rel",
+                    "BeneficiaryRelationship",
                     beneficiary.BeneficiaryRelationship
                   )}
                   {newInput(
                     "% Share",
-                    "beneficiary2Share",
+                    "BeneficiaryPrcntShare",
                     beneficiary.BeneficiaryPrcntShare
                   )}
                   {newInput(
                     "Type of Beneficiary",
-                    "beneficiary2Type",
+                    "BeneficiaryType",
                     beneficiary.BeneficiaryType
                   )}
                   {newInput(
                     "Beneficiary Designation",
-                    "beneficiary2Desig",
+                    "BeneficiaryDesignation",
                     beneficiary.BeneficiaryDesignation
                   )}
                   {newInput(
                     "Place of Birth",
-                    "beneficiary2POB",
+                    "BeneficiaryPOB",
                     beneficiary.BeneficiaryPOB
                   )}
                   {newInput(
                     "Nationality",
-                    "beneficiary2Nationality",
+                    "BeneficiaryNationality",
                     beneficiary.BeneficiaryNationality
                   )}
                   {newInput(
                     "Present Address",
-                    "beneficiary2PsAdrs",
+                    "BeneficiaryPrsntAdrs",
                     beneficiary.BeneficiaryPrsntAdrs
                   )}
                   {newInput(
                     "Present Country",
-                    "beneficiary2PsCountry",
+                    "BeneficiaryCountry",
                     beneficiary.BeneficiaryCountry
                   )}
                   {newInput(
                     "Present ZIP Code",
-                    "beneficiary2PsZip",
+                    "BeneficiaryZIP",
                     beneficiary.BeneficiaryZIP
                   )}
                   {newInput(
                     "Mobile Number",
-                    "beneficiary2Mobile",
+                    "BeneficiaryMobileNum",
                     beneficiary.BeneficiaryMobileNum
                   )}
                   {newInput(
                     "Telephone Number",
-                    "beneficiary2Telno",
+                    "BeneficiaryTelNo",
                     beneficiary.BeneficiaryTelNo
                   )}
                   {newInput(
                     "Email Address",
-                    "beneficiary2Email",
+                    "BeneficiaryEmailAdrs",
                     beneficiary.BeneficiaryEmailAdrs
                   )}
                   <div className="btns">

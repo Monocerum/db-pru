@@ -1300,6 +1300,10 @@ tr:hover {
     padding: 10px 35px;
 }
 
+.login-row .user-data {
+    padding: 10px 70px;
+}
+
 a.disabled, a.disabled:hover {
     color: rgb(205, 205, 205);
     cursor: auto;

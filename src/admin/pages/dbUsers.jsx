@@ -23,15 +23,6 @@ function DBUsers() {
       });
   });
 
-  //   getUserData();
-  // })
-
-  const [isActive, setActive] = useState(false);
-
-  const toggleSidebar = () => {
-    setActive(!isActive);
-  };
-
   const activePage = useLocation();
 
   return (
@@ -61,9 +52,6 @@ function DBUsers() {
                 <h2 className="db-name">Users</h2>
                 <div className="action-buttons">
                   <ul>
-                    <Link to="/apply" className="upload-button action-btn">
-                      Upload
-                    </Link>
                     <Link to="/apply" className="add-button action-btn">
                       Add
                     </Link>
@@ -99,19 +87,25 @@ function DBUsers() {
                   </thead>
                   <tbody>
                     {user.map((u, key) => (
-                      <tr key={key}>
+                      <tr key={key} class="login-row">
                         <td className="data-container user-data">
                           <Link to={`/loginProfile?userID=${u.UserID}`}>
                             <i className="bx bx-show-alt"></i>
                           </Link>
                         </td>
                         <td className="data-container user-data">
-                          <i className="bx bx-edit"></i>
+                          <Link
+                            to={`/loginProfile?userID=${u.UserID}&autoEdit=true`}
+                          >
+                            <i className="bx bx-edit"></i>
+                          </Link>
                         </td>
                         <td className="data-container user-data">
                           <i className="bx bx-trash"></i>
                         </td>
-                        <td className="data-container user-data">{u.UserID}</td>
+                        <td className="data-container user-data">
+                          {u.UserID}
+                        </td>
                         <td className="data-container user-data">
                           {u.EmailAddress}
                         </td>

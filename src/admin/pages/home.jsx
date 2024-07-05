@@ -6,12 +6,14 @@ import "../../styles.css";
 
 // Assets
 import PruLogo from "../../assets/pru-logo-main.svg";
+import SideNav from "../components/sidenav";
 
 function Home() {
   return (
     <>
       <div>
         <main>
+          <SideNav />
           <div className="main">
             <div className="header">
               <div className="profile-hero">
