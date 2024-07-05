@@ -22,7 +22,17 @@ function DBEmployers() {
         console.error(error);
       });
   });
-  
+
+  const deleteData = async(EmployerCode) => { 
+    if (window.confirm("Do you want to delete record?")) {
+      try {
+        await axios.delete(`http://localhost:5020/employers/${EmployerCode}`);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+
   const activePage = useLocation();
 
   return (
@@ -52,9 +62,6 @@ function DBEmployers() {
                 <h2 className="db-name">Employers</h2>
                 <div className="action-buttons">
                   <ul>
-                    <Link to="/apply" className="upload-button action-btn">
-                      Upload
-                    </Link>
                     <Link to="/apply" className="add-button action-btn">
                       Add
                     </Link>
@@ -109,7 +116,7 @@ function DBEmployers() {
                           </Link>
                         </td>
                         <td className="data-container employer-data">
-                          <i className="bx bx-trash"></i>
+                          <i className="bx bx-trash" onClick={() => deleteData(e.EmployerCode)}></i>
                         </td>
                         <td className="data-container employer-data">
                           {e.EmployerCode}

@@ -1280,6 +1280,10 @@ td {
     padding: 10px 20px;
 }
 
+td i {
+    color: rgb(53, 0, 145);
+}
+
 table, th, td {
     border-collapse: collapse;
     border: 1px solid rgb(246, 183, 183);
@@ -1298,6 +1302,10 @@ tr:hover {
 
 .user-data {
     padding: 10px 35px;
+}
+
+.login-row th {
+    width: 250px;
 }
 
 a.disabled, a.disabled:hover {

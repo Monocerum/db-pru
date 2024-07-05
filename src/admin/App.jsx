@@ -1,24 +1,34 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// Styles
 import '../styles.css';
+
+// Components
 import Header from './components/header';
 import Footer from './components/footer';
+import Scroll from './components/scroll';
+
+// Pages
 import Home from './pages/home';
 import Apply from './pages/apply';
 import Login from './pages/login';
+
+// Profiles
 import UserProfile from './pages/userProfile';
 import BeneficiaryProfile from './pages/beneficiaryProfile';
 import BeneficiaryDetails from './pages/indivBeneficiary';
 import EmployerProfile from './pages/employerProfile';
 import EmployerDetails from './pages/employerDetails';
+import LoginDetails from './pages/loginProfile';
+
+// Databases
 import DBMembers from './pages/dbMembers';
 import DBUsers from './pages/dbUsers';
 import DBBeneficiaries from './pages/dbBeneficiaries';
 import DBEmployers from './pages/dbEmployers';
-import LoginDetails from './pages/loginProfile';
 
-import React from 'react';
-import axios from 'axios';
-
+// Assets
 import PruLogo from '../assets/pru-logo.svg';
 
 function App() {
@@ -27,6 +37,7 @@ function App() {
       <div className="body">
         <Router>
         <Header />
+        <Scroll />
           <div>
             <main>
             <Routes>

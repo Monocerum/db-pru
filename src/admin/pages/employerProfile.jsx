@@ -14,7 +14,6 @@ const EmployerProfile = () => {
   const [editActive, setEditStatus] = useState(false);
 
   const location = useLocation();
-
   const searchParams = new URLSearchParams(location.search);
   const ApplicantID = searchParams.get("applicantID");
   const EmployerCode = searchParams.get("employerCode");
@@ -59,7 +58,10 @@ const EmployerProfile = () => {
         })
         .catch((error) => {
           setEmployer(initialState);
-          console.error("Error saving changes: ", error.response ? error.response.data : error.message);
+          console.error(
+            "Error saving changes: ",
+            error.response ? error.response.data : error.message
+          );
           alert("Please input appropriate values");
         });
     }
@@ -84,7 +86,7 @@ const EmployerProfile = () => {
         value={value || ""}
         onChange={handleChange}
         disabled={!editActive}
-        onClick={e => console.log(name + value)}
+        onClick={(e) => console.log(name + value)}
       />
     </div>
   );
@@ -135,25 +137,21 @@ const EmployerProfile = () => {
                   <h3 className="info-header">Employer Details</h3>
                 </div>
                 <div className="employer-info">
-                <div className="info" key={EmployerCode}>
-                  <label htmlFor={EmployerCode} className="info-label">
-                    {"Employer Code"}
-                  </label>
-                  <br />
-                  <input
-                    className="info-input"
-                    type="text"
-                    id={EmployerCode}
-                    name={EmployerCode}
-                    value={employer.EmployerCode}
-                    disabled
-                  />
-                </div>
-                  {newInput(
-                    "Name", 
-                    "EmpOrBusName", 
-                    employer.EmpOrBusName
-                  )}
+                  <div className="info" key={EmployerCode}>
+                    <label htmlFor={EmployerCode} className="info-label">
+                      {"Employer Code"}
+                    </label>
+                    <br />
+                    <input
+                      className="info-input"
+                      type="text"
+                      id={EmployerCode}
+                      name={EmployerCode}
+                      value={employer.EmployerCode}
+                      disabled
+                    />
+                  </div>
+                  {newInput("Name", "EmpOrBusName", employer.EmpOrBusName)}
                   {newInput(
                     "Nature of Work/Business",
                     "EmpOrBusNature",

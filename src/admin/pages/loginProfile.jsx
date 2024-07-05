@@ -10,27 +10,29 @@ import PruLogo from "../../assets/pru-logo-main.svg";
 
 const LoginDetails = () => {
   const [user, setUser] = useState({});
+  const [initialState, setInitialState] = useState({});
   const [editActive, setEditStatus] = useState(false);
 
-  const [applicant, setApplicant] = useState([]);
-
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const UserID = searchParams.get("userID");
+  const autoEdit = searchParams.get("autoEdit");
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const UserID = searchParams.get("userID");
-
-    console.log(UserID);
-
     if (UserID) {
       axios
         .get(`http://localhost:5020/users/${UserID}`)
         .then((response) => {
           setUser(response.data);
+          setInitialState(response.data);
         })
         .catch((error) => {
           console.error(error);
         });
+    }
+
+    if (autoEdit === "true") {
+      setEditStatus(true);
     }
   }, [location.search]);
 
@@ -43,7 +45,7 @@ const LoginDetails = () => {
   const cancelEdit = () => {
     if (window.confirm("Do you want to cancel editing?")) {
       setEditStatus(false);
-      setState(initialState);
+      setUser(initialState);
     }
   };
 
@@ -51,11 +53,23 @@ const LoginDetails = () => {
     if (window.confirm("Do you want to save?")) {
       setEditStatus(false);
     }
+
+    axios
+        .put(`http://localhost:5020/users/${UserID}`, user)
+        .then((response) => {
+          setUser(user);
+          console.log("Save successful");
+        })
+        .catch((error) => {
+          setUser(initialState);
+          console.error("Error saving changes: ", error.response ? error.response.data : error.message);
+          alert("Please input appropriate values");
+        });
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
+    setUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const newInput = (label, name, value) => (
@@ -75,8 +89,6 @@ const LoginDetails = () => {
       />
     </div>
   );
-
-  const activePage = useLocation();
 
   return (
     <div>
@@ -105,7 +117,6 @@ const LoginDetails = () => {
                   <h2>
                     <span id="main-salutation">{user.Username}</span>
                   </h2>
-                  <h3>Company Name</h3>
                 </div>
                 <div className="edit">
                   <button
@@ -123,12 +134,12 @@ const LoginDetails = () => {
                   <h3 className="info-header">User Details</h3>
                 </div>
                 <div className="user-info">
-                  {newInput("Membership Number", "membershipNum", user.UserID)}
-                  {newInput("Name", "memberName", user.EmailAddress)}
-                  {newInput("Salutation", "memberSalutation", user.Username)}
+                  {newInput("User ID", "UserID", user.UserID)}
+                  {newInput("Email Address", "EmailAddress", user.EmailAddress)}
+                  {newInput("Username", "Username", user.Username)}
                   {newInput(
-                    "Other Legal Name/Alias",
-                    "memberAlias",
+                    "Password",
+                    "Password",
                     user.Password
                   )}
                   <div className="btns">

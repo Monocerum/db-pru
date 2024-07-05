@@ -23,6 +23,16 @@ function DBMembers() {
       });
   });
 
+  const deleteData = async(ApplicantID) => { 
+    if (window.confirm("Do you want to delete record?")) {
+      try {
+        await axios.delete(`http://localhost:5020/applicants/${ApplicantID}`);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+
   const activePage = useLocation();
 
   return (
@@ -52,9 +62,6 @@ function DBMembers() {
                 <h2 className="db-name">Members</h2>
                 <div className="action-buttons">
                   <ul>
-                    <Link to="/apply" className="upload-button action-btn">
-                      Upload
-                    </Link>
                     <Link to="/apply" className="add-button action-btn">
                       Add
                     </Link>
@@ -139,53 +146,119 @@ function DBMembers() {
                           </Link>
                         </td>
                         <td className="data-container">
-                          <i className="bx bx-trash"></i>
+                          <i className="bx bx-trash" onClick={() => deleteData(a.ApplicantID)}></i>
                         </td>
-                        <td className="data-container">{a.ApplicantID}</td>
-                        <td className="data-container">{a.EmployerCode}</td>
-                        <td className="data-container">{a.ApplicantName}</td>
-                        <td className="data-container">{a.Salutation}</td>
-                        <td className="data-container">{a.Alias}</td>
-                        <td className="data-container">{a.Age}</td>
-                        <td className="data-container">{a.Birthdate}</td>
-                        <td className="data-container">{a.Birthplace}</td>
-                        <td className="data-container">{a.CivilStatus}</td>
-                        <td className="data-container">{a.Nationality}</td>
-                        <td className="data-container">{a.Height}</td>
-                        <td className="data-container">{a.Weight}</td>
-                        <td className="data-container">{a.Sex}</td>
-                        <td className="data-container">{a.PresentAddress}</td>
-                        <td className="data-container">{a.PrsntAdrsCountry}</td>
-                        <td className="data-container">{a.PrsntAdrsZIP}</td>
-                        <td className="data-container">{a.PermanentAddress}</td>
+                        <td className="data-container">
+                          {a.ApplicantID}
+                        </td>
+                        <td className="data-container">
+                          {a.EmployerCode}
+                        </td>
+                        <td className="data-container">
+                          {a.ApplicantName}
+                        </td>
+                        <td className="data-container">
+                          {a.Salutation}
+                        </td>
+                        <td className="data-container">
+                          {a.Alias}
+                        </td>
+                        <td className="data-container">
+                          {a.Age}
+                        </td>
+                        <td className="data-container">
+                          {a.Birthdate}
+                        </td>
+                        <td className="data-container">
+                          {a.Birthplace}
+                        </td>
+                        <td className="data-container">
+                          {a.CivilStatus}
+                        </td>
+                        <td className="data-container">
+                          {a.Nationality}
+                        </td>
+                        <td className="data-container">
+                          {a.Height}
+                        </td>
+                        <td className="data-container">
+                          {a.Weight}
+                        </td>
+                        <td className="data-container">
+                          {a.Sex}
+                        </td>
+                        <td className="data-container">
+                          {a.PresentAddress}
+                        </td>
+                        <td className="data-container">
+                          {a.PrsntAdrsCountry}
+                        </td>
+                        <td className="data-container">
+                          {a.PrsntAdrsZIP}
+                        </td>
+                        <td className="data-container">
+                          {a.PermanentAddress}
+                        </td>
                         <td className="data-container">
                           {a.PermntAdrsCountry}
                         </td>
-                        <td className="data-container">{a.PermntAdrsZIP}</td>
-                        <td className="data-container">{a.Occupation}</td>
-                        <td className="data-container">{a.Position}</td>
+                        <td className="data-container">
+                          {a.PermntAdrsZIP}
+                        </td>
+                        <td className="data-container">
+                          {a.Occupation}
+                        </td>
+                        <td className="data-container">
+                          {a.Position}
+                        </td>
                         <td className="data-container">
                           {a.ApplicantWorkNature}
                         </td>
-                        <td className="data-container">{a.SourceOfFunds}</td>
+                        <td className="data-container">
+                          {a.SourceOfFunds}
+                        </td>
                         <td className="data-container">
                           {a.GrossAnnualIncome}
                         </td>
-                        <td className="data-container">{a.NetWorth}</td>
-                        <td className="data-container">{a.DateHired}</td>
+                        <td className="data-container">
+                          {a.NetWorth}
+                        </td>
+                        <td className="data-container">
+                          {a.DateHired}
+                        </td>
                         <td className="data-container">
                           {a.DateOfRegularization}
                         </td>
-                        <td className="data-container">{a.MonthlyIncome}</td>
-                        <td className="data-container">{a.SSSID}</td>
-                        <td className="data-container">{a.TINID}</td>
-                        <td className="data-container">{a.OtherID}</td>
-                        <td className="data-container">{a.OtherIDNumber}</td>
-                        <td className="data-container">{a.OtherID2}</td>
-                        <td className="data-container">{a.OtherID2Number}</td>
-                        <td className="data-container">{a.MobileNumber}</td>
-                        <td className="data-container">{a.TelNo}</td>
-                        <td className="data-container">{a.EmailAddress}</td>
+                        <td className="data-container">
+                          {a.MonthlyIncome}
+                        </td>
+                        <td className="data-container">
+                          {a.SSSID}
+                        </td>
+                        <td className="data-container">
+                          {a.TINID}
+                        </td>
+                        <td className="data-container">
+                          {a.OtherID}
+                        </td>
+                        <td className="data-container">
+                          {a.OtherIDNumber}
+                        </td>
+                        <td className="data-container">
+                          {a.OtherID2}
+                        </td>
+                        <td className="data-container">
+                          {a.OtherID2Number}
+                        </td>
+                        <td className="data-container">
+                          {a.MobileNumber}
+                        </td>
+                        <td className="data-container">
+                          {a.TelNo}
+                        </td>
+                        <td className="data-container">
+                          {a.EmailAddress}
+                        </td>
                       </tr>
                     ))}
                   </tbody>

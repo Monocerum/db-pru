@@ -11,6 +11,7 @@ import SideNav from "../components/sidenav";
 
 function DBUsers() {
   const [user, setUser] = useState([]);
+  const activePage = useLocation();
 
   useEffect(() => {
     axios
@@ -23,16 +24,15 @@ function DBUsers() {
       });
   });
 
-  //   getUserData();
-  // })
-
-  const [isActive, setActive] = useState(false);
-
-  const toggleSidebar = () => {
-    setActive(!isActive);
-  };
-
-  const activePage = useLocation();
+  const deleteData = async(UserID) => { 
+    if (window.confirm("Do you want to delete record?")) {
+      try {
+        await axios.delete(`http://localhost:5020/users/${UserID}`);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
 
   return (
     <>
@@ -61,9 +61,6 @@ function DBUsers() {
                 <h2 className="db-name">Users</h2>
                 <div className="action-buttons">
                   <ul>
-                    <Link to="/apply" className="upload-button action-btn">
-                      Upload
-                    </Link>
                     <Link to="/apply" className="add-button action-btn">
                       Add
                     </Link>
@@ -87,7 +84,7 @@ function DBUsers() {
               <div className="db">
                 <table className="table database-table">
                   <thead>
-                    <tr>
+                    <tr className="login-row">
                       <th></th>
                       <th></th>
                       <th></th>
@@ -106,12 +103,18 @@ function DBUsers() {
                           </Link>
                         </td>
                         <td className="data-container user-data">
-                          <i className="bx bx-edit"></i>
+                          <Link
+                            to={`/loginProfile?userID=${u.UserID}&autoEdit=true`}
+                          >
+                            <i className="bx bx-edit"></i>
+                          </Link>
                         </td>
                         <td className="data-container user-data">
-                          <i className="bx bx-trash"></i>
+                          <i className="bx bx-trash" onClick={() => deleteData(u.UserID)}></i>
                         </td>
-                        <td className="data-container user-data">{u.UserID}</td>
+                        <td className="data-container user-data">
+                          {u.UserID}
+                        </td>
                         <td className="data-container user-data">
                           {u.EmailAddress}
                         </td>

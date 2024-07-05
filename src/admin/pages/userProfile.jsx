@@ -119,7 +119,6 @@ const UserProfile = () => {
                     <span id="main-salutation">{applicant.Salutation}</span>{" "}
                     <span id="main-name">{applicant.ApplicantName}</span>
                   </h2>
-                  <h3>Company Name</h3>
                 </div>
                 <div className="edit">
                   <button
@@ -137,11 +136,20 @@ const UserProfile = () => {
                   <h3 className="info-header">Applicant Details</h3>
                 </div>
                 <div className="user-info">
-                  {newInput(
-                    "Membership Number",
-                    "ApplicantID",
-                    applicant.ApplicantID
-                  )}
+                  <div className="info" key={"ApplicantID"}>
+                    <label htmlFor={"ApplicantID"} className="info-label">
+                      {"Membership Number"}
+                    </label>
+                    <br />
+                    <input
+                      className="info-input"
+                      type="text"
+                      id={"ApplicantID"}
+                      name={"ApplicantID"}
+                      value={applicant.ApplicantID}
+                      disabled
+                    />
+                  </div>
                   {newInput("Name", 
                     "ApplicantName", 
                     applicant.ApplicantName
@@ -176,7 +184,11 @@ const UserProfile = () => {
                     "Birthplace",
                     applicant.Birthplace
                   )}
-                  {newInput("Civil Status", "memberCS", applicant.CivilStatus)}
+                  {newInput(
+                    "Civil Status", 
+                    "memberCS", 
+                    applicant.CivilStatus
+                  )}
                   {newInput(
                     "Nationality",
                     "Nationality",
@@ -312,11 +324,20 @@ const UserProfile = () => {
                     "OtherID2Number",
                     applicant.OtherID2Number
                   )}
-                  {newInput(
-                    "Employer Number",
-                    "EmployerCode",
-                    applicant.EmployerCode
-                  )}
+                  <div className="info" key={"EmployerCode"}>
+                    <label htmlFor={"EmployerCode"} className="info-label">
+                      {"Employer Number"}
+                    </label>
+                    <br />
+                    <input
+                      className="info-input"
+                      type="text"
+                      id={"EmployerCode"}
+                      name={"EmployerCode"}
+                      value={applicant.EmployerCode}
+                      disabled
+                    />
+                  </div>
                   <div className="btns">
                     <div className="cancel">
                       <button

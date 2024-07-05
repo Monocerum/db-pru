@@ -9,58 +9,24 @@ import "../../styles.css";
 import PruLogo from "../../assets/pru-logo-main.svg";
 
 const BeneficiaryProfile = () => {
-  const initialState = {
-    beneficiary1Num: "B000001",
-    beneficiary1Name: "SURNAME, First Name Middle Name",
-    beneficiary1DOB: "[Date of Birth]",
-    beneficiary1Sex: "[Sex]",
-    beneficiary1Rel: "[Relationship]",
-    beneficiary1Share: "[% Share]",
-    beneficiary1Type: "[Beneficiary Type]",
-    beneficiary1Desig: "[Beneficiary Designation]",
-    beneficiary1POB: "[Place of Birth]",
-    beneficiary1Nationality: "[Nationality]",
-    beneficiary1PsAdrs: "[Present Address]",
-    beneficiary1PsCountry: "[Present Country]",
-    beneficiary1PsZip: "[Present ZIP Code]",
-    beneficiary1Mobile: "[Mobile Number]",
-    beneficiary1Telno: "[Telephone Number]",
-    beneficiary1Email: "[Email Address]",
-    beneficiary2Num: "B000002",
-    beneficiary2Name: "SURNAME, First Name Middle Name",
-    beneficiary2DOB: "[Date of Birth]",
-    beneficiary2Sex: "[Sex]",
-    beneficiary2Rel: "[Relationship]",
-    beneficiary2Share: "[% Share]",
-    beneficiary2Type: "[Beneficiary Type]",
-    beneficiary2Desig: "[Beneficiary Designation]",
-    beneficiary2POB: "[Place of Birth]",
-    beneficiary2Nationality: "[Nationality]",
-    beneficiary2PsAdrs: "[Present Address]",
-    beneficiary2PsCountry: "[Present Country]",
-    beneficiary2PsZip: "[Present ZIP Code]",
-    beneficiary2Mobile: "[Mobile Number]",
-    beneficiary2Telno: "[Telephone Number]",
-    beneficiary2Email: "[Email Address]",
-  };
-
   const [primary, setPrimary] = useState({});
   const [secondary, setSecondary] = useState({});
+  const [primaryInitialState, setPrimaryInitialState] = useState({});
+  const [secondaryInitialState, setSecondaryInitialState] = useState({});
+  const [primaryEditActive, setPrimaryEditStatus] = useState(false);
+  const [secondaryEditActive, setSecondaryEditStatus] = useState(false);
 
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const ApplicantID = searchParams.get("applicantID");
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const ApplicantID = searchParams.get("applicantID");
-
-    console.log(ApplicantID);
-
     if (ApplicantID) {
       axios
         .get(`http://localhost:5020/primarybeneficiaries/${ApplicantID}`)
         .then((response) => {
           setPrimary(response.data);
-          console.log(response.data);
+          setPrimaryInitialState(response.data);
         })
         .catch((error) => {
           console.error(error);
@@ -70,7 +36,7 @@ const BeneficiaryProfile = () => {
         .get(`http://localhost:5020/secondarybeneficiaries/${ApplicantID}`)
         .then((response) => {
           setSecondary(response.data);
-          console.log(response.data);
+          setSecondaryInitialState(response.data);
         })
         .catch((error) => {
           console.error(error);
@@ -78,34 +44,77 @@ const BeneficiaryProfile = () => {
     }
   }, [location.search]);
 
-  const [state, setState] = useState(initialState);
-  const [editActive, setEditStatus] = useState(false);
-
-  const EditProfile = () => {
-    if (window.confirm("Do you want to edit the beneficiary profile?")) {
-      setEditStatus(true);
+  const EditPrimaryProfile = () => {
+    if (window.confirm("Do you want to edit the primary beneficiary profile?")) {
+      setPrimaryEditStatus(true);
     }
   };
 
-  const cancelEdit = () => {
+  const EditSecondaryProfile = () => {
+    if (window.confirm("Do you want to edit the secondary beneficiary profile?")) {
+      setSecondaryEditStatus(true);
+    }
+  };
+
+  const cancelPrimaryEdit = () => {
     if (window.confirm("Do you want to cancel editing?")) {
-      setEditStatus(false);
-      setState(initialState);
+      setPrimaryEditStatus(false);
+      setPrimary(primaryInitialState);
     }
   };
 
-  const saveEdit = () => {
+  const cancelSecondaryEdit = () => {
+    if (window.confirm("Do you want to cancel editing?")) {
+      setSecondaryEditStatus(false);
+      setSecondary(secondaryInitialState);
+    }
+  };
+
+  const savePrimaryEdit = () => {
     if (window.confirm("Do you want to save?")) {
-      setEditStatus(false);
+      setPrimaryEditStatus(false);
+      axios
+        .put(`http://localhost:5020/beneficiaries/${ApplicantID}/${primary.BeneficiaryCode}`, primary)
+        .then((response) => {
+          setPrimary(primary);
+          console.log("Save successful");
+        })
+        .catch((error) => {
+          setPrimary(primaryInitialState);
+          console.error("Error saving changes: ", error.response ? error.response.data : error.message);
+          alert("Please input appropriate values");
+        });
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
+  const saveSecondaryEdit = () => {
+    if (window.confirm("Do you want to save?")) {
+      setSecondaryEditStatus(false);
+      axios
+        .put(`http://localhost:5020/beneficiaries/${ApplicantID}/${secondary.BeneficiaryCode}`, secondary)
+        .then((response) => {
+          setSecondary(secondary);
+          console.log("Save successful");
+        })
+        .catch((error) => {
+          setSecondary(secondaryInitialState);
+          console.error("Error saving changes: ", error.response ? error.response.data : error.message);
+          alert("Please input appropriate values");
+        });
+    }
   };
 
-  const newInput = (label, name, value) => (
+  const handlePrimaryChange = (e) => {
+    const { name, value } = e.target;
+    setPrimary((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSecondaryChange = (e) => {
+    const { name, value } = e.target;
+    setSecondary((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const newPrimaryInput = (label, name, value) => (
     <div className="info" key={name}>
       <label htmlFor={name} className="info-label">
         {label}
@@ -117,8 +126,26 @@ const BeneficiaryProfile = () => {
         id={name}
         name={name}
         value={value}
-        onChange={handleChange}
-        disabled={!editActive}
+        onChange={handlePrimaryChange}
+        disabled={!primaryEditActive}
+      />
+    </div>
+  );
+
+  const newSecondaryInput = (label, name, value) => (
+    <div className="info" key={name}>
+      <label htmlFor={name} className="info-label">
+        {label}
+      </label>
+      <br />
+      <input
+        className="info-input"
+        type="text"
+        id={name}
+        name={name}
+        value={value}
+        onChange={handleSecondaryChange}
+        disabled={!secondaryEditActive}
       />
     </div>
   );
@@ -158,10 +185,10 @@ const BeneficiaryProfile = () => {
                 </div>
                 <div className="edit">
                   <button
-                    className={`edit-btn ${editActive ? "active" : ""}`}
+                    className={`edit-btn ${primaryEditActive ? "active" : ""}`}
                     id="userEdit"
-                    onClick={EditProfile}
-                    hidden={editActive}
+                    onClick={EditPrimaryProfile}
+                    hidden={primaryEditActive}
                   >
                     EDIT
                   </button>
@@ -172,80 +199,93 @@ const BeneficiaryProfile = () => {
                   <h3 className="info-header">Beneficiary Details</h3>
                 </div>
                 <div className="beneficiary-info">
-                  {newInput(
-                    "Beneficiary Number",
-                    "beneficiary2Num",
-                    primary.BeneficiaryCode
-                  )}
-                  {newInput(
+                  <div className="info" key={"BeneficiaryCode"}>
+                    <label htmlFor={"BeneficiaryCode"} className="info-label">
+                      {"Beneficiary Number"}
+                    </label>
+                    <br />
+                    <input
+                      className="info-input"
+                      type="text"
+                      id={"BeneficiaryCode"}
+                      name={"BeneficiaryCode"}
+                      value={primary.BeneficiaryCode}
+                      disabled
+                    />
+                  </div>
+                  {newPrimaryInput(
                     "Name",
-                    "beneficiary2Name",
+                    "BeneficiaryName",
                     primary.BeneficiaryName
                   )}
-                  {newInput("Sex", "beneficiary2Sex", primary.BeneficiarySex)}
-                  {newInput(
+                  {newPrimaryInput(
+                    "Sex", 
+                    "BeneficiarySex", 
+                    primary.BeneficiarySex
+                  )}
+                  {newPrimaryInput(
                     "Date of Birth",
-                    "beneficiary2DOB",
+                    "BeneficiaryDOB",
                     primary.BeneficiaryDOB
                   )}
-                  {newInput(
+                  {newPrimaryInput(
                     "Relationship to Insured",
-                    "beneficiary2Rel",
+                    "BeneficiaryRelationship",
                     primary.BeneficiaryRelationship
                   )}
-                  {newInput(
+                  {newPrimaryInput(
                     "% Share",
-                    "beneficiary2Share",
+                    "BeneficiaryPrcntShare",
                     primary.BeneficiaryPrcntShare
                   )}
-                  {newInput(
+                  {newPrimaryInput(
                     "Type of Beneficiary",
-                    "beneficiary2Type",
+                    "BeneficiaryType",
                     primary.BeneficiaryType
                   )}
-                  {newInput(
+                  {newPrimaryInput(
                     "Beneficiary Designation",
-                    "beneficiary2Desig",
+                    "BeneficiaryDesignation",
                     primary.BeneficiaryDesignation
                   )}
-                  {newInput(
+                  {newPrimaryInput(
                     "Place of Birth",
-                    "beneficiary2POB",
+                    "BeneficiaryPOB",
                     primary.BeneficiaryPOB
                   )}
-                  {newInput(
+                  {newPrimaryInput(
                     "Nationality",
-                    "beneficiary2Nationality",
+                    "BeneficiaryNationality",
                     primary.BeneficiaryNationality
                   )}
-                  {newInput(
+                  {newPrimaryInput(
                     "Present Address",
-                    "beneficiary2PsAdrs",
+                    "BeneficiaryPrsntAdrs",
                     primary.BeneficiaryPrsntAdrs
                   )}
-                  {newInput(
+                  {newPrimaryInput(
                     "Present Country",
-                    "beneficiary2PsCountry",
+                    "BeneficiaryCountry",
                     primary.BeneficiaryCountry
                   )}
-                  {newInput(
+                  {newPrimaryInput(
                     "Present ZIP Code",
-                    "beneficiary2PsZip",
+                    "BeneficiaryZIP",
                     primary.BeneficiaryZIP
                   )}
-                  {newInput(
+                  {newPrimaryInput(
                     "Mobile Number",
-                    "beneficiary2Mobile",
+                    "BeneficiaryMobileNum",
                     primary.BeneficiaryMobileNum
                   )}
-                  {newInput(
+                  {newPrimaryInput(
                     "Telephone Number",
-                    "beneficiary2Telno",
+                    "BeneficiaryTelNo",
                     primary.BeneficiaryTelNo
                   )}
-                  {newInput(
+                  {newPrimaryInput(
                     "Email Address",
-                    "beneficiary2Email",
+                    "BeneficiaryEmailAdrs",
                     primary.BeneficiaryEmailAdrs
                   )}
                   <div className="btns">
@@ -253,8 +293,8 @@ const BeneficiaryProfile = () => {
                       <button
                         className="cancel-btn"
                         id="userCancel"
-                        onClick={cancelEdit}
-                        hidden={!editActive}
+                        onClick={cancelPrimaryEdit}
+                        hidden={!primaryEditActive}
                       >
                         CANCEL EDITING
                       </button>
@@ -263,8 +303,8 @@ const BeneficiaryProfile = () => {
                       <button
                         className="save-btn"
                         id="userSave"
-                        onClick={saveEdit}
-                        hidden={!editActive}
+                        onClick={savePrimaryEdit}
+                        hidden={!primaryEditActive}
                       >
                         SAVE
                       </button>
@@ -285,10 +325,10 @@ const BeneficiaryProfile = () => {
                 </div>
                 <div className="edit">
                   <button
-                    className={`edit-btn ${editActive ? "active" : ""}`}
+                    className={`edit-btn ${secondaryEditActive ? "active" : ""}`}
                     id="userEdit"
-                    onClick={EditProfile}
-                    hidden={editActive}
+                    onClick={EditSecondaryProfile}
+                    hidden={secondaryEditActive}
                   >
                     EDIT
                   </button>
@@ -299,80 +339,93 @@ const BeneficiaryProfile = () => {
                   <h3 className="info-header">Beneficiary Details</h3>
                 </div>
                 <div className="beneficiary-info">
-                  {newInput(
-                    "Beneficiary Number",
-                    "beneficiary2Num",
-                    secondary.BeneficiaryCode
-                  )}
-                  {newInput(
+                  <div className="info" key={"BeneficiaryCode"}>
+                    <label htmlFor={"BeneficiaryCode"} className="info-label">
+                      {"Beneficiary Number"}
+                    </label>
+                    <br />
+                    <input
+                      className="info-input"
+                      type="text"
+                      id={"BeneficiaryCode"}
+                      name={"BeneficiaryCode"}
+                      value={secondary.BeneficiaryCode}
+                      disabled
+                    />
+                  </div>
+                  {newSecondaryInput(
                     "Name",
-                    "beneficiary2Name",
+                    "BeneficiaryName",
                     secondary.BeneficiaryName
                   )}
-                  {newInput("Sex", "beneficiary2Sex", secondary.BeneficiarySex)}
-                  {newInput(
+                  {newSecondaryInput(
+                    "Sex", 
+                    "BeneficiarySex", 
+                    secondary.BeneficiarySex
+                  )}
+                  {newSecondaryInput(
                     "Date of Birth",
-                    "beneficiary2DOB",
+                    "BeneficiaryDOB",
                     secondary.BeneficiaryDOB
                   )}
-                  {newInput(
+                  {newSecondaryInput(
                     "Relationship to Insured",
-                    "beneficiary2Rel",
+                    "BeneficiaryRelationship",
                     secondary.BeneficiaryRelationship
                   )}
-                  {newInput(
+                  {newSecondaryInput(
                     "% Share",
-                    "beneficiary2Share",
+                    "BeneficiaryPrcntShare",
                     secondary.BeneficiaryPrcntShare
                   )}
-                  {newInput(
+                  {newSecondaryInput(
                     "Type of Beneficiary",
-                    "beneficiary2Type",
+                    "BeneficiaryType",
                     secondary.BeneficiaryType
                   )}
-                  {newInput(
+                  {newSecondaryInput(
                     "Beneficiary Designation",
-                    "beneficiary2Desig",
+                    "BeneficiaryDesignation",
                     secondary.BeneficiaryDesignation
                   )}
-                  {newInput(
+                  {newSecondaryInput(
                     "Place of Birth",
-                    "beneficiary2POB",
+                    "BeneficiaryPOB",
                     secondary.BeneficiaryPOB
                   )}
-                  {newInput(
+                  {newSecondaryInput(
                     "Nationality",
-                    "beneficiary2Nationality",
+                    "BeneficiaryNationality",
                     secondary.BeneficiaryNationality
                   )}
-                  {newInput(
+                  {newSecondaryInput(
                     "Present Address",
-                    "beneficiary2PsAdrs",
+                    "BeneficiaryPrsntAdrs",
                     secondary.BeneficiaryPrsntAdrs
                   )}
-                  {newInput(
+                  {newSecondaryInput(
                     "Present Country",
-                    "beneficiary2PsCountry",
+                    "BeneficiaryCountry",
                     secondary.BeneficiaryCountry
                   )}
-                  {newInput(
+                  {newSecondaryInput(
                     "Present ZIP Code",
-                    "beneficiary2PsZip",
+                    "BeneficiaryZIP",
                     secondary.BeneficiaryZIP
                   )}
-                  {newInput(
+                  {newSecondaryInput(
                     "Mobile Number",
-                    "beneficiary2Mobile",
+                    "BeneficiaryMobileNum",
                     secondary.BeneficiaryMobileNum
                   )}
-                  {newInput(
+                  {newSecondaryInput(
                     "Telephone Number",
-                    "beneficiary2Telno",
+                    "BeneficiaryTelNo",
                     secondary.BeneficiaryTelNo
                   )}
-                  {newInput(
+                  {newSecondaryInput(
                     "Email Address",
-                    "beneficiary2Email",
+                    "BeneficiaryEmailAdrs",
                     secondary.BeneficiaryEmailAdrs
                   )}
                   <div className="btns">
@@ -380,8 +433,8 @@ const BeneficiaryProfile = () => {
                       <button
                         className="cancel-btn"
                         id="userCancel"
-                        onClick={cancelEdit}
-                        hidden={!editActive}
+                        onClick={cancelSecondaryEdit}
+                        hidden={!secondaryEditActive}
                       >
                         CANCEL EDITING
                       </button>
@@ -390,8 +443,8 @@ const BeneficiaryProfile = () => {
                       <button
                         className="save-btn"
                         id="userSave"
-                        onClick={saveEdit}
-                        hidden={!editActive}
+                        onClick={saveSecondaryEdit}
+                        hidden={!secondaryEditActive}
                       >
                         SAVE
                       </button>
