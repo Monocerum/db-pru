@@ -21,8 +21,13 @@ function Login() {
       });
       
       if (response.status === 200) {
-        const { applicantId } = response.data;
-        navigate(`/userProfile?applicantID=${applicantId}`);
+        const { userID, applicantID } = response.data;
+        if (applicantID){
+          navigate(`/userProfile?applicantID=${applicantID}`);
+        } else {
+          navigate(`/apply?userID=${userID}`);
+        }
+        
       }
 
     } catch (error) {

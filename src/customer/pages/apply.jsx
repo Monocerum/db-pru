@@ -118,7 +118,7 @@ function Apply() {
     'nationality', 'height', 'weight', 'sex', 'ps_address', 'ps_country',
     'ps_zip', 'pm_address', 'pm_country', 'pm_zip', 'occupation', 'position',
     'work_nature', 'sof', 'sof_text', 'gai', 'nw', 'hired', 'regular', 'income', 'sss', 'tin',
-    'otherid', 'otheridnum', 'otherid2', 'otherid2num', 'mobile', 'tel', 'email', 
+    'otherid', 'otheridnum', 'otherid2', 'otherid2number', 'mobile', 'tel', 'email', 
     'employerName', 'employerWorkNature', 'employerTel', 'employerAdrs',
     'employerCountry', 'employerZip', 
     'beneficiary1Name', 'beneficiary1Bday', 'beneficiary1Sex', 'beneficiary1Relationship',
@@ -798,14 +798,14 @@ function Apply() {
                       />
                     </div>
                     <div className="otheridnum-fill fill">
-                      <label htmlFor="otherid2num">Other ID Number #2</label>
+                      <label htmlFor="otherid2number">Other ID Number #2</label>
                       <input
                         className="otheridnum-input"
                         type="text"
-                        id="otherid2num"
-                        name="otherid2num"
+                        id="otherid2number"
+                        name="otherid2number"
                         placeholder="ID Number"
-                        value={formData.otherid2num}
+                        value={formData.otherid2number}
                         onChange={handleInputChange}
                       />
                     </div>

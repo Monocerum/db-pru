@@ -325,23 +325,24 @@ app.post('/login', (req, res) => {
         }
 
         const user = results[0];
+        const emailAddress = user.EmailAddress;
+        const userID = user.UserID;
 
         // Retrieving ApplicantID through EmailAddress
         const getApplicantIdSql = 'SELECT ApplicantID FROM APPLICANT WHERE EmailAddress = ?';
-        db.query(getApplicantIdSql, [user.EmailAddress], (err, applicantResult) => {
+        db.query(getApplicantIdSql, [emailAddress], (err, applicantResult) => {
             if (err) {
                 console.error('Error retrieving applicant ID:', err);
                 return res.status(500).send('Error retrieving applicant details.');
             }
 
             if (applicantResult.length === 0) {
-                return res.status(404).send('Applicant not found.');
+                res.status(200).json({userID});
+
+            } else {
+                const applicantID = applicantResult[0].ApplicantID;
+                res.status(200).json({applicantID});
             }
-
-            const applicantId = applicantResult[0].ApplicantID;
-            // req.sessioncookie.user = user;
-
-            res.status(200).json({applicantId});
         });
     });
 });
