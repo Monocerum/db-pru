@@ -47,26 +47,26 @@ function Apply() {
   const handleChange = (e) => {
     const { id, value } = e.target;
 		
-    if (id === 'ps-address') {
+    if (id === 'ps_address') {
       setPsAddress(value.toUpperCase());
       if (tickSameAdrs) {
           setPmAddress(value);
       }
-    } else if (id === 'ps-country') {
+    } else if (id === 'ps_country') {
         setPsCountry(value.toUpperCase());
         if (tickSameAdrs) {
             setPmCountry(value);
         }
-    } else if (id === 'ps-zip') {
+    } else if (id === 'ps_zip') {
         setPsZIP(value.toUpperCase());
         if (tickSameAdrs) {
             setPmZIP(value);
         }
-    } else if (id === 'pm-address') {
+    } else if (id === 'pm_address') {
       setPmAddress(value.toUpperCase());
-    } else if (id === 'pm-country') {
+    } else if (id === 'pm_country') {
       setPmCountry(value.toUpperCase());
-    } else if (id === 'pm-zip') {
+    } else if (id === 'pm_zip') {
       setPmZIP(value.toUpperCase());
     }
   }
@@ -88,7 +88,7 @@ function Apply() {
   }
 
   const fields = ['fullname', 'salutation', 'alias', 'age', 'bday', 'bplace', 'single', 'married', 'widowed', 'separated', 
-    'nationality', 'height', 'weight', 'fem', 'male', 'ps-address', 'ps-country', 'ps-zip', 'pm-address', 'pm-country', 'pm-zip',
+    'nationality', 'height', 'weight', 'fem', 'male', 'ps_address', 'ps_country', 'ps_zip', 'pm_address', 'pm_country', 'pm_zip',
     'occupation', 'position', 'work-nature',  'salary', 'business', 'sof', 'sof_text', 'gai', 'nw', 'hired', 'regular', 'income',
     'sss', 'tin', 'otherid', 'otheridnum', 'otherid2', 'otherid2num', 'mobile', 'tel', 'email', 'employer-name', 'employer-work-nature', 'employer-tel',
     'employer-adrs', 'employer-country', 'employer-zip', 'beneficiary1-name', 'beneficiary1-bday', 'beneficiary1-fem', 'beneficiary1-male',
@@ -192,21 +192,21 @@ function Apply() {
                                     <div className="rdb">
                                         <div className="rdb-left">
                                             <div className="rdb-single radio">
-                                                <input type="radio" id="single" name="civil_status" value="S" onChange={handleRadio} required/>
+                                                <input type="radio" id="single" name="civil_status" value="S" checked={formData.civil_status === "S"} onChange={handleRadio} required/>
                                                 <label htmlFor="single">Single</label>
                                             </div>
                                             <div className="rdb-married radio">
-                                                <input type="radio" id="married" name="civil_status" value="M" onChange={handleRadio} required/>
+                                                <input type="radio" id="married" name="civil_status" value="M" checked={formData.civil_status === "M"} onChange={handleRadio} required/>
                                                 <label htmlFor="married">Married</label>
                                             </div>
                                         </div>
                                         <div className="rdb-right">
                                             <div className="rdb-widowed radio">
-                                                <input type="radio" id="widowed" name="civil_status" value="W" onChange={handleRadio} required/>
+                                                <input type="radio" id="widowed" name="civil_status" value="W" checked={formData.civil_status === "W"} onChange={handleRadio} required/>
                                                 <label htmlFor="widowed">Widowed</label>
                                             </div>
                                             <div className="rdb-separated radio">
-                                                <input type="radio" id="separated" name="civil_status" value="LS" onChange={handleRadio} required/>
+                                                <input type="radio" id="separated" name="civil_status" value="LS" checked={formData.civil_status === "LS"} onChange={handleRadio} required/>
                                                 <label htmlFor="separated">Legally Separated</label>
                                             </div>
                                         </div>
@@ -228,11 +228,11 @@ function Apply() {
                                 <p>Sex<span className="required">*</span></p>
                                 <div className="sex-rdb">
                                     <div className="rdb rdb-fem radio">
-                                        <input type="radio" id="fem" name="sex" value="F" onChange={handleRadio} required/>
+                                        <input type="radio" id="fem" name="sex" value="F" checked={formData.sex === "F"} onChange={handleRadio} required/>
                                         <label htmlFor="fem">Female</label>
                                     </div>
                                     <div className="rdb rdb-male radio">
-                                        <input type="radio" id="male" name="sex" value="M" onChange={handleRadio} required/>
+                                        <input type="radio" id="male" name="sex" value="M" checked={formData.sex === "M"} onChange={handleRadio} required/>
                                         <label htmlFor="male">Male</label>
                                     </div>
                                 </div>
@@ -240,11 +240,11 @@ function Apply() {
                         </div>
                         <div className="line-5 line">
                             <div className="ps-address-fill fill">
-                                <label htmlFor="ps-address">Present Address<span className="required">*</span></label>
+                                <label htmlFor="ps_address">Present Address<span className="required">*</span></label>
                                 <input 
                                     className="ps-adrs-input" 
                                     type="text" 
-                                    id="ps-address" 
+                                    id="ps_address" 
                                     name="ps_address" 
                                     placeholder="Number, street, municipality/city, province" 
                                     value={psAddress} 
@@ -253,11 +253,11 @@ function Apply() {
                                 />
                             </div>
                             <div className="ps-country-fill fill">
-                                <label htmlFor="ps-country">Country<span className="required">*</span></label>
+                                <label htmlFor="ps_country">Country<span className="required">*</span></label>
                                 <input 
                                     className="ps-country-input" 
                                     type="text" 
-                                    id="ps-country" 
+                                    id="ps_country" 
                                     name="ps_country" 
                                     placeholder="Country" 
                                     value={psCountry} 
@@ -266,11 +266,11 @@ function Apply() {
                                 />
                             </div>
                             <div className="ps-zip-fill fill">
-                                <label htmlFor="ps-zip">ZIP Code<span className="required">*</span></label>
+                                <label htmlFor="ps_zip">ZIP Code<span className="required">*</span></label>
                                 <input 
                                     className="ps-zip-input" 
                                     type="text" 
-                                    id="ps-zip" 
+                                    id="ps_zip" 
                                     name="ps_zip" 
                                     placeholder="ZIP" 
                                     value={psZIP} 
@@ -282,7 +282,7 @@ function Apply() {
                         <div className="line-6 line">
                             <div className="pm-address-fill fill">
                                 <div className="pm-adrs-lbl">
-                                    <label htmlFor="pm-address">Permanent Address<span className="required">*</span></label>
+                                    <label htmlFor="pm_address">Permanent Address<span className="required">*</span></label>
                                     <div className="tick">
                                         <input 
                                             type="checkbox" 
@@ -294,14 +294,14 @@ function Apply() {
                                         <label htmlFor="same-adrs">Same as present address.</label>
                                     </div>
                                 </div>
-                                <input className="pm-adrs-input" type="text" id="pm-address" name="pm_address" placeholder="Number, street, municipality/city, province" value={pmAddress} disabled={tickSameAdrs} onChange={handleChange} required/>
+                                <input className="pm-adrs-input" type="text" id="pm_address" name="pm_address" placeholder="Number, street, municipality/city, province" value={pmAddress} disabled={tickSameAdrs} onChange={handleChange} required/>
                             </div>
                             <div className="pm-country-fill fill">
-                                <label htmlFor="pm-country">Country<span className="required">*</span></label>
+                                <label htmlFor="pm_country">Country<span className="required">*</span></label>
                                 <input 
                                     className="pm-country-input" 
                                     type="text" 
-                                    id="pm-country" 
+                                    id="pm_country" 
                                     name="pm_country" 
                                     placeholder="Country" 
                                     value={pmCountry} 
@@ -311,8 +311,8 @@ function Apply() {
                                 />
                             </div>
                             <div className="pm-zip-fill fill">
-                                <label htmlFor="pm-zip">ZIP Code<span className="required">*</span></label>
-                                <input className="pm-zip-input" type="text" id="pm-zip" name="pm_zip" placeholder="ZIP" value={pmZIP} disabled={tickSameAdrs} onChange={handleChange} required/>
+                                <label htmlFor="pm_zip">ZIP Code<span className="required">*</span></label>
+                                <input className="pm-zip-input" type="text" id="pm_zip" name="pm_zip" placeholder="ZIP" value={pmZIP} disabled={tickSameAdrs} onChange={handleChange} required/>
                             </div>
                         </div>
                         <div className="line-7 line">
@@ -325,8 +325,8 @@ function Apply() {
                                 <input className="position-input" type="text" id="position" name="position" placeholder="Position" value={formData.position} onChange={handleInputChange} required/>
                             </div>
                             <div className="work-nature-fill fill">
-                                <label htmlFor="work-nature">Nature of Work/Business (if self-employed)</label>
-                                <input className="work-nature-input" type="text" id="workNature" name="work_nature" placeholder="Nature of Work/Business" value={formData.workNature} onChange={handleInputChange} required/>
+                                <label htmlFor="workNature">Nature of Work/Business (if self-employed)</label>
+                                <input className="work-nature-input" type="text" id="workNature" name="workNature" placeholder="Nature of Work/Business" value={formData.workNature} onChange={handleInputChange} required/>
                             </div>
                         </div>
                         <div className="line-8 line">
@@ -335,17 +335,17 @@ function Apply() {
                                     <div className="sof">
                                         <div className="sof-left">
                                             <div className="rdb rdb-salary radio">
-                                                <input type="radio" id="salary" name="sof" value="Salary" placeholder="Salary RDB" onChange={handleRadio} required/>
+                                                <input type="radio" id="salary" name="sof" value="Salary" placeholder="Salary RDB" checked={formData.sof === "Salary"} onChange={handleRadio} required/>
                                                 <label htmlFor="salary">Salary</label>
                                             </div>
                                             <div className="rdb rdb-business radio">
-                                                <input type="radio" id="business" name="sof" value="Business" placeholder="Business RDB" onChange={handleRadio} required/>
+                                                <input type="radio" id="business" name="sof" value="Business" placeholder="Business RDB" checked={formData.sof === "Business"} onChange={handleRadio} required/>
                                                 <label htmlFor="business">Business</label>
                                             </div>
                                         </div>
                                         <div className="sof-right">
                                             <div className="rdb rdb-others radio">
-                                                <input type="radio" id="others" name="sof" value="Others" placeholder="Others RDB" onChange={handleRadio} required/>
+                                                <input type="radio" id="others" name="sof" value="Others" placeholder="Others RDB" checked={formData.sof === "Others"} onChange={handleRadio} required/>
                                                 <label htmlFor="sof">Others</label>
                                                 <input className="sof-input" type="text" id="sof_text" name="sof_text" placeholder="Source of Funds" value={formData.sof} onChange={handleInputChange}/>
                                             </div>
