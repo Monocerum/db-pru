@@ -11,6 +11,7 @@ import SideNav from "../components/sidenav";
 
 function DBUsers() {
   const [user, setUser] = useState([]);
+  const activePage = useLocation();
 
   useEffect(() => {
     axios
@@ -23,7 +24,15 @@ function DBUsers() {
       });
   });
 
-  const activePage = useLocation();
+  const deleteData = async(UserID) => { 
+    if (window.confirm("Do you want to delete record?")) {
+      try {
+        await axios.delete(`http://localhost:5020/users/${UserID}`);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
 
   return (
     <>
@@ -75,7 +84,7 @@ function DBUsers() {
               <div className="db">
                 <table className="table database-table">
                   <thead>
-                    <tr>
+                    <tr className="login-row">
                       <th></th>
                       <th></th>
                       <th></th>
@@ -87,7 +96,7 @@ function DBUsers() {
                   </thead>
                   <tbody>
                     {user.map((u, key) => (
-                      <tr key={key} class="login-row">
+                      <tr key={key}>
                         <td className="data-container user-data">
                           <Link to={`/loginProfile?userID=${u.UserID}`}>
                             <i className="bx bx-show-alt"></i>
@@ -101,7 +110,7 @@ function DBUsers() {
                           </Link>
                         </td>
                         <td className="data-container user-data">
-                          <i className="bx bx-trash"></i>
+                          <i className="bx bx-trash" onClick={() => deleteData(u.UserID)}></i>
                         </td>
                         <td className="data-container user-data">
                           {u.UserID}

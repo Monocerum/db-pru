@@ -12,7 +12,7 @@ const LoginDetails = () => {
   const [user, setUser] = useState({});
   const [initialState, setInitialState] = useState({});
   const [editActive, setEditStatus] = useState(false);
-  
+
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const UserID = searchParams.get("userID");

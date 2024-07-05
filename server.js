@@ -480,6 +480,21 @@ app.put('/applicants/:ApplicantID', (req, res) => {
     });
 });
 
+app.delete('/applicants/:ApplicantID', (req, res) => {
+    const ApplicantID = req.params.ApplicantID;
+    const sql = `DELETE FROM APPLICANT WHERE ApplicantID = ?`;
+    db.query(sql, ApplicantID, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database delete error' });
+        }
+        if (data.affectedRows === 0) {
+            console.log('Delete success');
+        }
+        return res.status(200).json({ message: 'Delete successful' });
+    });
+});
+
 app.get('/users', (req, res) => {
     const sql = "SELECT * FROM LOGIN";
     db.query(sql, (err, data) => {
@@ -533,6 +548,21 @@ app.put('/users/:UserID', (req, res) => {
             console.log('Update success');
         }
         return res.status(200).json({ message: 'Update successful' });
+    });
+});
+
+app.delete('/users/:UserID', (req, res) => {
+    const UserID = req.params.UserID;
+    const sql = `DELETE FROM LOGIN WHERE UserID = ?`;
+    db.query(sql, UserID, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database delete error' });
+        }
+        if (data.affectedRows === 0) {
+            console.log('Delete success');
+        }
+        return res.status(200).json({ message: 'Delete successful' });
     });
 });
 
@@ -618,6 +648,21 @@ app.put('/employers/:EmployerCode', (req, res) => {
             console.log('Update success');
         }
         return res.status(200).json({ message: 'Update successful' });
+    });
+});
+
+app.delete('/employers/:EmployerCode', (req, res) => {
+    const EmployerCode = req.params.EmployerCode;
+    const sql = `DELETE FROM EMPLOYER WHERE EmployerCode = ?`;
+    db.query(sql, EmployerCode, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database delete error' });
+        }
+        if (data.affectedRows === 0) {
+            console.log('Delete success');
+        }
+        return res.status(200).json({ message: 'Delete successful' });
     });
 });
 
@@ -763,6 +808,21 @@ app.put('/beneficiaries/:ApplicantID/:BeneficiaryCode', (req, res) => {
             console.log('Update success');
         }
         return res.status(200).json({ message: 'Update successful' });
+    });
+});
+
+app.delete('/beneficiaries/:ApplicantID/:BeneficiaryCode', (req, res) => {
+    const { ApplicantID, BeneficiaryCode } = req.params;
+    const sql = `DELETE FROM BENEFICIARY WHERE ApplicantID = ? AND BeneficiaryCode = ?`;
+    db.query(sql, [ApplicantID, BeneficiaryCode], (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database delete error' });
+        }
+        if (data.affectedRows === 0) {
+            console.log('Delete success');
+        }
+        return res.status(200).json({ message: 'Delete successful' });
     });
 });
 

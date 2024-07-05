@@ -24,6 +24,16 @@ function DBBeneficiaries() {
       });
   });
 
+  const deleteData = async(ApplicantID, BeneficiaryCode) => { 
+    if (window.confirm("Do you want to delete record?")) {
+      try {
+        await axios.delete(`http://localhost:5020/beneficiaries/${ApplicantID}/${BeneficiaryCode}`);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+
   return (
     <>
       <div>
@@ -115,7 +125,7 @@ function DBBeneficiaries() {
                           </Link>
                         </td>
                         <td className="data-container">
-                          <i className="bx bx-trash"></i>
+                          <i className="bx bx-trash" onClick={() => deleteData(b.ApplicantID, b.BeneficiaryCode)}></i>
                         </td>
                         <td className="data-container">
                           {b.BeneficiaryCode}

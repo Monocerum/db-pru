@@ -23,6 +23,16 @@ function DBMembers() {
       });
   });
 
+  const deleteData = async(ApplicantID) => { 
+    if (window.confirm("Do you want to delete record?")) {
+      try {
+        await axios.delete(`http://localhost:5020/applicants/${ApplicantID}`);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+
   const activePage = useLocation();
 
   return (
@@ -136,7 +146,7 @@ function DBMembers() {
                           </Link>
                         </td>
                         <td className="data-container">
-                          <i className="bx bx-trash"></i>
+                          <i className="bx bx-trash" onClick={() => deleteData(a.ApplicantID)}></i>
                         </td>
                         <td className="data-container">
                           {a.ApplicantID}
