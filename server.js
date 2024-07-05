@@ -19,11 +19,11 @@ app.use(bodyParser.json());
 
 //MYSQL Connection
 const db = mysql.createConnection({
-    host: '127.0.0.1',
-    port: 3306,
-    user: 'monochrome',
-    password: 'monokuro',
-    database: 'dbpru'
+    host: 'localhost',
+    port: 3307,
+    user: 'root',
+    password: 'koshi28',
+    database: 'pru-db'
 });
 
 db.connect((err) => {
@@ -75,7 +75,7 @@ app.post('/apply', (req, res) => {
         nationality, height, weight, sex, ps_address, ps_country,
         ps_zip, pm_address, pm_country, pm_zip, occupation, position,
         work_nature, sof, gai, nw, hired, regular, income, sss, tin,
-        otherid, otheridnum, otherid2, otherid2num, mobile, tel, email, 
+        otherid, otheridnum, otherid2, otherid2number, mobile, tel, email, 
         employerName, employerWorkNature, employerTel, employerAdrs,
         employerCountry, employerZip, 
         beneficiary1Name, beneficiary1Bday, beneficiary1Sex, beneficiary1Relationship,
@@ -136,7 +136,7 @@ app.post('/apply', (req, res) => {
         Nationality, Height, Weight, Sex, PresentAddress, PrsntAdrsCountry, PrsntAdrsZIP,
         PermanentAddress, PermntAdrsCountry, PermntAdrsZIP, Occupation, Position, ApplicantWorkNature,
         SourceOfFunds, GrossAnnualIncome, NetWorth, DateHired, DateOfRegularization, MonthlyIncome,
-        SSSID, TINID, OtherID, OtherIDNumber, OtherID2, OtherID2Num, MobileNumber, TelNo, EmailAddress,
+        SSSID, TINID, OtherID, OtherIDNumber, OtherID2, otherid2number, MobileNumber, TelNo, EmailAddress,
         EmpOrBusName, EmpOrBusNature, EmpOrBusTelNo, EmpOrBusAdrs, EmpOrBusCountry, EmpOrBusZIP,
         Beneficiary1Name, Beneficiary1DOB, Beneficiary1Sex, Beneficiary1Relationship, Beneficiary1PrcntShare,
         Beneficiary1Type, Beneficiary1Designation, Beneficiary1POB, Beneficiary1Nationality, Beneficiary1PrsntAdrs,
@@ -147,7 +147,7 @@ app.post('/apply', (req, res) => {
         nationality, height, weight, sex, ps_address, ps_country,
         ps_zip, pm_address, pm_country, pm_zip, occupation, position,
         work_nature, sof, gai, nw, hired, regular, income, sss, tin,
-        otherid, otheridnum, otherid2, otherid2num, mobile, tel, email, employerName, employerWorkNature,
+        otherid, otheridnum, otherid2, otherid2number, mobile, tel, email, employerName, employerWorkNature,
         employerTel, employerAdrs, employerCountry, employerZip,
         beneficiary1Name, beneficiary1Bday, beneficiary1Sex, beneficiary1Relationship,
         beneficiary1Share, beneficiary1Type, beneficiary1Designation, beneficiary1Bplace,
@@ -241,7 +241,7 @@ function insertApplicant(employerCode, tempData, res) {
         Nationality, Height, Weight, Sex, PresentAddress, PrsntAdrsCountry, PrsntAdrsZIP,
         PermanentAddress, PermntAdrsCountry, PermntAdrsZIP, Occupation, Position, ApplicantWorkNature,
         SourceOfFunds, GrossAnnualIncome, NetWorth, DateHired, DateOfRegularization, MonthlyIncome,
-        SSSID, TINID, OtherID, OtherIDNumber, OtherID2, OtherID2Num, MobileNumber, TelNo, EmailAddress, EmployerCode
+        SSSID, TINID, OtherID, OtherIDNumber, OtherID2, otherid2number, MobileNumber, TelNo, EmailAddress, EmployerCode
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     db.query(applicantInsertSql, [
@@ -250,7 +250,7 @@ function insertApplicant(employerCode, tempData, res) {
         tempData.sex, tempData.ps_address, tempData.ps_country, tempData.ps_zip, tempData.pm_address,
         tempData.pm_country, tempData.pm_zip, tempData.occupation, tempData.position, tempData.work_nature,
         tempData.sof, tempData.gai, tempData.nw, tempData.hired, tempData.regular, tempData.income,
-        tempData.sss, tempData.tin, tempData.otherid, tempData.otheridnum, tempData.otherid2, tempData.otherid2num,
+        tempData.sss, tempData.tin, tempData.otherid, tempData.otheridnum, tempData.otherid2, tempData.otherid2number,
         tempData.mobile, tempData.tel, tempData.email, employerCode
     ], (err, applicantResult) => {
         if (err) {
