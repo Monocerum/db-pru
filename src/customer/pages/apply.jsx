@@ -156,7 +156,7 @@ function Apply() {
     "mobile",
     "tel",
     "email",
-    "employer-name",
+    "employerName",
     "employer-work-nature",
     "employer-tel",
     "employer-adrs",
@@ -706,7 +706,7 @@ function Apply() {
                               id="sof_text"
                               name="sof_text"
                               placeholder="Source of Funds"
-                              value={formData.sof === "Others" ? formData.sof_text : formData.sof}
+                              value={formData.sof === "Others" ? formData.sof_text.toUpperCase() : formData.sof.toUpperCase()}
                               onChange={handleInputChange}
                             />
                           </div>
@@ -929,47 +929,47 @@ function Apply() {
                   </div>
                   <div className="line-13 line">
                     <div className="fill name-fill">
-                      <label htmlFor="empname">
+                      <label htmlFor="employerName">
                         Name of Employer/Name of Business
                         <span className="required">*</span>
                       </label>
                       <input
                         className="empname-input"
                         type="text"
-                        id="empname"
+                        id="employerName"
                         name="employerName"
                         placeholder="Name of Employer/Name of Business"
-                        value={formData.empname}
+                        value={formData.employerName}
                         onChange={handleInputChange}
                         required
                       />
                     </div>
                     <div className="fill work-nature-fill">
-                      <label htmlFor="empwn">
+                      <label htmlFor="employerWorkNature">
                         Nature of Work of Employer/Business
                       </label>
                       <input
-                        className="empwn"
+                        className="employerWorkNature"
                         type="text"
-                        id="empwn"
+                        id="employerWorkNature"
                         name="employerWorkNature"
                         placeholder="Nature of Work of Employer/Business"
-                        value={formData.empwn}
+                        value={formData.employerWorkNature}
                         onChange={handleInputChange}
                         required
                       />
                     </div>
                     <div className="tel-fill fill">
-                      <label htmlFor="emptel">
+                      <label htmlFor="employerTel">
                         Telephone Number<span className="required">*</span>
                       </label>
                       <input
-                        className="emptel"
+                        className="employerTel"
                         type="text"
-                        id="emptel"
+                        id="employerTel"
                         name="employerTel"
                         placeholder="Telephone Number"
-                        value={formData.emptel}
+                        value={formData.employerTel}
                         onChange={handleInputChange}
                         required
                       />
@@ -977,47 +977,47 @@ function Apply() {
                   </div>
                   <div className="line-14 line">
                     <div className="fill ps-address-fill">
-                      <label htmlFor="empadrs">
+                      <label htmlFor="employerAdrs">
                         Employer Address/Business Address
                         <span className="required">*</span>
                       </label>
                       <input
-                        className="empadrs"
+                        className="employerAdrs"
                         type="text"
-                        id="empadrs"
+                        id="employerAdrs"
                         name="employerAdrs"
                         placeholder="Number, street, municipality/city, province"
-                        value={formData.empadrs}
+                        value={formData.employerAdrs}
                         onChange={handleInputChange}
                         required
                       />
                     </div>
                     <div className="fill ps-country-fill">
-                      <label htmlFor="empcountry">
+                      <label htmlFor="employerCountry">
                         Country<span className="required">*</span>
                       </label>
                       <input
-                        className="empcountry"
+                        className="employerCountry"
                         type="text"
-                        id="empcountry"
+                        id="employerCountry"
                         name="employerCountry"
                         placeholder="Country"
-                        value={formData.empcountry}
+                        value={formData.employerCountry}
                         onChange={handleInputChange}
                         required
                       />
                     </div>
                     <div className="fill ps-zip-fill">
-                      <label htmlFor="empzip">
+                      <label htmlFor="employerZip">
                         ZIP Code<span className="required">*</span>
                       </label>
                       <input
-                        className="empzip"
+                        className="employerZip"
                         type="text"
-                        id="empzip"
+                        id="employerZip"
                         name="employerZip"
                         placeholder="ZIP"
-                        value={formData.empzip}
+                        value={formData.employerZip}
                         onChange={handleInputChange}
                         required
                       />
