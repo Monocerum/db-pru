@@ -13,6 +13,11 @@ function DBUsers() {
   const [user, setUser] = useState([]);
   const activePage = useLocation();
 
+  const[search, setSearch] = useState('');
+  console.log(search)
+
+
+
   useEffect(() => {
     axios
       .get("http://localhost:5020/users")
@@ -68,14 +73,17 @@ function DBUsers() {
                 </div>
               </div>
               <div className="action-db">
+
                 <div className="search-container">
                   <input
                     className="search"
                     type="text"
-                    placeholder="Search Employee, Beneficiary, Employee"
+                    onChange={(e) => setSearch(e.target.value)} 
+                    placeholder="Search Username"
                   />
                   <button className="search-button">Search</button>
                 </div>
+
                 <div className="db-buttons">
                   <button className="reset-button">Reset</button>
                   <button className="save-button">Save</button>
@@ -95,7 +103,11 @@ function DBUsers() {
                     </tr>
                   </thead>
                   <tbody>
-                    {user.map((u, key) => (
+                    {user.filter((u) => {
+                      return search.toLowerCase() === ''? u
+                      : u.Username.toLowerCase().includes(search)
+                    })
+                    .map((u, key) => (
                       <tr key={key}>
                         <td className="data-container user-data">
                           <Link to={`/loginProfile?userID=${u.UserID}`}>

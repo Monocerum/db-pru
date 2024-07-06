@@ -77,7 +77,7 @@ function DBBeneficiaries() {
                     className="search"
                     type="text"
                     onChange={(e) => setSearch(e.target.value)} 
-                    placeholder="Search Beneficiary"
+                    placeholder="Search Beneficiary Name"
                   />
                   <button className="search-button">Search</button>
                 </div>
