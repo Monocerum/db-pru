@@ -1385,7 +1385,7 @@ a.disabled, a.disabled:hover {
 }
 
 .filter-label-container{
-    display: block;
+    display: flex;
     position: relative;
     padding-left: 35px;
     margin-bottom: 1px;
