@@ -192,7 +192,7 @@ const BeneficiaryProfile = () => {
                           {secondary.BeneficiaryName}
                         </span>
                       </h2>
-                      <h3>Primary Beneficiary of {secondary.ApplicantName}</h3>
+                      <h3>Secondary Beneficiary of {secondary.ApplicantName}</h3>
                     </div>
                   </div>
                   <div className="personal-info">
@@ -311,7 +311,7 @@ const BeneficiaryProfile = () => {
                   </ul>
                 </div>
               </div>
-              <div className="user-controls">
+              {/* <div className="user-controls">
                 <div className="logOut">
                   <button className="logOut-btn" id="logOut">
                     LOG OUT
@@ -323,7 +323,7 @@ const BeneficiaryProfile = () => {
                 >
                   Return to profile.
                 </Link>
-              </div>
+              </div> */}
             </div>
 
             <br />

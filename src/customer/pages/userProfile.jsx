@@ -127,12 +127,12 @@ const UserProfile = () => {
                   </li>
                 </ul>
               </div>
-              <div className="user-controls">
+              {/* <div className="user-controls">
                 <div className="logOut">
                   <button className="logOut-btn" id="logOut">LOG OUT</button>
                 </div>
                 <Link to={`/userProfile?applicantID=${applicant.ApplicantID}`} className="return-profile">Return to profile.</Link>
-              </div>
+              </div> */}
             </div>
             <br />
             <br />

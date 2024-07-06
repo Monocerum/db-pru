@@ -1319,3 +1319,19 @@ a.disabled, a.disabled:hover {
     width: 95%;
     padding-top: 5%;
 }
+
+.logout {
+    background-color: transparent;
+    border: 2px solid transparent;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 25px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.logout:hover {
+    background-color: transparent;
+    color: #fff;
+    border-color: solid transparent;
+}

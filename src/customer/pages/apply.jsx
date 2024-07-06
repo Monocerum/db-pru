@@ -147,7 +147,7 @@ function Apply() {
     const { id, value } = e.target;
     setFormData({
       ...formData,
-      [id]: id.includes("email", "beneficiary1-email", "beneficiary2-email")
+      [id]: id === "email" || id === "beneficiary1Email" || id === "beneficiary2Email"
         ? value
         : value.toUpperCase(),
     });
@@ -180,7 +180,7 @@ function Apply() {
           <div className="banner">
             <div className="banner-left">
               <h1>Individual Application Form</h1>
-              <h2>htmlFor Group Term Life Insurance</h2>
+              <h2>For Group Term Life Insurance</h2>
             </div>
             <div className="banner-right">
               <p className="reminder">REMINDERS:</p>
