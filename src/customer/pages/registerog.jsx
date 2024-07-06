@@ -1,9 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import "../../styles.css";
-
 import React from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
+
+// Styles
+import "../../styles.css";
 
 function Register() {
     document.getElementById("registrationForm").addEventListener("submit", function(event)

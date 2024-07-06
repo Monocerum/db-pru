@@ -1,18 +1,22 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import '../styles.css';
+
+// Components
 import Header from './components/header';
 import Footer from './components/footer';
+import Scroll from './components/scroll';
+
+// Pages
 import Apply from './pages/apply';
 import Login from './pages/login';
 import Register from './pages/register';
 import UserProfile from './pages/userProfile';
 import BeneficiaryProfile from './pages/beneficiaryProfile';
-import Admin from '../admin/App';
 
-import React from 'react';
-import axios from 'axios';
+// Styles
+import '../styles.css';
 
+// Assets
 import PruLogo from '../assets/pru-logo.svg';
 
 function App() {
@@ -21,6 +25,7 @@ function App() {
       <div className="body">
         <Router>
         <Header />
+        <Scroll />
           <div>
             <main>
             <Routes>

@@ -1,11 +1,9 @@
+import React from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-// Import assets
+// Assets
 import PruLogo from '../../assets/pru-logo-test.png';
 import UserIcon from '../../assets/user-icon.png';
-
-import React from 'react';
-import axios from 'axios';
 
 function Header() {
   const location = useLocation();

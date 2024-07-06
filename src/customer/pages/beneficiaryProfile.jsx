@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
+// Styles
 import "../customer_styles.css";
+
+// Assets
 import PruLogo from "../../assets/pru-logo-main.svg";
 
 const BeneficiaryProfile = () => {

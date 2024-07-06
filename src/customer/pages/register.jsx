@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+// Styles
 import "../../styles.css";
 
 function Register() {
@@ -26,17 +28,6 @@ function Register() {
     e.preventDefault();
 
     const { email, username, password, confirmPass } = formData;
-
-    // Validation
-    // if (!email || !username || !password || !confirmPass || !agreement) {
-    //   alert("Please fill in all the necessary information.");
-    //   return;
-    // }
-
-    // if (password !== confirmPass) {
-    //   alert("Passwords do not match.");
-    //   return;
-    // }
 
     try {
       // Send POST request to server
