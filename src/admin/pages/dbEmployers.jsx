@@ -82,6 +82,14 @@ function DBEmployers() {
                   <button className="save-button">Save</button>
                 </div>
               </div>
+              
+              <div className="show-flex">
+                        <button className ="show-btns"> Show All Attributes </button>
+                        <button className ="show-btns"> EmployerID </button>
+                        <button className ="show-btns"> EmployerName </button>
+                        <button className ="show-btns"> Location </button>
+                        </div>
+                        
               <div className="db">
                 <table className="table database-table">
                   <thead>

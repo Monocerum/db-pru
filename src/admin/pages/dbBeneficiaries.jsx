@@ -81,6 +81,18 @@ function DBBeneficiaries() {
                   <button className="save-button">Save</button>
                 </div>
               </div>
+
+              <div className="show-flex">
+              
+                        <button className ="show-btns"> Show All Attributes </button>
+                        <button className ="show-btns"> BeneficiaryID </button>
+                        <button className ="show-btns"> BeneficiaryName </button>
+                        <button className ="show-btns"> Location </button>
+                        </div>
+
+
+
+
               <div className="db">
                 <table className="table database-table">
                   <thead>
