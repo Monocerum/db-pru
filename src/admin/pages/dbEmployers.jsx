@@ -12,6 +12,9 @@ import SideNav from "../components/sidenav";
 function DBEmployers() {
   const [employer, setEmployer] = useState([]);
 
+  const[search, setSearch] = useState('');
+  console.log(search)
+
   useEffect(() => {
     axios
       .get("http://localhost:5020/employers")
@@ -69,14 +72,18 @@ function DBEmployers() {
                 </div>
               </div>
               <div className="action-db">
+                
                 <div className="search-container">
                   <input
                     className="search"
                     type="text"
-                    placeholder="Search Employee, Beneficiary, Employee"
+                    onChange={(e) => setSearch(e.target.value)} 
+                    placeholder="Search Employer"
                   />
                   <button className="search-button">Search</button>
                 </div>
+
+
                 <div className="db-buttons">
                   <button className="reset-button">Reset</button>
                   <button className="save-button">Save</button>
@@ -107,7 +114,11 @@ function DBEmployers() {
                     </tr>
                   </thead>
                   <tbody>
-                    {employer.map((e, key) => (
+                    {employer.filter((e) => {
+                      return search.toLowerCase() === ''? e 
+                      : e.EmpOrBusName.toLowerCase().includes(search)
+                    })
+                    .map((e, key) => (
                       <tr key={key}>
                         <td className="data-container employer-data">
                           <Link

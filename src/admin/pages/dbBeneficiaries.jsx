@@ -13,6 +13,9 @@ function DBBeneficiaries() {
   const [beneficiary, setBeneficiary] = useState([]);
   const activePage = useLocation();
 
+  const[search, setSearch] = useState('');
+  console.log(search)
+
   useEffect(() => {
     axios
       .get("http://localhost:5020/beneficiaries")
@@ -68,14 +71,17 @@ function DBBeneficiaries() {
                 </div>
               </div>
               <div className="action-db">
+
                 <div className="search-container">
                   <input
                     className="search"
                     type="text"
-                    placeholder="Search Employee, Beneficiary, Employee"
+                    onChange={(e) => setSearch(e.target.value)} 
+                    placeholder="Search Beneficiary"
                   />
                   <button className="search-button">Search</button>
                 </div>
+
                 <div className="db-buttons">
                   <button className="reset-button">Reset</button>
                   <button className="save-button">Save</button>
@@ -83,7 +89,6 @@ function DBBeneficiaries() {
               </div>
 
               <div className="show-flex">
-              
                         <button className ="show-btns"> Show All Attributes </button>
                         <button className ="show-btns"> BeneficiaryID </button>
                         <button className ="show-btns"> BeneficiaryName </button>
@@ -120,7 +125,11 @@ function DBBeneficiaries() {
                     </tr>
                   </thead>
                   <tbody>
-                    {beneficiary.map((b, key) => (
+                    {beneficiary.filter((b) => {
+                      return search.toLowerCase() === ''? b 
+                      : b.BeneficiaryName.toLowerCase().includes(search)
+                    })
+                    .map((b, key) => (
                       <tr key={key}>
                         <td className="data-container">
                           <Link
