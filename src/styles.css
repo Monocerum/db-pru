@@ -1084,6 +1084,19 @@ footer {
     height: 20px;
 }
 
+.nav-sidebar #btnFilter {
+    color: white;
+    height: 20px;
+}
+
+.textFilter{
+    color: white;
+    font-weight: 500;
+    font-family: Roboto;
+    margin-top: 1335px;
+}
+
+
 .nav-sidebar span, .nav-sidebar .nav-sidebar-content .top .logo {
    opacity: 0; 
 }
@@ -1335,3 +1348,99 @@ a.disabled, a.disabled:hover {
     color: #fff;
     border-color: solid transparent;
 }
+
+/* Show Options */
+.show-flex{
+    margin-top: 20px;
+    display: flex;
+}
+
+.show-title{
+    margin-left: 20rem;
+    margin-right: 1000px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.show-btns{
+    padding: 10px 15px;
+    margin-right: 6px;
+    background: transparent;
+    border: none;
+    border: 0.6px solid #918d8d;
+    border-radius: 5px;
+    color: #000000;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+/* Filter Options */
+
+.filter-title{
+    color: #fffdfd;
+    font-size: 22px;
+  font-weight: normal;
+  margin-bottom: 12px;
+}
+
+.filter-label-container{
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 1px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.filter-label-container input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+ .checkmark{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 50%;
+ }
+
+ .all {
+    background: linear-gradient(blue, crimson);
+  }
+
+  .filter-label-container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  .filter-label-container input:checked ~ .checkmark {
+    background-color: #2196f3;
+  }
+
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .filter-label-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  .filter-label-container .checkmark:after {
+    top: 6.4px;
+    left: 6.4px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: white;
+  }
+

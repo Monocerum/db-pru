@@ -82,6 +82,18 @@ function DBMembers() {
                   <button className="save-button">Save</button>
                 </div>
               </div>
+
+                    <div className="show-flex">
+                        <button className ="show-btns"> Show All Attributes </button>
+                        <button className ="show-btns"> ApplicantID </button>
+                        <button className ="show-btns"> ApplicantName </button>
+                        <button className ="show-btns"> Age </button>
+                        <button className ="show-btns"> Salary </button>
+                        <button className ="show-btns"> Location </button>
+                        </div>
+
+
+
               <div className="db">
                 <table className="table database-table">
                   <thead>
