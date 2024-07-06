@@ -153,7 +153,7 @@ function DBMembers() {
                   <tbody>
                     {applicant.filter((a) => {
                       return search.toLowerCase() === ''? a 
-                      : a.ApplicantName.toLowerCase().includes(search)
+                      : a.ApplicantName.toLowerCase().includes(search.toLowerCase())
                     })
                     .map((a,key) => (
                       <tr key={key}>

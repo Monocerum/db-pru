@@ -19,11 +19,11 @@ app.use(bodyParser.json());
 
 //MYSQL Connection
 const db = mysql.createConnection({
-    host: 'localhost',
-    port: 3307,
-    user: 'root',
-    password: 'koshi28',
-    database: 'pru-db'
+    host: '127.0.0.1',
+    port: 3306,
+    user: 'monochrome',
+    password: 'monokuro',
+    database: 'dbpru'
 });
 
 db.connect((err) => {
