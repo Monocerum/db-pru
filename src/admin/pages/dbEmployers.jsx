@@ -11,9 +11,13 @@ import SideNav from "../components/sidenav";
 
 function DBEmployers() {
   const [employer, setEmployer] = useState([]);
+  const [visibleAttributes, setVisibleAttributes] = useState([
+    "EmployerCode", "EmpOrBusName", "EmpOrBusNature", "EmpOrBusTelNo", 
+    "EmpOrBusAdrs", "EmpOrBusCountry", "EmpOrBusZIP"
+  ]);
 
-  const[search, setSearch] = useState('');
-  console.log(search)
+  const activePage = useLocation();
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     axios
@@ -24,19 +28,52 @@ function DBEmployers() {
       .catch((error) => {
         console.error(error);
       });
-  });
+  }, []);
 
-  const deleteData = async(EmployerCode) => { 
+  const deleteData = async (EmployerCode) => { 
     if (window.confirm("Do you want to delete record?")) {
       try {
         await axios.delete(`http://localhost:5020/employers/${EmployerCode}`);
+        setEmployer(employer.filter(emp => emp.EmployerCode !== EmployerCode));
       } catch (err) {
         console.log(err);
       }
     }
-  }
+  };
 
-  const activePage = useLocation();
+  const toggleAttribute = (attribute) => {
+    setVisibleAttributes((prevAttributes) => {
+      if (prevAttributes.includes(attribute)) {
+        return prevAttributes.filter(attr => attr !== attribute);
+      } else {
+        return [...prevAttributes, attribute];
+      }
+    });
+  };
+
+  const toggleLocationAttributes = () => {
+    setVisibleAttributes((prevAttributes) => {
+      const addressIncluded = prevAttributes.includes("EmpOrBusAdrs");
+      const countryIncluded = prevAttributes.includes("EmpOrBusCountry");
+      
+      if (addressIncluded && countryIncluded) {
+        return prevAttributes.filter(attr => attr !== "EmpOrBusAdrs" && attr !== "EmpOrBusCountry");
+      } else {
+        return [...new Set([...prevAttributes, "EmpOrBusAdrs", "EmpOrBusCountry"])];
+      }
+    });
+  };
+
+  const showAllAttributes = () => {
+    setVisibleAttributes([
+      "EmployerCode", "EmpOrBusName", "EmpOrBusNature", "EmpOrBusTelNo", 
+      "EmpOrBusAdrs", "EmpOrBusCountry", "EmpOrBusZIP"
+    ]);
+  };
+
+  const showSpecificAttributes = (attributes) => {
+    setVisibleAttributes(attributes);
+  };
 
   return (
     <>
@@ -72,31 +109,45 @@ function DBEmployers() {
                 </div>
               </div>
               <div className="action-db">
-                
                 <div className="search-container">
                   <input
                     className="search"
                     type="text"
+                    value={search}
                     onChange={(e) => setSearch(e.target.value)} 
                     placeholder="Search Employer Name"
                   />
                   <button className="search-button">Search</button>
                 </div>
 
-
                 <div className="db-buttons">
-                  <button className="reset-button">Reset</button>
+                  <button className="reset-button" onClick={() => setSearch('')}>Reset</button>
                   <button className="save-button">Save</button>
                 </div>
               </div>
               
               <div className="show-flex">
-                        <button className ="show-btns"> Show All Attributes </button>
-                        <button className ="show-btns"> EmployerID </button>
-                        <button className ="show-btns"> EmployerName </button>
-                        <button className ="show-btns"> Location </button>
-                        </div>
-                        
+                <button className="show-btns" onClick={showAllAttributes}>Show All Attributes</button>
+                <button
+                  className={`show-btns ${visibleAttributes.includes("EmployerCode") ? 'active' : ''}`}
+                  onClick={() => showSpecificAttributes(["EmployerCode"])}
+                >
+                  EmployerID
+                </button>
+                <button
+                  className={`show-btns ${visibleAttributes.includes("EmpOrBusName") ? 'active' : ''}`}
+                  onClick={() => showSpecificAttributes(["EmpOrBusName"])}
+                >
+                  EmployerName
+                </button>
+                <button
+                  className={`show-btns ${(visibleAttributes.includes("EmpOrBusAdrs") && visibleAttributes.includes("EmpOrBusCountry")) ? 'active' : ''}`}
+                  onClick={() => showSpecificAttributes(["EmpOrBusAdrs", "EmpOrBusCountry"])}
+                >
+                  Location
+                </button>
+              </div>
+              
               <div className="db">
                 <table className="table database-table">
                   <thead>
@@ -104,19 +155,18 @@ function DBEmployers() {
                       <th id="icon-header"></th>
                       <th id="icon-header"></th>
                       <th id="icon-header"></th>
-                      <th id="id-header">Employer or Business Code</th>
-                      <th>Name</th>
-                      <th>Nature of Work of Employer</th>
-                      <th>Telephone Number</th>
-                      <th>Present Address</th>
-                      <th>Country</th>
-                      <th>ZIP</th>
+                      {visibleAttributes.includes("EmployerCode") && <th id="id-header">Employer or Business Code</th>}
+                      {visibleAttributes.includes("EmpOrBusName") && <th>Name</th>}
+                      {visibleAttributes.includes("EmpOrBusNature") && <th>Nature of Work of Employer</th>}
+                      {visibleAttributes.includes("EmpOrBusTelNo") && <th>Telephone Number</th>}
+                      {visibleAttributes.includes("EmpOrBusAdrs") && <th>Present Address</th>}
+                      {visibleAttributes.includes("EmpOrBusCountry") && <th>Country</th>}
+                      {visibleAttributes.includes("EmpOrBusZIP") && <th>ZIP</th>}
                     </tr>
                   </thead>
                   <tbody>
                     {employer.filter((e) => {
-                      return search.toLowerCase() === ''? e 
-                      : e.EmpOrBusName.toLowerCase().includes(search)
+                      return search.trim() === '' || e.EmpOrBusName.toLowerCase().includes(search.toLowerCase());
                     })
                     .map((e, key) => (
                       <tr key={key}>
@@ -137,27 +187,13 @@ function DBEmployers() {
                         <td className="data-container employer-data">
                           <i className="bx bx-trash" onClick={() => deleteData(e.EmployerCode)}></i>
                         </td>
-                        <td className="data-container employer-data">
-                          {e.EmployerCode}
-                        </td>
-                        <td className="data-container employer-data">
-                          {e.EmpOrBusName}
-                        </td>
-                        <td className="data-container employer-data">
-                          {e.EmpOrBusNature}
-                        </td>
-                        <td className="data-container employer-data">
-                          {e.EmpOrBusTelNo}
-                        </td>
-                        <td className="data-container employer-data">
-                          {e.EmpOrBusAdrs}
-                        </td>
-                        <td className="data-container employer-data">
-                          {e.EmpOrBusCountry}
-                        </td>
-                        <td className="data-container employer-data">
-                          {e.EmpOrBusZIP}
-                        </td>
+                        {visibleAttributes.includes("EmployerCode") && <td className="data-container employer-data">{e.EmployerCode}</td>}
+                        {visibleAttributes.includes("EmpOrBusName") && <td className="data-container employer-data">{e.EmpOrBusName}</td>}
+                        {visibleAttributes.includes("EmpOrBusNature") && <td className="data-container employer-data">{e.EmpOrBusNature}</td>}
+                        {visibleAttributes.includes("EmpOrBusTelNo") && <td className="data-container employer-data">{e.EmpOrBusTelNo}</td>}
+                        {visibleAttributes.includes("EmpOrBusAdrs") && <td className="data-container employer-data">{e.EmpOrBusAdrs}</td>}
+                        {visibleAttributes.includes("EmpOrBusCountry") && <td className="data-container employer-data">{e.EmpOrBusCountry}</td>}
+                        {visibleAttributes.includes("EmpOrBusZIP") && <td className="data-container employer-data">{e.EmpOrBusZIP}</td>}
                       </tr>
                     ))}
                   </tbody>
