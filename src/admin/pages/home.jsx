@@ -109,7 +109,7 @@ function Home() {
                 <table className="table dashboard-members">
                   <thead>
                     <tr>
-                      <th>ApplicantID</th>
+                      <th className="id-header">ApplicantID</th>
                       <th>Name</th>
                     </tr>
                   </thead>
@@ -139,8 +139,8 @@ function Home() {
                 <table className="table dashboard-beneficiaries">
                   <thead>
                     <tr>
-                      <th>ApplicantID</th>
-                      <th>BeneficiaryCode</th>
+                      <th className="id-header">ApplicantID</th>
+                      <th className="id-header">BeneficiaryCode</th>
                       <th>Name</th>
                     </tr>
                   </thead>
@@ -172,7 +172,7 @@ function Home() {
                 <table className="table dashboard-beneficiaries">
                   <thead>
                     <tr>
-                      <th>EmployerCode</th>
+                      <th className="id-header">EmployerCode</th>
                       <th>Name</th>
                     </tr>
                   </thead>
