@@ -364,7 +364,21 @@ app.get('/applicants', (req, res) => {
         if (data.length === 0) {
             console.log('No records found in applicant table.');
         }
-        return res.status(200).json(data);
+
+        const formattedData = data.map(applicant => {
+            if (applicant.Birthdate) {
+                applicant.Birthdate = new Date(applicant.Birthdate).toISOString().split('T')[0];
+            }
+            if (applicant.DateHired) {
+                applicant.DateHired = new Date(applicant.DateHired).toISOString().split('T')[0];
+            }
+            if (applicant.DateOfRegularization) {
+                applicant.DateOfRegularization = new Date(applicant.DateOfRegularization).toISOString().split('T')[0];
+            }
+            return applicant;
+        });
+
+        return res.status(200).json(formattedData);
     });
 }); 
 
@@ -379,7 +393,20 @@ app.get('/applicants/:ApplicantID', (req, res) => {
         if (data.length === 0) {
             console.log('No records found in applicant table.');
         }
-        return res.status(200).json(data[0]);
+
+        const applicant = data[0];
+        
+        if (applicant.Birthdate) {
+            applicant.Birthdate = new Date(applicant.Birthdate).toISOString().split('T')[0];
+        }
+        if (applicant.DateHired) {
+            applicant.DateHired = new Date(applicant.DateHired).toISOString().split('T')[0];
+        }
+        if (applicant.DateOfRegularization) {
+            applicant.DateOfRegularization = new Date(applicant.DateOfRegularization).toISOString().split('T')[0];
+        }
+
+        return res.status(200).json(applicant);
     });
 });
 
@@ -697,7 +724,14 @@ app.get('/beneficiaries', (req, res) => {
         if (data.length === 0) {
             console.log('No records found in beneficiary table.');
         }
-        return res.status(200).json(data);
+        const formattedData = data.map(beneficiary => {
+            if (beneficiary.BeneficiaryDOB) {
+                beneficiary.BeneficiaryDOB = new Date(beneficiary.BeneficiaryDOB).toISOString().split('T')[0];
+            }
+            return beneficiary;
+        });
+
+        return res.status(200).json(formattedData);
     });
 });
 
@@ -716,7 +750,14 @@ app.get('/beneficiaries/:ApplicantID/:BeneficiaryCode', (req, res) => {
             console.log('No records found in applicant table.');
             return res.status(404).json({ error: 'No records found' });
         }
-        return res.status(200).json(data[0]);
+        
+        const beneficiary = data[0];
+        
+        if (beneficiary.BeneficiaryDOB) {
+            beneficiary.BeneficiaryDOB = new Date(beneficiary.BeneficiaryDOB).toISOString().split('T')[0];
+        }
+        
+        return res.status(200).json(beneficiary);
     });
 });
 
@@ -736,7 +777,14 @@ app.get('/primarybeneficiaries/:ApplicantID', (req, res) => {
             console.log('No primary beneficiaries found for the specified ApplicantID.');
             return res.status(404).json({ message: 'No primary beneficiaries found.' });
         }
-        return res.status(200).json(data[0]);
+        
+        const beneficiary = data[0];
+        
+        if (beneficiary.BeneficiaryDOB) {
+            beneficiary.BeneficiaryDOB = new Date(beneficiary.BeneficiaryDOB).toISOString().split('T')[0];
+        }
+        
+        return res.status(200).json(beneficiary);
     });
 });
 
@@ -756,7 +804,14 @@ app.get('/secondarybeneficiaries/:ApplicantID', (req, res) => {
             console.log('No secondary beneficiaries found for the specified ApplicantID.');
             return res.status(404).json({ message: 'No secondary beneficiaries found.' });
         }
-        return res.status(200).json(data[0]);
+        
+        const beneficiary = data[0];
+        
+        if (beneficiary.BeneficiaryDOB) {
+            beneficiary.BeneficiaryDOB = new Date(beneficiary.BeneficiaryDOB).toISOString().split('T')[0];
+        }
+        
+        return res.status(200).json(beneficiary);
     });
 });
 
