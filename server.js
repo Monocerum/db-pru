@@ -473,6 +473,19 @@ app.get('/applicants/:ApplicantID', (req, res) => {
     });
 });
 
+// Maps for abbreviations
+const civilStatusMapping = {
+    'SINGLE': 'S',
+    'MARRIED': 'M',
+    'WIDOWED': 'W',
+    'LEGALLY SEPARATED': 'LS'
+};
+
+const sexMapping = {
+    'FEMALE': 'F',
+    'MALE': 'M'
+};
+
 app.put('/applicants/:ApplicantID', (req, res) => {
     const ApplicantID = req.params.ApplicantID;
     const {
@@ -513,6 +526,17 @@ app.put('/applicants/:ApplicantID', (req, res) => {
         EmailAddress,
         EmployerCode
     } = req.body;
+
+    // Function to convert full forms to abbreviations
+    const convertCivilStatus = (fullForm) => {
+        return civilStatusMapping[fullForm] || fullForm;
+    };
+
+    const convertSex = (fullForm) => {
+        return sexMapping[fullForm] || fullForm;
+    };
+
+
     const sql = `UPDATE APPLICANT SET ApplicantName = ?, Salutation = ?, Alias = ?, Age = ?, Birthdate = ?, Birthplace = ?, 
         CivilStatus = ?, Nationality = ?, Height = ?, Weight = ?, Sex = ?, PresentAddress = ?, PrsntAdrsCountry = ?, 
         PrsntAdrsZIP = ?, PermanentAddress = ?, PermntAdrsCountry = ?, PermntAdrsZIP = ?, Occupation = ?, Position = ?, 
@@ -526,11 +550,11 @@ app.put('/applicants/:ApplicantID', (req, res) => {
         Age,
         Birthdate,
         Birthplace,
-        CivilStatus,
+        convertCivilStatus(CivilStatus),
         Nationality,
         Height,
         Weight,
-        Sex,
+        convertSex(Sex),
         PresentAddress,
         PrsntAdrsCountry,
         PrsntAdrsZIP,
@@ -1043,6 +1067,17 @@ app.get('/secondarybeneficiaries/:ApplicantID', (req, res) => {
     });
 });
 
+// Maps for abbreviations
+const typeMapping = {
+    'PRIMARY': 'P',
+    'SECONDARY': 'S'
+};
+
+const designationMapping = {
+    'REVOCABLE': 'R',
+    'IRREVOCABLE': 'I'
+};
+
 app.put('/beneficiaries/:ApplicantID/:BeneficiaryCode', (req, res) => {
     const { ApplicantID, BeneficiaryCode } = req.params;
     const {
@@ -1062,15 +1097,29 @@ app.put('/beneficiaries/:ApplicantID/:BeneficiaryCode', (req, res) => {
         BeneficiaryTelNo,
         BeneficiaryEmailAdrs
     } = req.body;
+
+    // Function to convert Sex, Type, and Designation to abbreviations
+    const convertSex = (sex) => {
+        return sexMapping[sex] || sex;
+    };
+
+    const convertType = (type) => {
+        return typeMapping[type] || type;
+    };
+
+    const convertDesignation = (designation) => {
+        return designationMapping[designation] || designation;
+    };
+
     const sql = `UPDATE BENEFICIARY SET BeneficiaryName = ?, BeneficiaryDOB = ?, BeneficiarySex = ?, BeneficiaryRelationship = ?, BeneficiaryPrcntShare = ?, BeneficiaryType = ?, BeneficiaryDesignation = ?, BeneficiaryPOB = ?, BeneficiaryNationality = ?, BeneficiaryPrsntAdrs = ?, BeneficiaryCountry = ?, BeneficiaryZIP = ?, BeneficiaryMobileNum = ?, BeneficiaryTelNo = ?, BeneficiaryEmailAdrs = ? WHERE BeneficiaryCode = ? AND ApplicantID = ?`;
     const values = [
         BeneficiaryName,
         BeneficiaryDOB,
-        BeneficiarySex,
+        convertSex(BeneficiarySex),
         BeneficiaryRelationship,
         BeneficiaryPrcntShare,
-        BeneficiaryType,
-        BeneficiaryDesignation,
+        convertType(BeneficiaryType),
+        convertDesignation(BeneficiaryDesignation),
         BeneficiaryPOB,
         BeneficiaryNationality,
         BeneficiaryPrsntAdrs,

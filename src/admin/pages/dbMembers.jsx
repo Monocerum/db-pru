@@ -122,7 +122,7 @@ function DBMembers() {
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search Employee Name"
+                    placeholder="Search Member Name"
                   />
                   <button className="search-button">Search</button>
                 </div>
