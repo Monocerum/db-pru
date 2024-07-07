@@ -13,9 +13,11 @@ function Home() {
   const [applicant, setApplicant] = useState([]);
   const [beneficiary, setBeneficiary] = useState([]);
   const [employer, setEmployer] = useState([]);
-  const [applicantTotal, setApplicantTotal] = useState(4);
+  const [applicantTotal, setApplicantTotal] = useState(0);
   const [beneficiaryTotal, setBeneficiaryTotal] = useState(4);
   const [employerTotal, setEmployerTotal] = useState(4);
+  
+  
   const[search, setSearch] = useState('');
   console.log(search)
 
@@ -24,22 +26,24 @@ function Home() {
       .get("http://localhost:5020/applicants")
       .then((response) => {
         setApplicant(response.data);
+        setApplicantTotal(response.data.length);
       })
       axios
       .get("http://localhost:5020/beneficiaries")
       .then((response) => {
         setBeneficiary(response.data);
+        setBeneficiaryTotal(response.data.length);
       })
       axios
       .get("http://localhost:5020/employers")
       .then((response) => {
         setEmployer(response.data);
+        setEmployerTotal(response.data.length);
       })
       .catch((error) => {
         console.error(error);
       });
-
-  });
+ },[]);
   
   return (
     <>

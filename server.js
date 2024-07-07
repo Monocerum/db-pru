@@ -19,10 +19,10 @@ app.use(bodyParser.json());
 
 //MYSQL Connection
 const db = mysql.createConnection({
-    host: '127.0.0.1',
-    port: 3306,
-    user: 'monochrome',
-    password: 'monokuro',
+    host: 'localhost',
+    port: 3307,
+    user: 'root',
+    password: 'jungkook',
     database: 'dbpru'
 });
 
@@ -852,7 +852,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+
+
 //Start the server
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
+
