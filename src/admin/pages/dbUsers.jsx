@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // Styles
@@ -12,6 +12,7 @@ import SideNav from "../components/sidenav";
 function DBUsers() {
   const [user, setUser] = useState([]);
   const activePage = useLocation();
+  const navigate = useNavigate();
 
   const[search, setSearch] = useState('');
   console.log(search)
@@ -39,6 +40,10 @@ function DBUsers() {
     }
   }
 
+  const handleAddUser = () => {
+    navigate('/register');
+  };
+
   return (
     <>
       <div>
@@ -65,11 +70,12 @@ function DBUsers() {
               <div className="db-header">
                 <h2 className="db-name">Users</h2>
                 <div className="action-buttons">
-                  <ul>
+                  <button className="add-button" onClick={handleAddUser}>Add Account</button>
+                  {/* <ul>
                     <Link to="/apply" className="add-button action-btn">
                       Add
                     </Link>
-                  </ul>
+                  </ul> */}
                 </div>
               </div>
               <div className="action-db">
