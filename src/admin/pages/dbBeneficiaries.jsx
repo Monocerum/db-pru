@@ -102,11 +102,11 @@ function DBBeneficiaries() {
                 <table className="table database-table">
                   <thead>
                     <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th>Beneficiary Code</th>
-                      <th>Applicant ID</th>
+                      <th id="icon-header"></th>
+                      <th id="icon-header"></th>
+                      <th id="icon-header"></th>
+                      <th id="id-header">Beneficiary Code</th>
+                      <th id="id-header">Applicant ID</th>
                       <th>Name</th>
                       <th>Birthdate</th>
                       <th>Sex</th>

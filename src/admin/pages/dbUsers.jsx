@@ -93,10 +93,10 @@ function DBUsers() {
                 <table className="table database-table">
                   <thead>
                     <tr className="login-row">
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th>User ID</th>
+                      <th id="icon-header"></th>
+                      <th id="icon-header"></th>
+                      <th id="icon-header"></th>
+                      <th id="id-header">User ID</th>
                       <th>Email</th>
                       <th>Username</th>
                       <th>Password</th>

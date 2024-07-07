@@ -108,11 +108,11 @@ function DBMembers() {
                 <table className="table database-table">
                   <thead>
                     <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th>ID</th>
-                      <th>Employer or Business Code</th>
+                      <th id="icon-header"></th>
+                      <th id="icon-header"></th>
+                      <th id="icon-header"></th>
+                      <th id="id-header">ID</th>
+                      <th id="id-header">Employer or Business Code</th>
                       <th>Name</th>
                       <th>Salutation</th>
                       <th>Alias</th>

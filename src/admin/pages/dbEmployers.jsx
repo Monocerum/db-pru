@@ -101,10 +101,10 @@ function DBEmployers() {
                 <table className="table database-table">
                   <thead>
                     <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th>Employer or Business Code</th>
+                      <th id="icon-header"></th>
+                      <th id="icon-header"></th>
+                      <th id="icon-header"></th>
+                      <th id="id-header">Employer or Business Code</th>
                       <th>Name</th>
                       <th>Nature of Work of Employer</th>
                       <th>Telephone Number</th>
