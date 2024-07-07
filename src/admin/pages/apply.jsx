@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// Styles
+// Stylesr
 import "../../styles.css";
 
 // Assets
@@ -161,8 +161,10 @@ function Apply() {
         formData
       );
       if (response.status === 200) {
-        const { applicantId } = response.data;
-        navigate(`/userProfile?applicantID=${applicantId}`);
+        // Redirect to dbMembers
+        navigate('/dbMembers');
+        // const { applicantId } = response.data;
+        // navigate(`/userProfile?applicantID=${applicantId}`);
       }
     } catch (error) {
       console.error("Error submitting application:", error);
@@ -1523,11 +1525,14 @@ function Apply() {
                 />
               </div>
             </form>
-            <div>
-              {/* <div className="logOut">
+            {/* <div>
+              <div className="logOut">
                 <button className="logOut-btn" id="logOut">LOG OUT</button>
-            </div> */}
             </div>
+            </div> */}
+            <Link to="/dbMembers" className="return-profile">
+              Return to database.
+            </Link>
           </div>
         </main>
       </div>

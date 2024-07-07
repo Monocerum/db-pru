@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // Styles
@@ -11,7 +11,9 @@ import SideNav from "../components/sidenav";
 
 function DBMembers() {
   const [applicant, setApplicant] = useState([]);
+  const navigate = useNavigate();
   
+  const [lastUserId, setLastUserId] = useState(null);
   const[search, setSearch] = useState('');
   console.log(search)
 
@@ -24,7 +26,22 @@ function DBMembers() {
       .catch((error) => {
         console.error(error);
       });
-  });
+
+    // Fetch last UserID from login table
+    axios
+      .get("http://localhost:5020/lastUserID")
+      .then((response) => {
+        if (response.data.lastUserId) {
+          setLastUserId(response.data.lastUserId);
+        } else {
+          console.error("No users found.");
+          setError("No users found.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching last UserID:", error);
+      });
+    }, []);
 
   const deleteData = async(ApplicantID) => { 
     if (window.confirm("Do you want to delete record?")) {
@@ -37,6 +54,16 @@ function DBMembers() {
   }
 
   const activePage = useLocation();
+
+  const handleAddMember = () => {
+    if (lastUserId) {
+     navigate(`/apply?userID=${lastUserId}`);
+
+    } else {
+      console.error("No user found.");
+
+    }
+  };
 
   return (
     <>
@@ -64,11 +91,12 @@ function DBMembers() {
               <div className="db-header">
                 <h2 className="db-name">Members</h2>
                 <div className="action-buttons">
-                  <ul>
+                <button className="add-button" onClick={handleAddMember}>Add Member</button>
+                  {/* <ul>
                     <Link to="/apply" className="add-button action-btn">
                       Add
                     </Link>
-                  </ul>
+                  </ul> */}
                 </div>
               </div>
               <div className="action-db">

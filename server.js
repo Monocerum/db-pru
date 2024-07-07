@@ -19,11 +19,6 @@ app.use(bodyParser.json());
 
 //MYSQL Connection
 const db = mysql.createConnection({
-    host: '127.0.0.1',
-    port: 3306,
-    user: 'monochrome',
-    password: 'monokuro',
-    database: 'dbpru'
 });
 
 db.connect((err) => {
@@ -593,6 +588,24 @@ app.delete('/users/:UserID', (req, res) => {
         return res.status(200).json({ message: 'Delete successful' });
     });
 });
+
+// GET last UserID from LOGIN table
+app.get('/lastUserID', (req, res) => {
+    const sql = "SELECT UserID FROM LOGIN ORDER BY UserID DESC LIMIT 1";
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in login table.');
+            return res.status(404).json({ error: 'No records found in login table.' });
+        }
+        const lastUserId = data[0].UserID;
+        return res.status(200).json({ lastUserId });
+    });
+});
+
 
 app.get('/employers', (req, res) => {
     const sql = "SELECT * FROM EMPLOYER";
