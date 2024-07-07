@@ -1380,6 +1380,10 @@ table {
   border-radius: 12px;
 }
 
+#icon-header, #id-header {
+    padding: 10px 10px; 
+}
+
 th {
   padding: 10px 20px;
   color: white;
