@@ -50,11 +50,11 @@ function Register() {
       <div className="main">
         <div className="register">
           <label htmlFor="login" className="login-lbl">
-            <span className="company-name">PRU Life U.K.</span> Account
+            <span className="company-name">PRU Life U.K.</span> User Account
           </label>
           <div className="container">
             <div className="login-hdr">
-              <h3 className="log-hdr">APPLICANT REGISTERATION</h3>
+              <h3 className="log-hdr">USER REGISTRATION</h3>
             </div>
             <form onSubmit={handleSubmit} id="registrationForm">
               <div className="fill register-fill">

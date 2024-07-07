@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // Styles
@@ -18,6 +18,11 @@ function DBEmployers() {
 
   const activePage = useLocation();
   const [search, setSearch] = useState('');
+  
+  const navigate = useNavigate();
+  const handleAddEmployer = () => {
+    navigate('/employerRegistration');
+  };
 
   useEffect(() => {
     axios
@@ -101,11 +106,12 @@ function DBEmployers() {
               <div className="db-header">
                 <h2 className="db-name">Employers</h2>
                 <div className="action-buttons">
-                  <ul>
+                  <button className="add-button" onClick={handleAddEmployer}>Add Employer</button>
+                  {/* <ul>
                     <Link to="/apply" className="add-button action-btn">
                       Add
                     </Link>
-                  </ul>
+                  </ul> */}
                 </div>
               </div>
               <div className="action-db">

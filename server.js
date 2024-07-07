@@ -19,11 +19,7 @@ app.use(bodyParser.json());
 
 //MYSQL Connection
 const db = mysql.createConnection({
-    host: '127.0.0.1',
-    port: 3306,
     user: 'root',
-    password: '1234',
-    database: 'pru'
 });
 
 db.connect((err) => {
@@ -712,25 +708,47 @@ app.delete('/employers/:EmployerCode', (req, res) => {
     });
 });
 
-app.post('/register', (req, res) => {
-    const { email, username, password } = req.body;
+// Employer Registration
+app.post('/employerRegistration', (req, res) => {
+    const { empOrBusName, empOrBusNature, empOrBusTelNo, empOrBusAdrs, empOrBusCountry, empOrBusZIP } = req.body;
 
     // Validate input
-    if (!email || !username || !password) {
+    if (!empOrBusName || !empOrBusNature || !empOrBusTelNo || !empOrBusAdrs || !empOrBusCountry || !empOrBusZIP) {
         return res.status(400).send('Please fill in all fields.');
     }
 
     // Insert into database
-    const sql = 'INSERT INTO LOGIN (EmailAddress, Username, Password) VALUES (?, ?, ?)';
-    db.query(sql, [email, username, password], (err, result) => {
+    const sql = 'INSERT INTO EMPLOYER (EmpOrBusName, EmpOrBusNature, EmpOrBusTelNo, EmpOrBusAdrs, EmpOrBusCountry, EmpOrBusZIP) VALUES (?, ?, ?, ?, ?, ?)';
+    db.query(sql, [empOrBusName, empOrBusNature, empOrBusTelNo, empOrBusAdrs, empOrBusCountry, empOrBusZIP], (err, result) => {
         if (err) {
-            console.error('Error registering user:', err);
-            console.log(email, username, password);
+            console.error('Error registering employer:', err);
             return res.status(500).send('Registration failed.');
         }
-        return res.status(200).send('Registration successful.')
+
+        res.status(200).send('Employer registered successfully.');
     });
 });
+
+
+// app.post('/register', (req, res) => {
+//     const { email, username, password } = req.body;
+
+//     // Validate input
+//     if (!email || !username || !password) {
+//         return res.status(400).send('Please fill in all fields.');
+//     }
+
+//     // Insert into database
+//     const sql = 'INSERT INTO LOGIN (EmailAddress, Username, Password) VALUES (?, ?, ?)';
+//     db.query(sql, [email, username, password], (err, result) => {
+//         if (err) {
+//             console.error('Error registering user:', err);
+//             console.log(email, username, password);
+//             return res.status(500).send('Registration failed.');
+//         }
+//         return res.status(200).send('Registration successful.')
+//     });
+// });
 
 app.get('/beneficiaries', (req, res) => {
     const sql = "SELECT * FROM BENEFICIARY";

@@ -14,6 +14,7 @@ import Home from './pages/home';
 import Apply from './pages/apply';
 import Login from './pages/login';
 import Register from './pages/register';
+import EmployerRegister from './pages/employerRegistration';
 
 // Profiles
 import UserProfile from './pages/userProfile';
@@ -46,6 +47,7 @@ function App() {
               <Route path='/apply' element={<Apply />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
+              <Route path='/employerRegistration' element={<EmployerRegister />} />
               <Route path='/userProfile' element={<UserProfile />} />
               <Route path="/beneficiaryProfile" element={<BeneficiaryProfile />} />
               <Route path="/beneficiaryDetails" element={<BeneficiaryDetails />} />
