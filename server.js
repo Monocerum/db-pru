@@ -371,6 +371,40 @@ app.get('/applicants', (req, res) => {
             if (applicant.DateOfRegularization) {
                 applicant.DateOfRegularization = new Date(applicant.DateOfRegularization).toISOString().split('T')[0];
             }
+
+            //Converts the abbreviated data
+            if (applicant.Sex) {
+                if (applicant.Sex === 'F') {
+                    applicant.Sex = 'FEMALE';
+
+                } else if (applicant.Sex === 'M') {
+                    applicant.Sex = 'MALE';
+
+                }
+            }
+
+            if (applicant.CivilStatus) {
+                switch (applicant.CivilStatus) {
+                    case 'S':
+                        applicant.CivilStatus = 'SINGLE';
+                        break;
+                    case 'M':
+                        applicant.CivilStatus = 'MARRIED';
+                        break;
+                    case 'W':
+                        applicant.CivilStatus = 'WIDOWED';
+                        break;
+                    case 'L':
+                        applicant.CivilStatus = 'LEGALLY SEPARATED';
+                        break;
+                }
+            }
+
+            if (applicant.Weight) {
+                applicant.Weight = Math.floor(applicant.Weight);
+
+            }
+
             return applicant;
         });
 
@@ -400,6 +434,39 @@ app.get('/applicants/:ApplicantID', (req, res) => {
         }
         if (applicant.DateOfRegularization) {
             applicant.DateOfRegularization = new Date(applicant.DateOfRegularization).toISOString().split('T')[0];
+        }
+
+        //Converts the abbreviated data
+        if (applicant.Sex) {
+            if (applicant.Sex === 'F') {
+                applicant.Sex = 'FEMALE';
+
+            } else if (applicant.Sex === 'M') {
+                applicant.Sex = 'MALE';
+
+            }
+        }
+
+        if (applicant.CivilStatus) {
+            switch (applicant.CivilStatus) {
+                case 'S':
+                    applicant.CivilStatus = 'SINGLE';
+                    break;
+                case 'M':
+                    applicant.CivilStatus = 'MARRIED';
+                    break;
+                case 'W':
+                    applicant.CivilStatus = 'WIDOWED';
+                    break;
+                case 'L':
+                    applicant.CivilStatus = 'LEGALLY SEPARATED';
+                    break;
+            }
+        }
+
+        if (applicant.Weight) {
+            applicant.Weight = Math.floor(applicant.Weight);
+
         }
 
         return res.status(200).json(applicant);
@@ -764,6 +831,38 @@ app.get('/beneficiaries', (req, res) => {
             if (beneficiary.BeneficiaryDOB) {
                 beneficiary.BeneficiaryDOB = new Date(beneficiary.BeneficiaryDOB).toISOString().split('T')[0];
             }
+
+           // Convert abbreviated data
+            if (beneficiary.BeneficiarySex) {
+                if (beneficiary.BeneficiarySex === 'F') {
+                    beneficiary.BeneficiarySex = 'FEMALE';
+
+                } else if (beneficiary.BeneficiarySex === 'M') {
+                    beneficiary.BeneficiarySex = 'MALE';
+
+                }
+            }
+
+            if (beneficiary.BeneficiaryType) {
+                if (beneficiary.BeneficiaryType === 'P') {
+                    beneficiary.BeneficiaryType = 'PRIMARY';
+
+                } else if (beneficiary.BeneficiaryType === 'S') {
+                    beneficiary.BeneficiaryType = 'SECONDARY';
+
+                }
+            }
+
+            if (beneficiary.BeneficiaryDesignation) {
+                if (beneficiary.BeneficiaryDesignation === 'R') {
+                    beneficiary.BeneficiaryDesignation = 'REVOCABLE';
+
+                } else if (beneficiary.BeneficiaryDesignation === 'I') {
+                    beneficiary.BeneficiaryDesignation = 'IRREVOCABLE';
+
+                }
+            }
+
             return beneficiary;
         });
 
@@ -792,6 +891,37 @@ app.get('/beneficiaries/:ApplicantID/:BeneficiaryCode', (req, res) => {
         if (beneficiary.BeneficiaryDOB) {
             beneficiary.BeneficiaryDOB = new Date(beneficiary.BeneficiaryDOB).toISOString().split('T')[0];
         }
+
+        // Convert abbreviated data
+        if (beneficiary.BeneficiarySex) {
+            if (beneficiary.BeneficiarySex === 'F') {
+                beneficiary.BeneficiarySex = 'FEMALE';
+
+            } else if (beneficiary.BeneficiarySex === 'M') {
+                beneficiary.BeneficiarySex = 'MALE';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryType) {
+            if (beneficiary.BeneficiaryType === 'P') {
+                beneficiary.BeneficiaryType = 'PRIMARY';
+
+            } else if (beneficiary.BeneficiaryType === 'S') {
+                beneficiary.BeneficiaryType = 'SECONDARY';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryDesignation) {
+            if (beneficiary.BeneficiaryDesignation === 'R') {
+                beneficiary.BeneficiaryDesignation = 'REVOCABLE';
+
+            } else if (beneficiary.BeneficiaryDesignation === 'I') {
+                beneficiary.BeneficiaryDesignation = 'IRREVOCABLE';
+
+            }
+        }
         
         return res.status(200).json(beneficiary);
     });
@@ -819,6 +949,37 @@ app.get('/primarybeneficiaries/:ApplicantID', (req, res) => {
         if (beneficiary.BeneficiaryDOB) {
             beneficiary.BeneficiaryDOB = new Date(beneficiary.BeneficiaryDOB).toISOString().split('T')[0];
         }
+
+        // Convert abbreviated data
+        if (beneficiary.BeneficiarySex) {
+            if (beneficiary.BeneficiarySex === 'F') {
+                beneficiary.BeneficiarySex = 'FEMALE';
+
+            } else if (beneficiary.BeneficiarySex === 'M') {
+                beneficiary.BeneficiarySex = 'MALE';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryType) {
+            if (beneficiary.BeneficiaryType === 'P') {
+                beneficiary.BeneficiaryType = 'PRIMARY';
+
+            } else if (beneficiary.BeneficiaryType === 'S') {
+                beneficiary.BeneficiaryType = 'SECONDARY';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryDesignation) {
+            if (beneficiary.BeneficiaryDesignation === 'R') {
+                beneficiary.BeneficiaryDesignation = 'REVOCABLE';
+
+            } else if (beneficiary.BeneficiaryDesignation === 'I') {
+                beneficiary.BeneficiaryDesignation = 'IRREVOCABLE';
+
+            }
+        }
         
         return res.status(200).json(beneficiary);
     });
@@ -845,6 +1006,37 @@ app.get('/secondarybeneficiaries/:ApplicantID', (req, res) => {
         
         if (beneficiary.BeneficiaryDOB) {
             beneficiary.BeneficiaryDOB = new Date(beneficiary.BeneficiaryDOB).toISOString().split('T')[0];
+        }
+
+        // Convert abbreviated data
+        if (beneficiary.BeneficiarySex) {
+            if (beneficiary.BeneficiarySex === 'F') {
+                beneficiary.BeneficiarySex = 'FEMALE';
+
+            } else if (beneficiary.BeneficiarySex === 'M') {
+                beneficiary.BeneficiarySex = 'MALE';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryType) {
+            if (beneficiary.BeneficiaryType === 'P') {
+                beneficiary.BeneficiaryType = 'PRIMARY';
+
+            } else if (beneficiary.BeneficiaryType === 'S') {
+                beneficiary.BeneficiaryType = 'SECONDARY';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryDesignation) {
+            if (beneficiary.BeneficiaryDesignation === 'R') {
+                beneficiary.BeneficiaryDesignation = 'REVOCABLE';
+
+            } else if (beneficiary.BeneficiaryDesignation === 'I') {
+                beneficiary.BeneficiaryDesignation = 'IRREVOCABLE';
+
+            }
         }
         
         return res.status(200).json(beneficiary);
