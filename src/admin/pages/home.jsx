@@ -14,8 +14,8 @@ function Home() {
   const [beneficiary, setBeneficiary] = useState([]);
   const [employer, setEmployer] = useState([]);
   const [applicantTotal, setApplicantTotal] = useState(0);
-  const [beneficiaryTotal, setBeneficiaryTotal] = useState(4);
-  const [employerTotal, setEmployerTotal] = useState(4);
+  const [beneficiaryTotal, setBeneficiaryTotal] = useState(0);
+  const [employerTotal, setEmployerTotal] = useState(0);
   
   
   const[search, setSearch] = useState('');
