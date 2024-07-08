@@ -51,7 +51,7 @@ function DBMembers() {
 
   const handleAddMember = () => {
     if (lastUserId) {
-     navigate(`/apply?userID=${lastUserId}`);
+      navigate(`/apply?userID=${lastUserId}`);
 
     } else {
       console.error("No user found.");
@@ -350,7 +350,7 @@ function DBMembers() {
                     </Link>
                   </li>
                   <li className={`display-nav ${activePage.pathname === "/dbAll" ? "active" : ""}`}>
-                    <Link to="/dbAll" className="all nav-label">
+                    <Link to="/dbAll" className="all-db nav-label">
                         Joined
                     </Link>
                   </li>

@@ -14,8 +14,12 @@ function DBMembers() {
   });
   const [applicant, setApplicant] = useState([]);
   const [visibleAttributes, setVisibleAttributes] = useState([
-    "ApplicantID", "ApplicantName", "Age", "GrossAnnualIncome", "MonthlyIncome",
-    "PresentAddress", "PrsntAdrsCountry", "PermanentAddress", "PermntAdrsCountry"
+    "ApplicantID", "ApplicantName", "Salutation", "Alias", "Age", "GrossAnnualIncome", "MonthlyIncome",
+    "PresentAddress", "PrsntAdrsCountry", "PermanentAddress", "PermntAdrsCountry",
+    "Birthdate", "Birthplace", "CivilStatus", "Nationality", "Height", "Weight",
+    "Sex", "PrsntAdrsZIP", "PermntAdrsZIP", "Occupation", "Position", "ApplicantWorkNature",
+    "SourceOfFunds", "NetWorth", "DateHired", "DateOfRegularization", "SSSID", "TINID",
+    "OtherID", "OtherID2Number", "MobileNumber", "TelNo", "EmailAddress"
   ]);
   
   const [search, setSearch] = useState('');
@@ -46,8 +50,6 @@ function DBMembers() {
       .catch((error) => {
         console.error("Error fetching last UserID:", error);
       });
-
-     
   }, []);
 
     const fetchData = async () => {
@@ -115,8 +117,12 @@ function DBMembers() {
 
   const showAllAttributes = () => {
     setVisibleAttributes([
-      "ApplicantID", "ApplicantName", "Age", "Position", "GrossAnnualIncome", "MonthlyIncome",
-      "PresentAddress", "PrsntAdrsCountry", "PermanentAddress", "PermntAdrsCountry"
+      "ApplicantID", "ApplicantName", "Salutation", "Alias", "Age", "GrossAnnualIncome", "MonthlyIncome",
+      "PresentAddress", "PrsntAdrsCountry", "PermanentAddress", "PermntAdrsCountry",
+      "Birthdate", "Birthplace", "CivilStatus", "Nationality", "Height", "Weight",
+      "Sex", "PrsntAdrsZIP", "PermntAdrsZIP", "Occupation", "Position", "ApplicantWorkNature",
+      "SourceOfFunds", "NetWorth", "DateHired", "DateOfRegularization", "SSSID", "TINID",
+      "OtherID", "OtherID2Number", "MobileNumber", "TelNo", "EmailAddress"
     ]);
   };
 
@@ -217,19 +223,44 @@ function DBMembers() {
                 <table className="table database-table">
                   <thead>
                     <tr>
-                      <th id="icon-header"></th>
+                    <th id="icon-header"></th>
                       <th id="icon-header"></th>
                       <th id="icon-header"></th>
                       {visibleAttributes.includes("ApplicantID") && <th id="id-header">ApplicantID</th>}
                       {visibleAttributes.includes("ApplicantName") && <th>Name</th>}
+                      {visibleAttributes.includes("Salutation") && <th>Salutation</th>}
+                      {visibleAttributes.includes("Alias") && <th>Alias</th>}
                       {visibleAttributes.includes("Age") && <th>Age</th>}
-                      {visibleAttributes.includes("Position") && <th>Position</th>}
+                      {visibleAttributes.includes("Birthdate") && <th>Birthdate</th>}
+                      {visibleAttributes.includes("Birthplace") && <th>Birthplace</th>}
+                      {visibleAttributes.includes("CivilStatus") && <th>Civil Status</th>}
+                      {visibleAttributes.includes("Nationality") && <th>Nationality</th>}
+                      {visibleAttributes.includes("Height") && <th>Height</th>}
+                      {visibleAttributes.includes("Weight") && <th>Weight</th>}
+                      {visibleAttributes.includes("Sex") && <th>Sex</th>}
                       {visibleAttributes.includes("GrossAnnualIncome") && <th>Gross Annual Income</th>}
                       {visibleAttributes.includes("MonthlyIncome") && <th>Monthly Income</th>}
                       {visibleAttributes.includes("PresentAddress") && <th>Present Address</th>}
                       {visibleAttributes.includes("PrsntAdrsCountry") && <th>Country</th>}
+                      {visibleAttributes.includes("PrsntAdrsZIP") && <th>ZIP Code</th>}
                       {visibleAttributes.includes("PermanentAddress") && <th>Permanent Address</th>}
                       {visibleAttributes.includes("PermntAdrsCountry") && <th>Country</th>}
+                      {visibleAttributes.includes("PermntAdrsZIP") && <th>ZIP Code</th>}
+                      {visibleAttributes.includes("Occupation") && <th>Current Occupation</th>}
+                      {visibleAttributes.includes("Position") && <th>Work Position</th>}
+                      {visibleAttributes.includes("ApplicantWorkNature") && <th>Nature of Work</th>}
+                      {visibleAttributes.includes("SourceOfFunds") && <th>Source of Funds</th>}
+                      {visibleAttributes.includes("GrossAnnualIncome") && <th>Gross Income</th>}
+                      {visibleAttributes.includes("NetWorth") && <th>Net Worth</th>}
+                      {visibleAttributes.includes("DateHired") && <th>Date of Hiring</th>}
+                      {visibleAttributes.includes("DateOfRegularization") && <th>Regularization Date</th>}
+                      {visibleAttributes.includes("SSSID") && <th>SSS ID</th>}
+                      {visibleAttributes.includes("TINID") && <th>TIN ID</th>}
+                      {visibleAttributes.includes("OtherID") && <th>Other IDs</th>}
+                      {visibleAttributes.includes("OtherID2Number") && <th>Other IDs Used</th>}
+                      {visibleAttributes.includes("MobileNumber") && <th>Mobile Number</th>}
+                      {visibleAttributes.includes("TelNo") && <th>Telephone Number</th>}
+                      {visibleAttributes.includes("EmailAddress") && <th>E-mail Address</th>}
                     </tr>
                   </thead>
                   <tbody>
@@ -257,14 +288,39 @@ function DBMembers() {
                         </td>
                         {visibleAttributes.includes("ApplicantID") && <td className="data-container">{a.ApplicantID}</td>}
                         {visibleAttributes.includes("ApplicantName") && <td className="data-container">{a.ApplicantName}</td>}
+                        {visibleAttributes.includes("Salutation") && <td className="data-container">{a.Salutation}</td>}
+                        {visibleAttributes.includes("Alias") && <td className="data-container">{a.Alias}</td>}
                         {visibleAttributes.includes("Age") && <td className="data-container">{a.Age}</td>}
-                        {visibleAttributes.includes("Position") && <td className="data-container">{a.Position}</td>}
+                        {visibleAttributes.includes("Birthdate") && <td className="data-container">{a.Birthdate}</td>}
+                        {visibleAttributes.includes("Birthplace") && <td className="data-container">{a.Birthplace}</td>}
+                        {visibleAttributes.includes("CivilStatus") && <td className="data-container">{a.CivilStatus}</td>}
+                        {visibleAttributes.includes("Nationality") && <td className="data-container">{a.Nationality}</td>}
+                        {visibleAttributes.includes("Height") && <td className="data-container">{a.Height}</td>}
+                        {visibleAttributes.includes("Weight") && <td className="data-container">{a.Weight}</td>}
+                        {visibleAttributes.includes("Sex") && <td className="data-container">{a.Sex}</td>}
                         {visibleAttributes.includes("GrossAnnualIncome") && <td className="data-container">{a.GrossAnnualIncome}</td>}
                         {visibleAttributes.includes("MonthlyIncome") && <td className="data-container">{a.MonthlyIncome}</td>}
                         {visibleAttributes.includes("PresentAddress") && <td className="data-container">{a.PresentAddress}</td>}
                         {visibleAttributes.includes("PrsntAdrsCountry") && <td className="data-container">{a.PrsntAdrsCountry}</td>}
+                        {visibleAttributes.includes("PrsntAdrsZIP") && <td className="data-container">{a.PrsntAdrsZIP}</td>}
                         {visibleAttributes.includes("PermanentAddress") && <td className="data-container">{a.PermanentAddress}</td>}
                         {visibleAttributes.includes("PermntAdrsCountry") && <td className="data-container">{a.PermntAdrsCountry}</td>}
+                        {visibleAttributes.includes("PermntAdrsZIP") && <td className="data-container">{a.PermntAdrsZIP}</td>}
+                        {visibleAttributes.includes("Occupation") && <td className="data-container">{a.Occupation}</td>}
+                        {visibleAttributes.includes("Position") && <td className="data-container">{a.Position}</td>}
+                        {visibleAttributes.includes("ApplicantWorkNature") && <td className="data-container">{a.ApplicantWorkNature}</td>}
+                        {visibleAttributes.includes("SourceOfFunds") && <td className="data-container">{a.SourceOfFunds}</td>}
+                        {visibleAttributes.includes("GrossAnnualIncome") && <td className="data-container">{a.GrossAnnualIncome}</td>}
+                        {visibleAttributes.includes("NetWorth") && <td className="data-container">{a.NetWorth}</td>}
+                        {visibleAttributes.includes("DateHired") && <td className="data-container">{a.DateHired}</td>}
+                        {visibleAttributes.includes("DateOfRegularization") && <td className="data-container">{a.DateOfRegularization}</td>}
+                        {visibleAttributes.includes("SSSID") && <td className="data-container">{a.SSSID}</td>}
+                        {visibleAttributes.includes("TINID") && <td className="data-container">{a.TINID}</td>}
+                        {visibleAttributes.includes("OtherID") && <td className="data-container">{a.OtherID}</td>}
+                        {visibleAttributes.includes("OtherID2Number") && <td className="data-container">{a.OtherID2Number}</td>}
+                        {visibleAttributes.includes("MobileNumber") && <td className="data-container">{a.MobileNumber}</td>}
+                        {visibleAttributes.includes("TelNo") && <td className="data-container">{a.TelNo}</td>}
+                        {visibleAttributes.includes("EmailAddress") && <td className="data-container">{a.EmailAddress}</td>}
                       </tr>
                     ))}
                   </tbody>
