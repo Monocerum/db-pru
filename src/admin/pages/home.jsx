@@ -103,7 +103,7 @@ function Home() {
               <div className="recent-rectangle">
               <Link to="/dbMembers"> 
                 <h3 className="recent-text"> Members 
-                  <i class='bx bxs-chevron-right'></i></h3> 
+                  <i className='bx bxs-chevron-right'></i></h3> 
               </Link>
                 
                 <table className="table dashboard-members">
@@ -134,7 +134,7 @@ function Home() {
               <div className="recent-rectangle">
               <Link to="/dbBeneficiaries"> 
               <h3 className="recent-text"> Beneficiaries 
-                <i class='bx bxs-chevron-right'></i></h3> 
+                <i className='bx bxs-chevron-right'></i></h3> 
               </Link>
                 <table className="table dashboard-beneficiaries">
                   <thead>
@@ -167,7 +167,7 @@ function Home() {
               </div>
               <div className="recent-rectangle">
               <Link to="/dbEmployer"> <h3 className="recent-text"> Employers 
-                <i class='bx bxs-chevron-right'></i></h3> 
+                <i className='bx bxs-chevron-right'></i></h3> 
               </Link>
                 <table className="table dashboard-beneficiaries">
                   <thead>

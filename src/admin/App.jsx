@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Styles
 import '../styles.css';
@@ -29,6 +30,7 @@ import DBMembers from './pages/dbMembers';
 import DBUsers from './pages/dbUsers';
 import DBBeneficiaries from './pages/dbBeneficiaries';
 import DBEmployers from './pages/dbEmployers';
+import DBAll from './pages/db';
 
 // Assets
 import PruLogo from '../assets/pru-logo.svg';
@@ -58,6 +60,7 @@ function App() {
               <Route path="/dbUsers" element={<DBUsers />} />
               <Route path="/dbBeneficiaries" element={<DBBeneficiaries />} />
               <Route path="/dbEmployers" element={<DBEmployers />} />
+              <Route path="/dbAll" element={<DBAll />} ></Route>
               <Route 
                 path='/*'
                 element={
@@ -71,7 +74,7 @@ function App() {
                         <h3>Individual Application</h3>
                     </div>
                     <div className="login-btn">
-                      <a href='/login' className="admin-btn">ADMIN LOGIN</a>
+                      <Link to="/adminLogin" className="admin-btn">ADMIN LOGIN</Link>
                     </div>
                   </div>
                 }

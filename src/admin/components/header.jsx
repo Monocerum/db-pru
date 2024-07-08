@@ -50,8 +50,8 @@ function Header() {
                                     </>
                                 ) : (
                                     <>
-                                    <li><Link to='/login' className="user-icon"><img src={UserIcon} alt="User Icon" className="user-icon"/></Link></li>
-                                    <li><Link to='/login' className="login">Login</Link></li>
+                                    <li><Link to='/adminLogin' className="user-icon"><img src={UserIcon} alt="User Icon" className="user-icon"/></Link></li>
+                                    <li><Link to='/adminLogin' className="login">Login</Link></li>
                                     </>
                                 )}
                             </ul>

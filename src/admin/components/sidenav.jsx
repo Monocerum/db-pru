@@ -71,7 +71,7 @@ function SideNav() {
           </li>
           <li>
             <i
-                class="bx bxs-filter-alt"
+                className="bx bxs-filter-alt"
                 id="btnFilter"
                 onClick={toggleSidebar}
               ></i>

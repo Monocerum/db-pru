@@ -249,6 +249,11 @@ function DBMembers() {
                       Employer
                     </Link>
                   </li>
+                  <li className={`display-nav ${activePage.pathname === "/dbAll" ? "active" : ""}`}>
+                    <Link to="/dbAll" className="all-db nav-label">
+                      Joined
+                    </Link>
+                  </li>
                 </ul>
               </div>
             </div>

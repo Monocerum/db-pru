@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Components
 import Header from './components/header';
@@ -48,11 +49,8 @@ function App() {
                         <h3>Individual Application</h3>
                     </div>
                     <div className="register-btn">
-                      <a href='/register' className="reg-btn">REGISTER</a>
+                      <Link to="/register" className="reg-btn">REGISTER</Link>
                     </div>
-                    {/* <div className="navigate">
-                      <Link to="/" className="log-in">Are you an administrator? Log in.</Link>
-                    </div> */}
                   </div>
                 }
               />
