@@ -1275,6 +1275,56 @@ app.delete('/beneficiaries/:ApplicantID/:BeneficiaryCode', (req, res) => {
     });
 });
 
+app.post('/members/filter', (req, res) => {
+    const filters = req.body;
+    console.log(filters);
+    
+    let sql = 'SELECT * FROM applicant WHERE 1=1';
+    console.log(sql);
+    
+    if (filters.position) {
+        if (filters.position.length > 0) {
+            console.log(filters.position.length);
+            sql += ` AND ${filters.position.map(p => `Position LIKE '%${p}%'`).join(' OR ')}`;
+            console.log(sql);
+        }
+    }
+    if (filters.location) {
+        if (filters.location.length > 0) {
+            sql += ` AND ${filters.location.map(p => `PresentAddress LIKE '%${p}%'`).join(' OR ')}`;
+        }
+    }
+    if (filters.age) {
+        if (filters.age.length > 0) {
+            sql += ` AND ${filters.age.map(a => `AGE ${a}`).join(' OR ')}`;
+        }
+    }
+    if (filters.salary) {
+        if (filters.salary.length > 0) {
+            sql += ` AND Salary IN (${filters.salary.map(s => `'${s}'`).join(', ')})`;
+        }
+    }
+    
+    
+    // // if (filters.beneficiaryType.length > 0) {
+    //     sql += ` AND beneficiaryType IN (${filters.type.map(b => `'${b}'`).join(', ')})`;
+    // }
+    
+    // Execute the SQL query
+    // Assuming you have a function to execute SQL queries and return results
+
+    console.log(sql);
+
+    db.query(sql, (error, results) => {
+    if (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).send("Error executing SQL query: " + error.message); // Send detailed error message
+    } else {
+      res.json(results); // Send results to client as JSON
+    }
+  });
+  });
+
 //Route for 'apply.jsx'
 app.get('/apply', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'customer', 'pages', 'apply.jsx'));

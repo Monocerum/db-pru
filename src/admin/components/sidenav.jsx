@@ -4,11 +4,33 @@ import { Link } from "react-router-dom";
 // Assets
 import PruLogoWhite from "../../assets/pru-logo-white.png";
 
-function SideNav() {
+const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
   const [isActive, setActive] = useState(false);
+  const [filters, setFilters] = useState({
+    position: [],
+    location: [],
+    age: [],
+    salary: [],
+    beneficiaryType: []
+  });
 
   const toggleSidebar = () => {
     setActive(!isActive);
+  };
+
+  const handleCheckboxChange = (e) => {
+    const { name, checked, value } = e.target;
+    setFilters((prevFilters) => {
+      const updatedFilter = checked
+        ? [...prevFilters[name], value]
+        : prevFilters[name].filter((item) => item !== value);
+      return { ...prevFilters, [name]: updatedFilter };
+    });
+  };
+  
+  const applyFilters = () => {
+    setFilterOptions(filters);
+    onFilter();
   };
 
   return (
@@ -83,19 +105,19 @@ function SideNav() {
           <div className="filter-container">
             <h3 className="filter-title"> Position</h3>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="position" value="All" onChange={handleCheckboxChange} />
               <span className="checkmark"></span> All
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="position" value="Manager" onChange={handleCheckboxChange} />
               <span className="checkmark"></span> Manager
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="position" value="Executive Associate" onChange={handleCheckboxChange} />
               <span className="checkmark"></span> Executive Associate
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="position" value="IT Consultant" onChange={handleCheckboxChange} />
               <span className="checkmark"></span> IT Consultant
             </label>
           </div>
@@ -103,19 +125,23 @@ function SideNav() {
           <div className="filter-container">
             <h3 className="filter-title"> Location </h3>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="location" value="AllLocations" onChange={handleCheckboxChange}  />
               <span className="checkmark"></span> All
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="location" value="Quezon City" onChange={handleCheckboxChange}  />
               <span className="checkmark"></span> Quezon City
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="location" value="Manila City" onChange={handleCheckboxChange}  />
+              <span className="checkmark"></span> Manila City
+            </label>
+            <label className="filter-label-container">
+              <input type="checkbox" name="location" value="Makati City" onChange={handleCheckboxChange}  />
               <span className="checkmark"></span> Makati City
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="location" value="Taguig City" onChange={handleCheckboxChange}  />
               <span className="checkmark"></span> Taguig City
             </label>
           </div>
@@ -123,19 +149,19 @@ function SideNav() {
           <div className="filter-container">
             <h3 className="filter-title"> Age </h3>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="age" value="AllAges" onChange={handleCheckboxChange}  />
               <span className="checkmark"></span> All
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="age" value="BETWEEN 18 AND 24" onChange={handleCheckboxChange} />
               <span className="checkmark"></span> 18 - 24 years old
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="age" value="BETWEEN 25 AND 50" onChange={handleCheckboxChange} />
               <span className="checkmark"></span> 25 - 50 years old
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="age" value="> 50" onChange={handleCheckboxChange} />
               <span className="checkmark"></span> &gt; 50 years old
             </label>
           </div>
@@ -143,19 +169,19 @@ function SideNav() {
           <div className="filter-container">
             <h3 className="filter-title"> Salary </h3>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="salary" value="AllSalaries" onChange={handleCheckboxChange}  />
               <span className="checkmark"></span> All
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="salary" value="10k" onChange={handleCheckboxChange}  />
               <span className="checkmark"></span> &lt; P10,000
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="salary" value="10k50k" onChange={handleCheckboxChange}  />
               <span className="checkmark"></span> P10,000 - P50,000
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="salary" value="50k" onChange={handleCheckboxChange}  />
               <span className="checkmark"></span> &gt; P50,000
             </label>
           </div>
@@ -163,19 +189,21 @@ function SideNav() {
           <div className="filter-container">
             <h3 className="filter-title"> Beneficiary Type </h3>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="salary" value="AllTypes" onChange={handleCheckboxChange}  />
               <span className="checkmark"></span> All
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="salary" value="Primary" onChange={handleCheckboxChange}  />
               <span className="checkmark"></span> Primary
             </label>
             <label className="filter-label-container">
-              <input type="checkbox" name="test" />
+              <input type="checkbox" name="salary" value="Secondary" onChange={handleCheckboxChange}  />
               <span className="checkmark"></span> Secondary
             </label>
           </div>
           </div>
+
+          <button onClick={applyFilters}>Apply Filters</button>
         </div>
       </div>
     </div>

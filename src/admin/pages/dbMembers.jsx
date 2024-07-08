@@ -10,6 +10,8 @@ import PruLogo from "../../assets/pru-logo.svg";
 import SideNav from "../components/sidenav";
 
 function DBMembers() {
+  const [filterOptions, setFilterOptions] = useState({
+  });
   const [applicant, setApplicant] = useState([]);
   const [visibleAttributes, setVisibleAttributes] = useState([
     "ApplicantID", "ApplicantName", "Age", "GrossAnnualIncome", "MonthlyIncome",
@@ -45,7 +47,48 @@ function DBMembers() {
         console.error("Error fetching last UserID:", error);
       });
 
+     
   }, []);
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.post("http://localhost:5020/members/filter", filterOptions);
+        const formattedData = response.data.map(applicant => {
+          if (applicant.Birthdate) {
+            applicant.Birthdate = new Date(applicant.Birthdate).toISOString().split('T')[0];
+          }
+          if (applicant.DateHired) {
+            applicant.DateHired = new Date(applicant.DateHired).toISOString().split('T')[0];
+          }
+          if (applicant.DateOfRegularization) {
+            applicant.DateOfRegularization = new Date(applicant.DateOfRegularization).toISOString().split('T')[0];
+          }
+          if (applicant.Sex) {
+            applicant.Sex = applicant.Sex === 'F' ? 'FEMALE' : 'MALE';
+          }
+          if (applicant.CivilStatus) {
+            const statusMap = {
+              'S': 'SINGLE',
+              'M': 'MARRIED',
+              'W': 'WIDOWED',
+              'L': 'LEGALLY SEPARATED'
+            };
+            applicant.CivilStatus = statusMap[applicant.CivilStatus];
+          }
+          if (applicant.Weight) {
+            applicant.Weight = Math.floor(applicant.Weight);
+          }
+          return applicant;
+        });
+        setApplicant(formattedData);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+    
+    useEffect(() => {
+      fetchData();
+    }, [filterOptions])
 
   const deleteData = async (ApplicantID) => {
     if (window.confirm("Do you want to delete record?")) {
@@ -72,7 +115,7 @@ function DBMembers() {
 
   const showAllAttributes = () => {
     setVisibleAttributes([
-      "ApplicantID", "ApplicantName", "Age", "GrossAnnualIncome", "MonthlyIncome",
+      "ApplicantID", "ApplicantName", "Age", "Position", "GrossAnnualIncome", "MonthlyIncome",
       "PresentAddress", "PrsntAdrsCountry", "PermanentAddress", "PermntAdrsCountry"
     ]);
   };
@@ -85,7 +128,7 @@ function DBMembers() {
     <>
       <div>
         <main className="cont">
-          <SideNav />
+          <SideNav filterOptions={filterOptions} setFilterOptions={setFilterOptions} onFilter={fetchData} />
           <div className="main">
             <div className="header">
               <div className="profile-hero">
@@ -179,8 +222,8 @@ function DBMembers() {
                       <th id="icon-header"></th>
                       {visibleAttributes.includes("ApplicantID") && <th id="id-header">ApplicantID</th>}
                       {visibleAttributes.includes("ApplicantName") && <th>Name</th>}
-                      {visibleAttributes.includes("Position") && <th>Position</th>}
                       {visibleAttributes.includes("Age") && <th>Age</th>}
+                      {visibleAttributes.includes("Position") && <th>Position</th>}
                       {visibleAttributes.includes("GrossAnnualIncome") && <th>Gross Annual Income</th>}
                       {visibleAttributes.includes("MonthlyIncome") && <th>Monthly Income</th>}
                       {visibleAttributes.includes("PresentAddress") && <th>Present Address</th>}
@@ -214,8 +257,8 @@ function DBMembers() {
                         </td>
                         {visibleAttributes.includes("ApplicantID") && <td className="data-container">{a.ApplicantID}</td>}
                         {visibleAttributes.includes("ApplicantName") && <td className="data-container">{a.ApplicantName}</td>}
-                        {visibleAttributes.includes("Position") && <td className="data-container">{a.Position}</td>}
                         {visibleAttributes.includes("Age") && <td className="data-container">{a.Age}</td>}
+                        {visibleAttributes.includes("Position") && <td className="data-container">{a.Position}</td>}
                         {visibleAttributes.includes("GrossAnnualIncome") && <td className="data-container">{a.GrossAnnualIncome}</td>}
                         {visibleAttributes.includes("MonthlyIncome") && <td className="data-container">{a.MonthlyIncome}</td>}
                         {visibleAttributes.includes("PresentAddress") && <td className="data-container">{a.PresentAddress}</td>}
