@@ -12,7 +12,7 @@ import Scroll from './components/scroll';
 // Pages
 import Home from './pages/home';
 import Apply from './pages/apply';
-import Login from './pages/login';
+import AdminLogin from './pages/adminLogin';
 import Register from './pages/register';
 import EmployerRegister from './pages/employerRegistration';
 
@@ -45,7 +45,7 @@ function App() {
             <Routes>
               <Route path='/home' element={<Home />} />
               <Route path='/apply' element={<Apply />} />
-              <Route path='/login' element={<Login />} />
+              <Route path='/adminLogin' element={<AdminLogin />} />
               <Route path='/register' element={<Register />} />
               <Route path='/employerRegistration' element={<EmployerRegister />} />
               <Route path='/userProfile' element={<UserProfile />} />

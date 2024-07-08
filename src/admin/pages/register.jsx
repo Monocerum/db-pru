@@ -53,7 +53,7 @@ function Register() {
           </label>
           <div className="container">
             <div className="login-hdr">
-              <h3 className="log-hdr">APPLICANT REGISTERATION</h3>
+              <h3 className="log-hdr">APPLICANT REGISTRATION</h3>
             </div>
             <form onSubmit={handleSubmit} id="registrationForm">
               <div className="fill register-fill">

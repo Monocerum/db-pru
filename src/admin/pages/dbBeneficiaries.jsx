@@ -85,13 +85,13 @@ function DBBeneficiaries() {
             <div className="db-container">
               <div className="db-header">
                 <h2 className="db-name">Beneficiaries</h2>
-                <div className="action-buttons">
+                {/* <div className="action-buttons">
                   <ul>
                     <Link to="/apply" className="add-button action-btn">
                       Add
                     </Link>
                   </ul>
-                </div>
+                </div> */}
               </div>
               <div className="action-db">
                 <div className="search-container">

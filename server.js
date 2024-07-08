@@ -343,6 +343,29 @@ app.post('/login', (req, res) => {
     });
 });
 
+// Route for admin login
+app.post('/adminLogin', (req, res) => {
+    const { Username, Password } = req.body;
+
+    if (!Username || !Password) {
+        return res.status(400).send('Please fill in the username and password.');
+    }
+
+    const loginSql = 'SELECT * FROM ADMIN WHERE Username = ? AND Password = ?';
+    db.query(loginSql, [Username, Password], (err, results) => {
+        if (err) {
+            console.error('Error authenticating user: ', err);
+            return res.status(500).send('Login failed. Please try again.');
+        }
+
+        if (results.length === 0) {
+            return res.status(401).send('Invalid username or password.');
+        }
+
+        res.status(200).send('Login successful.');
+    });
+});
+
 // Serve static files from the 'customer' directory
 app.use(express.static(path.join(__dirname, 'customer')));
 

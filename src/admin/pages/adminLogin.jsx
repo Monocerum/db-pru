@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 // Styles
 import "../../styles.css";
 
-function Login() {
+function AdminLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -12,8 +13,12 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // Simulate server-side logic directly in frontend
-      if (username === "admin" && password === "admin123") {
+      const response = await axios.post("http://localhost:5020/adminLogin", {
+        Username: username,
+        Password: password,
+      });
+
+      if (response.status === 200) {
         navigate("/home");
       } else {
         alert("Invalid username or password");
@@ -30,11 +35,11 @@ function Login() {
         <div className="main">
           <div className="login">
             <label htmlFor="login" className="login-lbl">
-              <span className="company-name">PRU Life U.K.</span> Account
+              <span className="company-name">PRU Life U.K.</span> Admin Account
             </label>
             <div className="container">
               <div className="login-hdr">
-                <h3 className="log-hdr">LOGIN</h3>
+                <h3 className="log-hdr">ADMIN LOGIN</h3>
               </div>
               <form className="login-container" onSubmit={handleLogin}>
                 <div className="fill login-fill">
@@ -80,4 +85,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default AdminLogin;
