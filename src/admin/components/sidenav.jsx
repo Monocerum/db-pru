@@ -8,7 +8,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
   const [isActive, setActive] = useState(false);
   const [filters, setFilters] = useState({
     groupBy: [],
-    select: [],
+    selectFields: [],
     orderBy: [],
     orderIn: [],
     position: [],
@@ -36,11 +36,22 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
       return { ...prevFilters, [name]: updatedFilter };
     });
   };
+
+  const handleSelectChange = (e) => {
+    const { options } = e.target;
+    const values = Array.from(options).filter(option => option.selected).map(option => option.value);
+    setFilters((prevOptions) => ({
+      ...prevOptions,
+      selectFields: values
+    }));
+  };
   
   const applyFilters = () => {
     setFilterOptions(filters);
     onFilter();
   };
+
+  
 
   const activePage = useLocation();
 
@@ -112,10 +123,51 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
           </li>
         </ul>
         <div className="textFilter">
-
-          
-          
           <div className="filter-content">
+          <div className={`filter-container ${activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
+            <h3 className="filter-title"> DISPLAY: </h3>
+            <select multiple name="selectFields" className="select-fields" value={filters.selectFields} onChange={handleSelectChange}>
+              <option value="ApplicantID">Applicant ID</option>
+              <option value="ApplicantName">Name</option>
+              <option value="Alias">Alias</option>
+              <option value="Age">Age</option>
+              <option value="Birthdate">Birthdate</option>
+              <option value="Birthplace">Birthplace</option>
+              <option value="CivilStatus">Civil Status</option>
+              <option value="Nationality">Nationality</option>
+              <option value="Height">Height</option>
+              <option value="Weight">Weight</option>
+              <option value="Sex">Sex</option>
+              <option value="GrossAnnualIncome">Gross Annual Income</option>
+              <option value="MonthlyIncome">Monthly Income</option>
+              <option value="PresentAddress">Present Address</option>
+              <option value="PrsntAdrsCountry">Country</option>
+              <option value="PrsntAdrsZIP">ZIP Code</option>
+              <option value="PermanentAddress">Permanent Address</option>
+              <option value="PermntAdrsCountry">Country</option>
+              <option value="PermntAdrsZIP">ZIP Code</option>
+              <option value="Occupation">Current Occupation</option>
+              <option value="Position">Work Position</option>
+              <option value="ApplicantWorkNature">Nature of Work</option>
+              <option value="SourceOfFunds">Source of Funds</option>
+              <option value="GrossAnnualIncome">Gross Income</option>
+              <option value="NetWorth">Net Worth</option>
+              <option value="DateHired">Date of Hiring</option>
+              <option value="DateOfRegularization">Regularization Date</option>
+              <option value="MonthlyIncome">Monthly Income</option>
+              <option value="SSSID">SSS ID</option>
+              <option value="TINID">TIN ID</option>
+              <option value="OtherID">Other ID #1</option>
+              <option value="OtherIDNumber">Other ID #1 Number</option>
+              <option value="OtherID2">Other ID #2</option>
+              <option value="OtherID2Number">Other ID #2 Number</option>
+              <option value="MobileNumber">Mobile Number</option>
+              <option value="TelNo">Telephone Number</option>
+              <option value="EmailAddress">Email Address</option>
+              <option value="EmployerCode">Employer Code</option>
+            </select>
+          </div>
+
             <div className={`filter-container ${activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
             <h3 className="filter-title"> SORT BY </h3>
             <label className="filter-label-container">

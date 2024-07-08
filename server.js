@@ -21,9 +21,9 @@ app.use(bodyParser.json());
 const db = mysql.createConnection({
     host: '127.0.0.1',
     port: 3306,
-    user: 'root',
-    password: '1234',
-    database: 'pru'
+    user: 'monochrome',
+    password: 'monokuro',
+    database: 'dbpru'
 });
 
 db.connect((err) => {
@@ -1279,8 +1279,18 @@ app.post('/members/filter', (req, res) => {
     const filters = req.body;
     console.log(filters);
     
-    let sql = 'SELECT * FROM applicant WHERE 1=1';
+    // let sql = 'SELECT * FROM applicant WHERE 1=1';
+    // console.log(sql);
+
+    let sql = 'SELECT';
     console.log(sql);
+    if (filters.selectFields.length > 0) {
+        sql += ` ${filters.selectFields.map(p => `${p}`).join(', ')}`;
+    } else {
+        sql += ` *`
+    }
+    
+    sql += ` FROM applicant WHERE 1=1`
     
     if (filters.position) {
         if (filters.position.length > 0) {

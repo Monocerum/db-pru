@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { FilterProvider } from './components/FilterContext';
 
 // Styles
 import '../styles.css';
@@ -39,6 +40,7 @@ function App() {
   return (
     <>
       <div className="body">
+        <FilterProvider>
         <Router>
         <Header />
         <Scroll />
@@ -84,6 +86,7 @@ function App() {
             <Footer />
           </div>
         </Router>
+        </FilterProvider>
       </div>
     </>
   )

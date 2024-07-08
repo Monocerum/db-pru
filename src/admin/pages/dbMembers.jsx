@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 // Styles
@@ -10,8 +11,7 @@ import PruLogo from "../../assets/pru-logo.svg";
 import SideNav from "../components/sidenav";
 
 function DBMembers() {
-  const [filterOptions, setFilterOptions] = useState({
-  });
+  const [filterOptions, setFilterOptions] = useState({});
   const [applicant, setApplicant] = useState([]);
   const [visibleAttributes, setVisibleAttributes] = useState([
     "ApplicantID", "ApplicantName", "Salutation", "Alias", "Age", "GrossAnnualIncome", "MonthlyIncome",
@@ -213,7 +213,7 @@ function DBMembers() {
                   Salary
                 </button>
                 <button
-                  className={`show-btns ${(visibleAttributes.includes("PresentAddress") && visibleAttributes.includes("PrsntAdrsCountry")) ? 'active' : ''}`}
+                  className={`show-btns ${(visibleAttributes.includes("PresentAddress") ) ? 'active' : ''}`}
                   onClick={() => showSpecificAttributes(["PresentAddress", "PrsntAdrsCountry"])}
                 >
                   Location
@@ -226,41 +226,79 @@ function DBMembers() {
                     <th id="icon-header"></th>
                       <th id="icon-header"></th>
                       <th id="icon-header"></th>
-                      {visibleAttributes.includes("ApplicantID") && <th id="id-header">ApplicantID</th>}
-                      {visibleAttributes.includes("ApplicantName") && <th>Name</th>}
-                      {visibleAttributes.includes("Salutation") && <th>Salutation</th>}
-                      {visibleAttributes.includes("Alias") && <th>Alias</th>}
-                      {visibleAttributes.includes("Age") && <th>Age</th>}
-                      {visibleAttributes.includes("Birthdate") && <th>Birthdate</th>}
-                      {visibleAttributes.includes("Birthplace") && <th>Birthplace</th>}
-                      {visibleAttributes.includes("CivilStatus") && <th>Civil Status</th>}
-                      {visibleAttributes.includes("Nationality") && <th>Nationality</th>}
-                      {visibleAttributes.includes("Height") && <th>Height</th>}
-                      {visibleAttributes.includes("Weight") && <th>Weight</th>}
-                      {visibleAttributes.includes("Sex") && <th>Sex</th>}
-                      {visibleAttributes.includes("GrossAnnualIncome") && <th>Gross Annual Income</th>}
-                      {visibleAttributes.includes("MonthlyIncome") && <th>Monthly Income</th>}
-                      {visibleAttributes.includes("PresentAddress") && <th>Present Address</th>}
-                      {visibleAttributes.includes("PrsntAdrsCountry") && <th>Country</th>}
-                      {visibleAttributes.includes("PrsntAdrsZIP") && <th>ZIP Code</th>}
-                      {visibleAttributes.includes("PermanentAddress") && <th>Permanent Address</th>}
-                      {visibleAttributes.includes("PermntAdrsCountry") && <th>Country</th>}
-                      {visibleAttributes.includes("PermntAdrsZIP") && <th>ZIP Code</th>}
-                      {visibleAttributes.includes("Occupation") && <th>Current Occupation</th>}
-                      {visibleAttributes.includes("Position") && <th>Work Position</th>}
-                      {visibleAttributes.includes("ApplicantWorkNature") && <th>Nature of Work</th>}
-                      {visibleAttributes.includes("SourceOfFunds") && <th>Source of Funds</th>}
-                      {visibleAttributes.includes("GrossAnnualIncome") && <th>Gross Income</th>}
-                      {visibleAttributes.includes("NetWorth") && <th>Net Worth</th>}
-                      {visibleAttributes.includes("DateHired") && <th>Date of Hiring</th>}
-                      {visibleAttributes.includes("DateOfRegularization") && <th>Regularization Date</th>}
-                      {visibleAttributes.includes("SSSID") && <th>SSS ID</th>}
-                      {visibleAttributes.includes("TINID") && <th>TIN ID</th>}
-                      {visibleAttributes.includes("OtherID") && <th>Other IDs</th>}
-                      {visibleAttributes.includes("OtherID2Number") && <th>Other IDs Used</th>}
-                      {visibleAttributes.includes("MobileNumber") && <th>Mobile Number</th>}
-                      {visibleAttributes.includes("TelNo") && <th>Telephone Number</th>}
-                      {visibleAttributes.includes("EmailAddress") && <th>E-mail Address</th>}
+                      {filterOptions && filterOptions.selectFields ? ( <>
+                        {filterOptions.selectFields.includes("ApplicantID") && <th id="id-header">ApplicantID</th>}
+                        {filterOptions.selectFields.includes("ApplicantName") && <th>Name</th>}
+                        {filterOptions.selectFields.includes("Salutation") && <th>Salutation</th>}
+                        {filterOptions.selectFields.includes("Alias") && <th>Alias</th>}
+                        {filterOptions.selectFields.includes("Age") && <th>Age</th>}
+                        {filterOptions.selectFields.includes("Birthdate") && <th>Birthdate</th>}
+                        {filterOptions.selectFields.includes("Birthplace") && <th>Birthplace</th>}
+                        {filterOptions.selectFields.includes("CivilStatus") && <th>Civil Status</th>}
+                        {filterOptions.selectFields.includes("Nationality") && <th>Nationality</th>}
+                        {filterOptions.selectFields.includes("Height") && <th>Height</th>}
+                        {filterOptions.selectFields.includes("Weight") && <th>Weight</th>}
+                        {filterOptions.selectFields.includes("Sex") && <th>Sex</th>}
+                        {filterOptions.selectFields.includes("GrossAnnualIncome") && <th>Gross Annual Income</th>}
+                        {filterOptions.selectFields.includes("MonthlyIncome") && <th>Monthly Income</th>}
+                        {filterOptions.selectFields.includes("PresentAddress") && <th>Present Address</th>}
+                        {filterOptions.selectFields.includes("PrsntAdrsCountry") && <th>Country</th>}
+                        {filterOptions.selectFields.includes("PrsntAdrsZIP") && <th>ZIP Code</th>}
+                        {filterOptions.selectFields.includes("PermanentAddress") && <th>Permanent Address</th>}
+                        {filterOptions.selectFields.includes("PermntAdrsCountry") && <th>Country</th>}
+                        {filterOptions.selectFields.includes("PermntAdrsZIP") && <th>ZIP Code</th>}
+                        {filterOptions.selectFields.includes("Occupation") && <th>Current Occupation</th>}
+                        {filterOptions.selectFields.includes("Position") && <th>Work Position</th>}
+                        {filterOptions.selectFields.includes("ApplicantWorkNature") && <th>Nature of Work</th>}
+                        {filterOptions.selectFields.includes("SourceOfFunds") && <th>Source of Funds</th>}
+                        {filterOptions.selectFields.includes("GrossAnnualIncome") && <th>Gross Income</th>}
+                        {filterOptions.selectFields.includes("NetWorth") && <th>Net Worth</th>}
+                        {filterOptions.selectFields.includes("DateHired") && <th>Date of Hiring</th>}
+                        {filterOptions.selectFields.includes("DateOfRegularization") && <th>Regularization Date</th>}
+                        {filterOptions.selectFields.includes("SSSID") && <th>SSS ID</th>}
+                        {filterOptions.selectFields.includes("TINID") && <th>TIN ID</th>}
+                        {filterOptions.selectFields.includes("OtherID") && <th>Other IDs</th>}
+                        {filterOptions.selectFields.includes("OtherID2Number") && <th>Other IDs Used</th>}
+                        {filterOptions.selectFields.includes("MobileNumber") && <th>Mobile Number</th>}
+                        {filterOptions.selectFields.includes("TelNo") && <th>Telephone Number</th>}
+                        {filterOptions.selectFields.includes("EmailAddress") && <th>E-mail Address</th>}
+                        </> ) : ( <>
+                        {visibleAttributes.includes("ApplicantID") && <th id="id-header">ApplicantID</th>}
+                        {visibleAttributes.includes("ApplicantName") && <th>Name</th>}
+                        {visibleAttributes.includes("Salutation") && <th>Salutation</th>}
+                        {visibleAttributes.includes("Alias") && <th>Alias</th>}
+                        {visibleAttributes.includes("Age") && <th>Age</th>}
+                        {visibleAttributes.includes("Birthdate") && <th>Birthdate</th>}
+                        {visibleAttributes.includes("Birthplace") && <th>Birthplace</th>}
+                        {visibleAttributes.includes("CivilStatus") && <th>Civil Status</th>}
+                        {visibleAttributes.includes("Nationality") && <th>Nationality</th>}
+                        {visibleAttributes.includes("Height") && <th>Height</th>}
+                        {visibleAttributes.includes("Weight") && <th>Weight</th>}
+                        {visibleAttributes.includes("Sex") && <th>Sex</th>}
+                        {visibleAttributes.includes("GrossAnnualIncome") && <th>Gross Annual Income</th>}
+                        {visibleAttributes.includes("MonthlyIncome") && <th>Monthly Income</th>}
+                        {visibleAttributes.includes("PresentAddress") && <th>Present Address</th>}
+                        {visibleAttributes.includes("PrsntAdrsCountry") && <th>Country</th>}
+                        {visibleAttributes.includes("PrsntAdrsZIP") && <th>ZIP Code</th>}
+                        {visibleAttributes.includes("PermanentAddress") && <th>Permanent Address</th>}
+                        {visibleAttributes.includes("PermntAdrsCountry") && <th>Country</th>}
+                        {visibleAttributes.includes("PermntAdrsZIP") && <th>ZIP Code</th>}
+                        {visibleAttributes.includes("Occupation") && <th>Current Occupation</th>}
+                        {visibleAttributes.includes("Position") && <th>Work Position</th>}
+                        {visibleAttributes.includes("ApplicantWorkNature") && <th>Nature of Work</th>}
+                        {visibleAttributes.includes("SourceOfFunds") && <th>Source of Funds</th>}
+                        {visibleAttributes.includes("GrossAnnualIncome") && <th>Gross Income</th>}
+                        {visibleAttributes.includes("NetWorth") && <th>Net Worth</th>}
+                        {visibleAttributes.includes("DateHired") && <th>Date of Hiring</th>}
+                        {visibleAttributes.includes("DateOfRegularization") && <th>Regularization Date</th>}
+                        {visibleAttributes.includes("SSSID") && <th>SSS ID</th>}
+                        {visibleAttributes.includes("TINID") && <th>TIN ID</th>}
+                        {visibleAttributes.includes("OtherID") && <th>Other IDs</th>}
+                        {visibleAttributes.includes("OtherID2Number") && <th>Other IDs Used</th>}
+                        {visibleAttributes.includes("MobileNumber") && <th>Mobile Number</th>}
+                        {visibleAttributes.includes("TelNo") && <th>Telephone Number</th>}
+                        {visibleAttributes.includes("EmailAddress") && <th>E-mail Address</th>}
+                      </>)}
                     </tr>
                   </thead>
                   <tbody>
@@ -286,6 +324,46 @@ function DBMembers() {
                         <td className="data-container">
                           <i className="bx bx-trash" onClick={() => deleteData(a.ApplicantID)}></i>
                         </td>
+                        {filterOptions && filterOptions.selectFields ? (
+                        <>
+                        {filterOptions.selectFields.includes("ApplicantID") && <td className="data-container">{a.ApplicantID}</td>}
+                        {filterOptions.selectFields.includes("ApplicantName") && <td className="data-container">{a.ApplicantName}</td>}
+                        {filterOptions.selectFields.includes("Salutation") && <td className="data-container">{a.Salutation}</td>}
+                        {filterOptions.selectFields.includes("Alias") && <td className="data-container">{a.Alias}</td>}
+                        {filterOptions.selectFields.includes("Age") && <td className="data-container">{a.Age}</td>}
+                        {filterOptions.selectFields.includes("Birthdate") && <td className="data-container">{a.Birthdate}</td>}
+                        {filterOptions.selectFields.includes("Birthplace") && <td className="data-container">{a.Birthplace}</td>}
+                        {filterOptions.selectFields.includes("CivilStatus") && <td className="data-container">{a.CivilStatus}</td>}
+                        {filterOptions.selectFields.includes("Nationality") && <td className="data-container">{a.Nationality}</td>}
+                        {filterOptions.selectFields.includes("Height") && <td className="data-container">{a.Height}</td>}
+                        {filterOptions.selectFields.includes("Weight") && <td className="data-container">{a.Weight}</td>}
+                        {filterOptions.selectFields.includes("Sex") && <td className="data-container">{a.Sex}</td>}
+                        {filterOptions.selectFields.includes("GrossAnnualIncome") && <td className="data-container">{a.GrossAnnualIncome}</td>}
+                        {filterOptions.selectFields.includes("MonthlyIncome") && <td className="data-container">{a.MonthlyIncome}</td>}
+                        {filterOptions.selectFields.includes("PresentAddress") && <td className="data-container">{a.PresentAddress}</td>}
+                        {filterOptions.selectFields.includes("PrsntAdrsCountry") && <td className="data-container">{a.PrsntAdrsCountry}</td>}
+                        {filterOptions.selectFields.includes("PrsntAdrsZIP") && <td className="data-container">{a.PrsntAdrsZIP}</td>}
+                        {filterOptions.selectFields.includes("PermanentAddress") && <td className="data-container">{a.PermanentAddress}</td>}
+                        {filterOptions.selectFields.includes("PermntAdrsCountry") && <td className="data-container">{a.PermntAdrsCountry}</td>}
+                        {filterOptions.selectFields.includes("PermntAdrsZIP") && <td className="data-container">{a.PermntAdrsZIP}</td>}
+                        {filterOptions.selectFields.includes("Occupation") && <td className="data-container">{a.Occupation}</td>}
+                        {filterOptions.selectFields.includes("Position") && <td className="data-container">{a.Position}</td>}
+                        {filterOptions.selectFields.includes("ApplicantWorkNature") && <td className="data-container">{a.ApplicantWorkNature}</td>}
+                        {filterOptions.selectFields.includes("SourceOfFunds") && <td className="data-container">{a.SourceOfFunds}</td>}
+                        {filterOptions.selectFields.includes("GrossAnnualIncome") && <td className="data-container">{a.GrossAnnualIncome}</td>}
+                        {filterOptions.selectFields.includes("NetWorth") && <td className="data-container">{a.NetWorth}</td>}
+                        {filterOptions.selectFields.includes("DateHired") && <td className="data-container">{a.DateHired}</td>}
+                        {filterOptions.selectFields.includes("DateOfRegularization") && <td className="data-container">{a.DateOfRegularization}</td>}
+                        {filterOptions.selectFields.includes("SSSID") && <td className="data-container">{a.SSSID}</td>}
+                        {filterOptions.selectFields.includes("TINID") && <td className="data-container">{a.TINID}</td>}
+                        {filterOptions.selectFields.includes("OtherID") && <td className="data-container">{a.OtherID}</td>}
+                        {filterOptions.selectFields.includes("OtherID2Number") && <td className="data-container">{a.OtherID2Number}</td>}
+                        {filterOptions.selectFields.includes("MobileNumber") && <td className="data-container">{a.MobileNumber}</td>}
+                        {filterOptions.selectFields.includes("TelNo") && <td className="data-container">{a.TelNo}</td>}
+                        {filterOptions.selectFields.includes("EmailAddress") && <td className="data-container">{a.EmailAddress}</td>}
+                        </>
+                        ) : ( 
+                        <>
                         {visibleAttributes.includes("ApplicantID") && <td className="data-container">{a.ApplicantID}</td>}
                         {visibleAttributes.includes("ApplicantName") && <td className="data-container">{a.ApplicantName}</td>}
                         {visibleAttributes.includes("Salutation") && <td className="data-container">{a.Salutation}</td>}
@@ -321,6 +399,8 @@ function DBMembers() {
                         {visibleAttributes.includes("MobileNumber") && <td className="data-container">{a.MobileNumber}</td>}
                         {visibleAttributes.includes("TelNo") && <td className="data-container">{a.TelNo}</td>}
                         {visibleAttributes.includes("EmailAddress") && <td className="data-container">{a.EmailAddress}</td>}
+                        </>
+                        )}
                       </tr>
                     ))}
                   </tbody>
