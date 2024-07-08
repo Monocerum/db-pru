@@ -10,6 +10,7 @@ import PruLogo from "../../assets/pru-logo.svg";
 import SideNav from "../components/sidenav";
 
 function DBEmployers() {
+  const [filterOptions, setFilterOptions] = useState({});
   const [employer, setEmployer] = useState([]);
   const [visibleAttributes, setVisibleAttributes] = useState([
     "EmployerCode", "EmpOrBusName", "EmpOrBusNature", "EmpOrBusTelNo", 
@@ -34,6 +35,19 @@ function DBEmployers() {
         console.error(error);
       });
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.post("http://localhost:5020/employers/filter", filterOptions);
+      setEmployer(response.data);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchData();
+  }, [filterOptions])
 
   const deleteData = async (EmployerCode) => { 
     if (window.confirm("Do you want to delete record?")) {
@@ -84,7 +98,7 @@ function DBEmployers() {
     <>
       <div>
         <main className="cont">
-          <SideNav />
+          <SideNav filterOptions={filterOptions} setFilterOptions={setFilterOptions} onFilter={fetchData} />
           <div className="main">
             <div className="header">
               <div className="profile-hero">

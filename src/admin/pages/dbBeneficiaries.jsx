@@ -10,6 +10,7 @@ import PruLogo from "../../assets/pru-logo.svg";
 import SideNav from "../components/sidenav";
 
 function DBBeneficiaries() {
+  const [filterOptions, setFilterOptions] = useState({});
   const [beneficiaries, setBeneficiaries] = useState([]);
   const [visibleAttributes, setVisibleAttributes] = useState([
     "BeneficiaryCode", "ApplicantID", "BeneficiaryName", "BeneficiaryDOB", 
@@ -34,6 +35,57 @@ function DBBeneficiaries() {
         console.error(error);
       });
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.post("http://localhost:5020/beneficiaries/filter", filterOptions);
+      const formattedData = response.data.map(beneficiary => {
+        if (beneficiary.BeneficiaryDOB) {
+            beneficiary.BeneficiaryDOB = new Date(beneficiary.BeneficiaryDOB).toISOString().split('T')[0];
+        }
+
+       // Convert abbreviated data
+        if (beneficiary.BeneficiarySex) {
+            if (beneficiary.BeneficiarySex === 'F') {
+                beneficiary.BeneficiarySex = 'FEMALE';
+
+            } else if (beneficiary.BeneficiarySex === 'M') {
+                beneficiary.BeneficiarySex = 'MALE';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryType) {
+            if (beneficiary.BeneficiaryType === 'P') {
+                beneficiary.BeneficiaryType = 'PRIMARY';
+
+            } else if (beneficiary.BeneficiaryType === 'S') {
+                beneficiary.BeneficiaryType = 'SECONDARY';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryDesignation) {
+            if (beneficiary.BeneficiaryDesignation === 'R') {
+                beneficiary.BeneficiaryDesignation = 'REVOCABLE';
+
+            } else if (beneficiary.BeneficiaryDesignation === 'I') {
+                beneficiary.BeneficiaryDesignation = 'IRREVOCABLE';
+
+            }
+        }
+
+        return beneficiary;
+    });
+      setBeneficiaries(formattedData);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchData();
+  }, [filterOptions])
 
   const deleteData = async (ApplicantID, BeneficiaryCode) => { 
     if (window.confirm("Do you want to delete record?")) {
@@ -64,7 +116,7 @@ function DBBeneficiaries() {
     <>
       <div>
         <main className="cont">
-          <SideNav />
+          <SideNav filterOptions={filterOptions} setFilterOptions={setFilterOptions} onFilter={fetchData} />
           <div className="main">
             <div className="header">
               <div className="profile-hero">

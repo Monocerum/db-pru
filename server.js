@@ -1301,17 +1301,96 @@ app.post('/members/filter', (req, res) => {
     }
     if (filters.salary) {
         if (filters.salary.length > 0) {
-            sql += ` AND Salary IN (${filters.salary.map(s => `'${s}'`).join(', ')})`;
+            sql += ` AND ${filters.salary.map(a => `MonthlyIncome ${a}`).join(' OR ')}`;
         }
     }
+    if (filters.datehired) {
+        if (filters.datehired.length > 0) {
+            sql += ` AND ${filters.datehired.map(a => `(DATEDIFF(curdate(), DateHired)/365) ${a}`).join(' OR ')}`;
+        }
+    }
+
+    if (filters.orderBy && filters.orderBy.length > 0) {
+        if (filters.orderIn && filters.orderIn.length > 0) {
+          const orderClauses = filters.orderBy.map((field, index) => {
+            const direction = filters.orderIn[index] || 'ASC';
+            return `${field} ${direction}`;
+          }).join(', ');
+          sql += ` ORDER BY ${orderClauses}`;
+        } else {
+            sql += ` ORDER BY ${filters.orderBy.map(a => `${a}`).join(', ')}`;
+        }
+      }
+
+    console.log(sql);
+
+    db.query(sql, (error, results) => {
+    if (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).send("Error executing SQL query: " + error.message); 
+    } else {
+      res.json(results); 
+    }
+  });
+  });
+
+  app.post('/beneficiaries/filter', (req, res) => {
+    const filters = req.body;
+    console.log(filters);
     
+    let sql = 'SELECT * FROM beneficiary WHERE 1=1';
+    console.log(sql);
+
+    if (filters.location.length > 0) {
+        sql += ` AND ${filters.location.map(p => `BeneficiaryPrsntAdrs LIKE '%${p}%'`).join(' OR ')}`;
+    }
     
-    // // if (filters.beneficiaryType.length > 0) {
-    //     sql += ` AND beneficiaryType IN (${filters.type.map(b => `'${b}'`).join(', ')})`;
+    if (filters.beneficiaryType.length > 0) {
+        sql += ` AND beneficiaryType IN (${filters.beneficiaryType.map(b => `'${b}'`).join(', ')})`;
+    }
+
+    if (filters.beneficiaryDesignation.length > 0) {
+        sql += ` AND beneficiaryDesignation IN (${filters.beneficiaryDesignation.map(b => `'${b}'`).join(', ')})`;
+    }
+
+    if (filters.beneficiarySex.length > 0) {
+        sql += ` AND beneficiarySex IN (${filters.beneficiarySex.map(b => `'${b}'`).join(', ')})`;
+    }
+
+    console.log(sql);
+
+    db.query(sql, (error, results) => {
+    if (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).send("Error executing SQL query: " + error.message); // Send detailed error message
+    } else {
+      res.json(results); // Send results to client as JSON
+    }
+  });
+  });
+
+  app.post('/employers/filter', (req, res) => {
+    const filters = req.body;
+    console.log(filters);
+    
+    let sql = 'SELECT * FROM employer WHERE 1=1';
+    console.log(sql);
+
+    if (filters.location.length > 0) {
+        sql += ` AND ${filters.location.map(p => `EmpOrBusAdrs LIKE '%${p}%'`).join(' OR ')}`;
+    }
+    
+    if (filters.EmpOrBusNature.length > 0) {
+        sql += ` AND EmpOrBusNature IN (${filters.EmpOrBusNature.map(b => `'${b}'`).join(', ')})`;
+    }
+
+    // if (filters.EmpOrBusCountry.length > 0) {
+    //     if (filters.EmpOrBusCountry.value === "Philippines") {
+    //         sql += ` AND EmpOrBusCountry IN (${filters.EmpOrBusCountry.map(b => `'${b}'`).join(', ')})`;
+    //     } else if (filters.EmpOrBusCountry === "<> Philippines") {
+    //         sql += ` AND EmpOrBusCountry <> Philippines`;  
+    //     } 
     // }
-    
-    // Execute the SQL query
-    // Assuming you have a function to execute SQL queries and return results
 
     console.log(sql);
 
