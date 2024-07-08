@@ -152,6 +152,12 @@ function DBMembers() {
                   Age
                 </button>
                 <button
+                  className={`show-btns ${visibleAttributes.includes("Position") ? 'active' : ''}`}
+                  onClick={() => showSpecificAttributes(["Position"])}
+                >
+                  Position
+                </button>
+                <button
                   className={`show-btns ${visibleAttributes.includes("GrossAnnualIncome") ? 'active' : ''}`}
                   onClick={() => showSpecificAttributes(["GrossAnnualIncome", "MonthlyIncome"])}
                 >
@@ -173,6 +179,7 @@ function DBMembers() {
                       <th id="icon-header"></th>
                       {visibleAttributes.includes("ApplicantID") && <th id="id-header">ApplicantID</th>}
                       {visibleAttributes.includes("ApplicantName") && <th>Name</th>}
+                      {visibleAttributes.includes("Position") && <th>Position</th>}
                       {visibleAttributes.includes("Age") && <th>Age</th>}
                       {visibleAttributes.includes("GrossAnnualIncome") && <th>Gross Annual Income</th>}
                       {visibleAttributes.includes("MonthlyIncome") && <th>Monthly Income</th>}
@@ -207,6 +214,7 @@ function DBMembers() {
                         </td>
                         {visibleAttributes.includes("ApplicantID") && <td className="data-container">{a.ApplicantID}</td>}
                         {visibleAttributes.includes("ApplicantName") && <td className="data-container">{a.ApplicantName}</td>}
+                        {visibleAttributes.includes("Position") && <td className="data-container">{a.Position}</td>}
                         {visibleAttributes.includes("Age") && <td className="data-container">{a.Age}</td>}
                         {visibleAttributes.includes("GrossAnnualIncome") && <td className="data-container">{a.GrossAnnualIncome}</td>}
                         {visibleAttributes.includes("MonthlyIncome") && <td className="data-container">{a.MonthlyIncome}</td>}
