@@ -10,24 +10,32 @@ import PruLogo from "../../assets/pru-logo.svg";
 import SideNav from "../components/sidenav";
 
 function DBBeneficiaries() {
-  const [beneficiary, setBeneficiary] = useState([]);
+  const [beneficiaries, setBeneficiaries] = useState([]);
+  const [visibleAttributes, setVisibleAttributes] = useState([
+    "BeneficiaryCode", "ApplicantID", "BeneficiaryName", "BeneficiaryDOB", 
+    "BeneficiarySex", "BeneficiaryRelationship", "BeneficiaryPrcntShare", 
+    "BeneficiaryType", "BeneficiaryDesignation", "BeneficiaryPOB", 
+    "BeneficiaryNationality", "BeneficiaryPrsntAdrs", "BeneficiaryCountry", 
+    "BeneficiaryZIP", "BeneficiaryMobileNum", "BeneficiaryTelNo", 
+    "BeneficiaryEmailAdrs"
+  ]);
   const activePage = useLocation();
 
-  const[search, setSearch] = useState('');
-  console.log(search)
+  const [search, setSearch] = useState('');
+  console.log(search);
 
   useEffect(() => {
     axios
       .get("http://localhost:5020/beneficiaries")
       .then((response) => {
-        setBeneficiary(response.data);
+        setBeneficiaries(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
-  });
+  }, []);
 
-  const deleteData = async(ApplicantID, BeneficiaryCode) => { 
+  const deleteData = async (ApplicantID, BeneficiaryCode) => { 
     if (window.confirm("Do you want to delete record?")) {
       try {
         await axios.delete(`http://localhost:5020/beneficiaries/${ApplicantID}/${BeneficiaryCode}`);
@@ -35,7 +43,22 @@ function DBBeneficiaries() {
         console.log(err);
       }
     }
-  }
+  };
+
+  const showAllAttributes = () => {
+    setVisibleAttributes([
+      "BeneficiaryCode", "ApplicantID", "BeneficiaryName", "BeneficiaryDOB", 
+      "BeneficiarySex", "BeneficiaryRelationship", "BeneficiaryPrcntShare", 
+      "BeneficiaryType", "BeneficiaryDesignation", "BeneficiaryPOB", 
+      "BeneficiaryNationality", "BeneficiaryPrsntAdrs", "BeneficiaryCountry", 
+      "BeneficiaryZIP", "BeneficiaryMobileNum", "BeneficiaryTelNo", 
+      "BeneficiaryEmailAdrs"
+    ]);
+  };
+
+  const showSpecificAttributes = (attributes) => {
+    setVisibleAttributes(attributes);
+  };
 
   return (
     <>
@@ -71,12 +94,12 @@ function DBBeneficiaries() {
                 </div> */}
               </div>
               <div className="action-db">
-
                 <div className="search-container">
                   <input
                     className="search"
                     type="text"
-                    onChange={(e) => setSearch(e.target.value)} 
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search Beneficiary Name"
                   />
                   <button className="search-button">Search</button>
@@ -89,14 +112,11 @@ function DBBeneficiaries() {
               </div>
 
               <div className="show-flex">
-                        <button className ="show-btns"> Show All Attributes </button>
-                        <button className ="show-btns"> BeneficiaryID </button>
-                        <button className ="show-btns"> BeneficiaryName </button>
-                        <button className ="show-btns"> Location </button>
-                        </div>
-
-
-
+                <button className="show-btns" onClick={showAllAttributes}>Show All Attributes</button>
+                <button className="show-btns" onClick={() => showSpecificAttributes(["BeneficiaryCode"])}>BeneficiaryCode</button>
+                <button className="show-btns" onClick={() => showSpecificAttributes(["BeneficiaryName"])}>BeneficiaryName</button>
+                <button className="show-btns" onClick={() => showSpecificAttributes(["BeneficiaryPrsntAdrs", "BeneficiaryCountry"])}>Location</button>
+              </div>
 
               <div className="db">
                 <table className="table database-table">
@@ -105,29 +125,14 @@ function DBBeneficiaries() {
                       <th id="icon-header"></th>
                       <th id="icon-header"></th>
                       <th id="icon-header"></th>
-                      <th id="id-header">Beneficiary Code</th>
-                      <th id="id-header">Applicant ID</th>
-                      <th>Name</th>
-                      <th>Birthdate</th>
-                      <th>Sex</th>
-                      <th>Relationship to Insured</th>
-                      <th>Percent Share</th>
-                      <th>Type of Beneficiary</th>
-                      <th>Designation</th>
-                      <th>Place of Birth</th>
-                      <th>Nationality</th>
-                      <th>Present Address</th>
-                      <th>Country</th>
-                      <th>ZIP</th>
-                      <th>Mobile Number</th>
-                      <th>Telephone Number</th>
-                      <th>Email Address</th>
+                      {visibleAttributes.map((attr) => (
+                        <th key={attr} className="id-header">{attr}</th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {beneficiary.filter((b) => {
-                      return search.toLowerCase() === ''? b 
-                      : b.BeneficiaryName.toLowerCase().includes(search)
+                    {beneficiaries.filter((b) => {
+                      return search.trim() === '' || b.BeneficiaryName.toLowerCase().includes(search.toLowerCase());
                     })
                     .map((b, key) => (
                       <tr key={key}>
@@ -148,57 +153,9 @@ function DBBeneficiaries() {
                         <td className="data-container">
                           <i className="bx bx-trash" onClick={() => deleteData(b.ApplicantID, b.BeneficiaryCode)}></i>
                         </td>
-                        <td className="data-container">
-                          {b.BeneficiaryCode}
-                        </td>
-                        <td className="data-container">
-                          {b.ApplicantID}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryName}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryDOB}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiarySex}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryRelationship}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryPrcntShare}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryType}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryDesignation}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryPOB}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryNationality}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryPrsntAdrs}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryCountry}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryZIP}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryMobileNum}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryTelNo}
-                        </td>
-                        <td className="data-container">
-                          {b.BeneficiaryEmailAdrs}
-                        </td>
+                        {visibleAttributes.map((attr) => (
+                          <td key={`${attr}-${key}`} className="data-container">{b[attr]}</td>
+                        ))}
                       </tr>
                     ))}
                   </tbody>

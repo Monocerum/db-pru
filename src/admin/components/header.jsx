@@ -18,7 +18,7 @@ function Header() {
     '/home', '/indivBeneficiary', '/loginProfile'
   ].includes(location.pathname);
 
-  const isAuthPage = ['/register', '/login'].includes(location.pathname);
+  const isAuthPage = ['/register', '/adminLogin', '/employerRegistration'].includes(location.pathname);
 
   const handleLogout = async () => {
     try {

@@ -186,7 +186,7 @@ const UserProfile = () => {
                   )}
                   {newInput(
                     "Civil Status", 
-                    "memberCS", 
+                    "CivilStatus", 
                     applicant.CivilStatus
                   )}
                   {newInput(

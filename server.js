@@ -347,6 +347,29 @@ app.post('/login', (req, res) => {
     });
 });
 
+// Route for admin login
+app.post('/adminLogin', (req, res) => {
+    const { Username, Password } = req.body;
+
+    if (!Username || !Password) {
+        return res.status(400).send('Please fill in the username and password.');
+    }
+
+    const loginSql = 'SELECT * FROM ADMIN WHERE Username = ? AND Password = ?';
+    db.query(loginSql, [Username, Password], (err, results) => {
+        if (err) {
+            console.error('Error authenticating user: ', err);
+            return res.status(500).send('Login failed. Please try again.');
+        }
+
+        if (results.length === 0) {
+            return res.status(401).send('Invalid username or password.');
+        }
+
+        res.status(200).send('Login successful.');
+    });
+});
+
 // Serve static files from the 'customer' directory
 app.use(express.static(path.join(__dirname, 'customer')));
 
@@ -375,6 +398,40 @@ app.get('/applicants', (req, res) => {
             if (applicant.DateOfRegularization) {
                 applicant.DateOfRegularization = new Date(applicant.DateOfRegularization).toISOString().split('T')[0];
             }
+
+            //Converts the abbreviated data
+            if (applicant.Sex) {
+                if (applicant.Sex === 'F') {
+                    applicant.Sex = 'FEMALE';
+
+                } else if (applicant.Sex === 'M') {
+                    applicant.Sex = 'MALE';
+
+                }
+            }
+
+            if (applicant.CivilStatus) {
+                switch (applicant.CivilStatus) {
+                    case 'S':
+                        applicant.CivilStatus = 'SINGLE';
+                        break;
+                    case 'M':
+                        applicant.CivilStatus = 'MARRIED';
+                        break;
+                    case 'W':
+                        applicant.CivilStatus = 'WIDOWED';
+                        break;
+                    case 'L':
+                        applicant.CivilStatus = 'LEGALLY SEPARATED';
+                        break;
+                }
+            }
+
+            if (applicant.Weight) {
+                applicant.Weight = Math.floor(applicant.Weight);
+
+            }
+
             return applicant;
         });
 
@@ -406,9 +463,55 @@ app.get('/applicants/:ApplicantID', (req, res) => {
             applicant.DateOfRegularization = new Date(applicant.DateOfRegularization).toISOString().split('T')[0];
         }
 
+        //Converts the abbreviated data
+        if (applicant.Sex) {
+            if (applicant.Sex === 'F') {
+                applicant.Sex = 'FEMALE';
+
+            } else if (applicant.Sex === 'M') {
+                applicant.Sex = 'MALE';
+
+            }
+        }
+
+        if (applicant.CivilStatus) {
+            switch (applicant.CivilStatus) {
+                case 'S':
+                    applicant.CivilStatus = 'SINGLE';
+                    break;
+                case 'M':
+                    applicant.CivilStatus = 'MARRIED';
+                    break;
+                case 'W':
+                    applicant.CivilStatus = 'WIDOWED';
+                    break;
+                case 'L':
+                    applicant.CivilStatus = 'LEGALLY SEPARATED';
+                    break;
+            }
+        }
+
+        if (applicant.Weight) {
+            applicant.Weight = Math.floor(applicant.Weight);
+
+        }
+
         return res.status(200).json(applicant);
     });
 });
+
+// Maps for abbreviations
+const civilStatusMapping = {
+    'SINGLE': 'S',
+    'MARRIED': 'M',
+    'WIDOWED': 'W',
+    'LEGALLY SEPARATED': 'LS'
+};
+
+const sexMapping = {
+    'FEMALE': 'F',
+    'MALE': 'M'
+};
 
 app.put('/applicants/:ApplicantID', (req, res) => {
     const ApplicantID = req.params.ApplicantID;
@@ -450,6 +553,17 @@ app.put('/applicants/:ApplicantID', (req, res) => {
         EmailAddress,
         EmployerCode
     } = req.body;
+
+    // Function to convert full forms to abbreviations
+    const convertCivilStatus = (fullForm) => {
+        return civilStatusMapping[fullForm] || fullForm;
+    };
+
+    const convertSex = (fullForm) => {
+        return sexMapping[fullForm] || fullForm;
+    };
+
+
     const sql = `UPDATE APPLICANT SET ApplicantName = ?, Salutation = ?, Alias = ?, Age = ?, Birthdate = ?, Birthplace = ?, 
         CivilStatus = ?, Nationality = ?, Height = ?, Weight = ?, Sex = ?, PresentAddress = ?, PrsntAdrsCountry = ?, 
         PrsntAdrsZIP = ?, PermanentAddress = ?, PermntAdrsCountry = ?, PermntAdrsZIP = ?, Occupation = ?, Position = ?, 
@@ -463,11 +577,11 @@ app.put('/applicants/:ApplicantID', (req, res) => {
         Age,
         Birthdate,
         Birthplace,
-        CivilStatus,
+        convertCivilStatus(CivilStatus),
         Nationality,
         Height,
         Weight,
-        Sex,
+        convertSex(Sex),
         PresentAddress,
         PrsntAdrsCountry,
         PrsntAdrsZIP,
@@ -712,25 +826,47 @@ app.delete('/employers/:EmployerCode', (req, res) => {
     });
 });
 
-app.post('/register', (req, res) => {
-    const { email, username, password } = req.body;
+// Employer Registration
+app.post('/employerRegistration', (req, res) => {
+    const { empOrBusName, empOrBusNature, empOrBusTelNo, empOrBusAdrs, empOrBusCountry, empOrBusZIP } = req.body;
 
     // Validate input
-    if (!email || !username || !password) {
+    if (!empOrBusName || !empOrBusNature || !empOrBusTelNo || !empOrBusAdrs || !empOrBusCountry || !empOrBusZIP) {
         return res.status(400).send('Please fill in all fields.');
     }
 
     // Insert into database
-    const sql = 'INSERT INTO LOGIN (EmailAddress, Username, Password) VALUES (?, ?, ?)';
-    db.query(sql, [email, username, password], (err, result) => {
+    const sql = 'INSERT INTO EMPLOYER (EmpOrBusName, EmpOrBusNature, EmpOrBusTelNo, EmpOrBusAdrs, EmpOrBusCountry, EmpOrBusZIP) VALUES (?, ?, ?, ?, ?, ?)';
+    db.query(sql, [empOrBusName, empOrBusNature, empOrBusTelNo, empOrBusAdrs, empOrBusCountry, empOrBusZIP], (err, result) => {
         if (err) {
-            console.error('Error registering user:', err);
-            console.log(email, username, password);
+            console.error('Error registering employer:', err);
             return res.status(500).send('Registration failed.');
         }
-        return res.status(200).send('Registration successful.')
+
+        res.status(200).send('Employer registered successfully.');
     });
 });
+
+
+// app.post('/register', (req, res) => {
+//     const { email, username, password } = req.body;
+
+//     // Validate input
+//     if (!email || !username || !password) {
+//         return res.status(400).send('Please fill in all fields.');
+//     }
+
+//     // Insert into database
+//     const sql = 'INSERT INTO LOGIN (EmailAddress, Username, Password) VALUES (?, ?, ?)';
+//     db.query(sql, [email, username, password], (err, result) => {
+//         if (err) {
+//             console.error('Error registering user:', err);
+//             console.log(email, username, password);
+//             return res.status(500).send('Registration failed.');
+//         }
+//         return res.status(200).send('Registration successful.')
+//     });
+// });
 
 app.get('/beneficiaries', (req, res) => {
     const sql = "SELECT * FROM BENEFICIARY";
@@ -746,6 +882,38 @@ app.get('/beneficiaries', (req, res) => {
             if (beneficiary.BeneficiaryDOB) {
                 beneficiary.BeneficiaryDOB = new Date(beneficiary.BeneficiaryDOB).toISOString().split('T')[0];
             }
+
+           // Convert abbreviated data
+            if (beneficiary.BeneficiarySex) {
+                if (beneficiary.BeneficiarySex === 'F') {
+                    beneficiary.BeneficiarySex = 'FEMALE';
+
+                } else if (beneficiary.BeneficiarySex === 'M') {
+                    beneficiary.BeneficiarySex = 'MALE';
+
+                }
+            }
+
+            if (beneficiary.BeneficiaryType) {
+                if (beneficiary.BeneficiaryType === 'P') {
+                    beneficiary.BeneficiaryType = 'PRIMARY';
+
+                } else if (beneficiary.BeneficiaryType === 'S') {
+                    beneficiary.BeneficiaryType = 'SECONDARY';
+
+                }
+            }
+
+            if (beneficiary.BeneficiaryDesignation) {
+                if (beneficiary.BeneficiaryDesignation === 'R') {
+                    beneficiary.BeneficiaryDesignation = 'REVOCABLE';
+
+                } else if (beneficiary.BeneficiaryDesignation === 'I') {
+                    beneficiary.BeneficiaryDesignation = 'IRREVOCABLE';
+
+                }
+            }
+
             return beneficiary;
         });
 
@@ -774,6 +942,37 @@ app.get('/beneficiaries/:ApplicantID/:BeneficiaryCode', (req, res) => {
         if (beneficiary.BeneficiaryDOB) {
             beneficiary.BeneficiaryDOB = new Date(beneficiary.BeneficiaryDOB).toISOString().split('T')[0];
         }
+
+        // Convert abbreviated data
+        if (beneficiary.BeneficiarySex) {
+            if (beneficiary.BeneficiarySex === 'F') {
+                beneficiary.BeneficiarySex = 'FEMALE';
+
+            } else if (beneficiary.BeneficiarySex === 'M') {
+                beneficiary.BeneficiarySex = 'MALE';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryType) {
+            if (beneficiary.BeneficiaryType === 'P') {
+                beneficiary.BeneficiaryType = 'PRIMARY';
+
+            } else if (beneficiary.BeneficiaryType === 'S') {
+                beneficiary.BeneficiaryType = 'SECONDARY';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryDesignation) {
+            if (beneficiary.BeneficiaryDesignation === 'R') {
+                beneficiary.BeneficiaryDesignation = 'REVOCABLE';
+
+            } else if (beneficiary.BeneficiaryDesignation === 'I') {
+                beneficiary.BeneficiaryDesignation = 'IRREVOCABLE';
+
+            }
+        }
         
         return res.status(200).json(beneficiary);
     });
@@ -800,6 +999,37 @@ app.get('/primarybeneficiaries/:ApplicantID', (req, res) => {
         
         if (beneficiary.BeneficiaryDOB) {
             beneficiary.BeneficiaryDOB = new Date(beneficiary.BeneficiaryDOB).toISOString().split('T')[0];
+        }
+
+        // Convert abbreviated data
+        if (beneficiary.BeneficiarySex) {
+            if (beneficiary.BeneficiarySex === 'F') {
+                beneficiary.BeneficiarySex = 'FEMALE';
+
+            } else if (beneficiary.BeneficiarySex === 'M') {
+                beneficiary.BeneficiarySex = 'MALE';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryType) {
+            if (beneficiary.BeneficiaryType === 'P') {
+                beneficiary.BeneficiaryType = 'PRIMARY';
+
+            } else if (beneficiary.BeneficiaryType === 'S') {
+                beneficiary.BeneficiaryType = 'SECONDARY';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryDesignation) {
+            if (beneficiary.BeneficiaryDesignation === 'R') {
+                beneficiary.BeneficiaryDesignation = 'REVOCABLE';
+
+            } else if (beneficiary.BeneficiaryDesignation === 'I') {
+                beneficiary.BeneficiaryDesignation = 'IRREVOCABLE';
+
+            }
         }
         
         return res.status(200).json(beneficiary);
@@ -828,10 +1058,52 @@ app.get('/secondarybeneficiaries/:ApplicantID', (req, res) => {
         if (beneficiary.BeneficiaryDOB) {
             beneficiary.BeneficiaryDOB = new Date(beneficiary.BeneficiaryDOB).toISOString().split('T')[0];
         }
+
+        // Convert abbreviated data
+        if (beneficiary.BeneficiarySex) {
+            if (beneficiary.BeneficiarySex === 'F') {
+                beneficiary.BeneficiarySex = 'FEMALE';
+
+            } else if (beneficiary.BeneficiarySex === 'M') {
+                beneficiary.BeneficiarySex = 'MALE';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryType) {
+            if (beneficiary.BeneficiaryType === 'P') {
+                beneficiary.BeneficiaryType = 'PRIMARY';
+
+            } else if (beneficiary.BeneficiaryType === 'S') {
+                beneficiary.BeneficiaryType = 'SECONDARY';
+
+            }
+        }
+
+        if (beneficiary.BeneficiaryDesignation) {
+            if (beneficiary.BeneficiaryDesignation === 'R') {
+                beneficiary.BeneficiaryDesignation = 'REVOCABLE';
+
+            } else if (beneficiary.BeneficiaryDesignation === 'I') {
+                beneficiary.BeneficiaryDesignation = 'IRREVOCABLE';
+
+            }
+        }
         
         return res.status(200).json(beneficiary);
     });
 });
+
+// Maps for abbreviations
+const typeMapping = {
+    'PRIMARY': 'P',
+    'SECONDARY': 'S'
+};
+
+const designationMapping = {
+    'REVOCABLE': 'R',
+    'IRREVOCABLE': 'I'
+};
 
 app.put('/beneficiaries/:ApplicantID/:BeneficiaryCode', (req, res) => {
     const { ApplicantID, BeneficiaryCode } = req.params;
@@ -852,15 +1124,29 @@ app.put('/beneficiaries/:ApplicantID/:BeneficiaryCode', (req, res) => {
         BeneficiaryTelNo,
         BeneficiaryEmailAdrs
     } = req.body;
+
+    // Function to convert Sex, Type, and Designation to abbreviations
+    const convertSex = (sex) => {
+        return sexMapping[sex] || sex;
+    };
+
+    const convertType = (type) => {
+        return typeMapping[type] || type;
+    };
+
+    const convertDesignation = (designation) => {
+        return designationMapping[designation] || designation;
+    };
+
     const sql = `UPDATE BENEFICIARY SET BeneficiaryName = ?, BeneficiaryDOB = ?, BeneficiarySex = ?, BeneficiaryRelationship = ?, BeneficiaryPrcntShare = ?, BeneficiaryType = ?, BeneficiaryDesignation = ?, BeneficiaryPOB = ?, BeneficiaryNationality = ?, BeneficiaryPrsntAdrs = ?, BeneficiaryCountry = ?, BeneficiaryZIP = ?, BeneficiaryMobileNum = ?, BeneficiaryTelNo = ?, BeneficiaryEmailAdrs = ? WHERE BeneficiaryCode = ? AND ApplicantID = ?`;
     const values = [
         BeneficiaryName,
         BeneficiaryDOB,
-        BeneficiarySex,
+        convertSex(BeneficiarySex),
         BeneficiaryRelationship,
         BeneficiaryPrcntShare,
-        BeneficiaryType,
-        BeneficiaryDesignation,
+        convertType(BeneficiaryType),
+        convertDesignation(BeneficiaryDesignation),
         BeneficiaryPOB,
         BeneficiaryNationality,
         BeneficiaryPrsntAdrs,

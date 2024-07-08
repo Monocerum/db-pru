@@ -7,7 +7,6 @@ import "../../styles.css";
 
 function Register() {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     email: '',
     username: '',
@@ -50,11 +49,11 @@ function Register() {
       <div className="main">
         <div className="register">
           <label htmlFor="login" className="login-lbl">
-            <span className="company-name">PRU Life U.K.</span> Account
+            <span className="company-name">PRU Life U.K.</span> User Account
           </label>
           <div className="container">
             <div className="login-hdr">
-              <h3 className="log-hdr">APPLICANT REGISTERATION</h3>
+              <h3 className="log-hdr">APPLICANT REGISTRATION</h3>
             </div>
             <form onSubmit={handleSubmit} id="registrationForm">
               <div className="fill register-fill">
