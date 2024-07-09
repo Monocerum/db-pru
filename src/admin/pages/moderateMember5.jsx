@@ -90,6 +90,7 @@ function ModerateMember5() {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search Member Name"
+                    disabled
                   />
                   <button className="search-button">Search</button>
                 </div>
@@ -107,9 +108,9 @@ function ModerateMember5() {
                 <table className="table database-table">
                   <thead>
                     <tr>
+                      {/* <th id="icon-header"></th>
                       <th id="icon-header"></th>
-                      <th id="icon-header"></th>
-                      <th id="icon-header"></th>
+                      <th id="icon-header"></th> */}
                       {visibleAttributes.includes("EmployerCode") && <th>Employer Code</th>}
                       {visibleAttributes.includes("Position") && <th>Position</th>}
                       {visibleAttributes.includes("AverageMonthlyIncome") && <th>Average Monthly Income</th>}
@@ -121,7 +122,7 @@ function ModerateMember5() {
                     })
                     .map((a, key) => (
                       <tr key={key}>
-                        <td className="data-container">
+                        {/* <td className="data-container">
                           <Link to={`/userProfile?applicantID=${a.ApplicantID}`}>
                             <i className="bx bx-show-alt"></i>
                           </Link>
@@ -133,7 +134,7 @@ function ModerateMember5() {
                         </td>
                         <td className="data-container">
                           <i className="bx bx-trash" onClick={() => deleteData(a.ApplicantID)}></i>
-                        </td>
+                        </td> */}
                         {visibleAttributes.includes("EmployerCode") && <td className="data-container">{a.EmployerCode}</td>}
                         {visibleAttributes.includes("Position") && <td className="data-container">{a.Position}</td>}
                         {visibleAttributes.includes("AverageMonthlyIncome") && <td className="data-container">{a.AverageMonthlyIncome}</td>}
