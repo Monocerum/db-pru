@@ -33,6 +33,9 @@ import DBBeneficiaries from './pages/dbBeneficiaries';
 import DBEmployers from './pages/dbEmployers';
 import DBAll from './pages/db';
 
+// Moderate Problem Statement
+import ModerateMember5 from './pages/moderateMember5.jsx';
+
 // Assets
 import PruLogo from '../assets/pru-logo.svg';
 
@@ -63,6 +66,7 @@ function App() {
               <Route path="/dbBeneficiaries" element={<DBBeneficiaries />} />
               <Route path="/dbEmployers" element={<DBEmployers />} />
               <Route path="/dbAll" element={<DBAll />} ></Route>
+              <Route path="/moderateMember5" element={<ModerateMember5 />} ></Route>
               <Route 
                 path='/*'
                 element={

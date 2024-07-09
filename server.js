@@ -1414,6 +1414,24 @@ app.post('/members/filter', (req, res) => {
   });
   });
 
+
+
+//Display dbMembers moderate problem statement
+app.get('/memberModerate', (req, res) => {
+    const sqlQuery = `
+        SELECT EmployerCode, Position, ROUND(AVG(MonthlyIncome),2) AS 'AverageMonthlyIncome'
+        FROM Applicant
+        GROUP BY EmployerCode, Position
+        HAVING AVG(MonthlyIncome) > 50000
+        ORDER BY AVG(MonthlyIncome) DESC;`;
+
+    db.query(sqlQuery, (err, results) => {
+        if (err) throw err;
+        res.json(results);
+    });
+});
+
+
 //Route for 'apply.jsx'
 app.get('/apply', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'customer', 'pages', 'apply.jsx'));

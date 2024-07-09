@@ -115,6 +115,10 @@ function DBMembers() {
     }
   };
 
+  const moderateBtn = () => {
+     navigate(`/moderateMember5`);
+  };
+
   const showAllAttributes = () => {
     setVisibleAttributes([
       "ApplicantID", "ApplicantName", "Salutation", "Alias", "Age", "GrossAnnualIncome", "MonthlyIncome",
@@ -218,6 +222,7 @@ function DBMembers() {
                 >
                   Location
                 </button>
+                <button className="show-btns" onClick={moderateBtn}>??</button>
               </div>
               <div className="db">
                 <table className="table database-table">
