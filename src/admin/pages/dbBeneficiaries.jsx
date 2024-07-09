@@ -174,7 +174,7 @@ function DBBeneficiaries() {
                 <button className="show-btns" onClick={() => showSpecificAttributes(["BeneficiaryCode"])}>BeneficiaryCode</button>
                 <button className="show-btns" onClick={() => showSpecificAttributes(["BeneficiaryName"])}>BeneficiaryName</button>
                 <button className="show-btns" onClick={() => showSpecificAttributes(["BeneficiaryPrsntAdrs", "BeneficiaryCountry"])}>Location</button>
-                <button className="show-btns" onClick={moderateBtn}>??</button>
+                <button className="show-btns" onClick={moderateBtn}>Problem Statement 6</button>
               </div>
 
               <div className="db">
