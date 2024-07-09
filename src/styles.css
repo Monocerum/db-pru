@@ -1193,6 +1193,10 @@ li .filter {
   display: none;
 }
 
+.textFilter.inactive {
+  display: none;
+}
+
 .nav-sidebar span,
 .nav-sidebar .nav-sidebar-content .top .logo {
   opacity: 0;
