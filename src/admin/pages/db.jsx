@@ -69,6 +69,18 @@ function DBMembers() {
     setVisibleAttributes(attributes);
   };
 
+  const difficult1Btn = () => {
+    navigate(`/difficult1`);
+ };
+
+ const difficult2Btn = () => {
+  navigate(`/difficult2`);
+};
+
+const difficult3Btn = () => {
+  navigate(`/difficult3`);
+};
+
   return (
     <>
       <div>
@@ -157,6 +169,9 @@ function DBMembers() {
                 >
                   Location
                 </button>
+                <button className="show-btns" onClick={difficult1Btn}>Problem Statement 8</button>
+                <button className="show-btns" onClick={difficult2Btn}>Problem Statement 9</button>
+                <button className="show-btns" onClick={difficult3Btn}>Problem Statement 10</button>
               </div>
               <div className="db">
                 <table className="table database-table">

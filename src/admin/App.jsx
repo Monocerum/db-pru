@@ -38,6 +38,11 @@ import ModerateEmployer4 from './pages/moderateEmployer4.jsx'
 import ModerateMember5 from './pages/moderateMember5.jsx';
 import ModerateBeneficiary6 from'./pages/moderateBeneficiary6.jsx'
 
+// Difficult
+import Difficult1 from './pages/difficult1.jsx';
+import Difficult2 from './pages/difficult2.jsx';
+import Difficult3 from './pages/difficult3.jsx';
+
 // Assets
 import PruLogo from '../assets/pru-logo.svg';
 
@@ -71,6 +76,9 @@ function App() {
               <Route path="/moderateMember5" element={<ModerateMember5 />} ></Route>
               <Route path="/moderateEmployer4" element={<ModerateEmployer4 />} ></Route>
               <Route path="/moderateBeneficiary6" element={<ModerateBeneficiary6 />} ></Route>
+              <Route path="/difficult1" element={<Difficult1 />} ></Route>
+              <Route path="/difficult2" element={<Difficult2 />} ></Route>
+              <Route path="/difficult3" element={<Difficult3 />} ></Route>
               <Route 
                 path='/*'
                 element={

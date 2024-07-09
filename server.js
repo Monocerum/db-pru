@@ -601,6 +601,273 @@ app.get('/all', (req, res) => {
     });
 }); 
 
+app.get('/difficult1', (req, res) => {
+    const sql = "SELECT b.BeneficiaryDesignation, ROUND(AVG(a.GrossAnnualIncome),2) AS 'AverageGrossAnnualIncome'  FROM applicant a, beneficiary b WHERE a.applicantID = b.applicantID AND (DATEDIFF(curdate(), DateHired)/365) > 5 GROUP BY b.BeneficiaryDesignation;";
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in applicant table.');
+        }
+
+        const formattedData = data.map(entry => {
+            // Common transformations
+            if (entry.Birthdate) {
+                entry.Birthdate = new Date(entry.Birthdate).toISOString().split('T')[0];
+            }
+            if (entry.DateHired) {
+                entry.DateHired = new Date(entry.DateHired).toISOString().split('T')[0];
+            }
+            if (entry.DateOfRegularization) {
+                entry.DateOfRegularization = new Date(entry.DateOfRegularization).toISOString().split('T')[0];
+            }
+        
+            if (entry.BeneficiaryDOB) {
+                entry.BeneficiaryDOB = new Date(entry.BeneficiaryDOB).toISOString().split('T')[0];
+            }
+        
+            // Convert abbreviated data for applicants
+            if (entry.Sex) {
+                if (entry.Sex === 'F') {
+                    entry.Sex = 'FEMALE';
+                } else if (entry.Sex === 'M') {
+                    entry.Sex = 'MALE';
+                }
+            }
+        
+            if (entry.CivilStatus) {
+                switch (entry.CivilStatus) {
+                    case 'S':
+                        entry.CivilStatus = 'SINGLE';
+                        break;
+                    case 'M':
+                        entry.CivilStatus = 'MARRIED';
+                        break;
+                    case 'W':
+                        entry.CivilStatus = 'WIDOWED';
+                        break;
+                    case 'L':
+                        entry.CivilStatus = 'LEGALLY SEPARATED';
+                        break;
+                }
+            }
+        
+            if (entry.Weight) {
+                entry.Weight = Math.floor(entry.Weight);
+            }
+        
+            // Convert abbreviated data for beneficiaries
+            if (entry.BeneficiarySex) {
+                if (entry.BeneficiarySex === 'F') {
+                    entry.BeneficiarySex = 'FEMALE';
+                } else if (entry.BeneficiarySex === 'M') {
+                    entry.BeneficiarySex = 'MALE';
+                }
+            }
+        
+            if (entry.BeneficiaryType) {
+                if (entry.BeneficiaryType === 'P') {
+                    entry.BeneficiaryType = 'PRIMARY';
+                } else if (entry.BeneficiaryType === 'S') {
+                    entry.BeneficiaryType = 'SECONDARY';
+                }
+            }
+        
+            if (entry.BeneficiaryDesignation) {
+                if (entry.BeneficiaryDesignation === 'R') {
+                    entry.BeneficiaryDesignation = 'REVOCABLE';
+                } else if (entry.BeneficiaryDesignation === 'I') {
+                    entry.BeneficiaryDesignation = 'IRREVOCABLE';
+                }
+            }
+        
+            return entry;
+        });
+        
+        return res.status(200).json(formattedData);
+    });
+}); 
+
+app.get('/difficult2', (req, res) => {
+    const sql = "SELECT E.EmpOrBusName, COUNT(*) AS 'NumberOfEmployees', ROUND(AVG(A.MonthlyIncome),2) AS 'AverageMonthlyIncome' FROM Employer E, Applicant A WHERE E.EmployerCode = A.EmployerCode GROUP BY E.EmpOrBusName HAVING AVG(A.MonthlyIncome) <= 20000 ORDER BY AVG(A.MonthlyIncome);";
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in applicant table.');
+        }
+
+        const formattedData = data.map(entry => {
+            // Common transformations
+            if (entry.Birthdate) {
+                entry.Birthdate = new Date(entry.Birthdate).toISOString().split('T')[0];
+            }
+            if (entry.DateHired) {
+                entry.DateHired = new Date(entry.DateHired).toISOString().split('T')[0];
+            }
+            if (entry.DateOfRegularization) {
+                entry.DateOfRegularization = new Date(entry.DateOfRegularization).toISOString().split('T')[0];
+            }
+        
+            if (entry.BeneficiaryDOB) {
+                entry.BeneficiaryDOB = new Date(entry.BeneficiaryDOB).toISOString().split('T')[0];
+            }
+        
+            // Convert abbreviated data for applicants
+            if (entry.Sex) {
+                if (entry.Sex === 'F') {
+                    entry.Sex = 'FEMALE';
+                } else if (entry.Sex === 'M') {
+                    entry.Sex = 'MALE';
+                }
+            }
+        
+            if (entry.CivilStatus) {
+                switch (entry.CivilStatus) {
+                    case 'S':
+                        entry.CivilStatus = 'SINGLE';
+                        break;
+                    case 'M':
+                        entry.CivilStatus = 'MARRIED';
+                        break;
+                    case 'W':
+                        entry.CivilStatus = 'WIDOWED';
+                        break;
+                    case 'L':
+                        entry.CivilStatus = 'LEGALLY SEPARATED';
+                        break;
+                }
+            }
+        
+            if (entry.Weight) {
+                entry.Weight = Math.floor(entry.Weight);
+            }
+        
+            // Convert abbreviated data for beneficiaries
+            if (entry.BeneficiarySex) {
+                if (entry.BeneficiarySex === 'F') {
+                    entry.BeneficiarySex = 'FEMALE';
+                } else if (entry.BeneficiarySex === 'M') {
+                    entry.BeneficiarySex = 'MALE';
+                }
+            }
+        
+            if (entry.BeneficiaryType) {
+                if (entry.BeneficiaryType === 'P') {
+                    entry.BeneficiaryType = 'PRIMARY';
+                } else if (entry.BeneficiaryType === 'S') {
+                    entry.BeneficiaryType = 'SECONDARY';
+                }
+            }
+        
+            if (entry.BeneficiaryDesignation) {
+                if (entry.BeneficiaryDesignation === 'R') {
+                    entry.BeneficiaryDesignation = 'REVOCABLE';
+                } else if (entry.BeneficiaryDesignation === 'I') {
+                    entry.BeneficiaryDesignation = 'IRREVOCABLE';
+                }
+            }
+        
+            return entry;
+        });
+        
+        return res.status(200).json(formattedData);
+    });
+}); 
+
+app.get('/difficult3', (req, res) => {
+    const sql = "SELECT E.EmpOrBusName, B.BeneficiaryType, COUNT(*) AS 'TotalNumberofBeneficiaries' FROM Employer E, Applicant A, Beneficiary B WHERE E.EmployerCode = A.EmployerCode AND A.ApplicantID = B.ApplicantID GROUP BY E.EmployerCode, E.EmpOrBusName, B.BeneficiaryType;";
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (data.length === 0) {
+            console.log('No records found in applicant table.');
+        }
+
+        const formattedData = data.map(entry => {
+            // Common transformations
+            if (entry.Birthdate) {
+                entry.Birthdate = new Date(entry.Birthdate).toISOString().split('T')[0];
+            }
+            if (entry.DateHired) {
+                entry.DateHired = new Date(entry.DateHired).toISOString().split('T')[0];
+            }
+            if (entry.DateOfRegularization) {
+                entry.DateOfRegularization = new Date(entry.DateOfRegularization).toISOString().split('T')[0];
+            }
+        
+            if (entry.BeneficiaryDOB) {
+                entry.BeneficiaryDOB = new Date(entry.BeneficiaryDOB).toISOString().split('T')[0];
+            }
+        
+            // Convert abbreviated data for applicants
+            if (entry.Sex) {
+                if (entry.Sex === 'F') {
+                    entry.Sex = 'FEMALE';
+                } else if (entry.Sex === 'M') {
+                    entry.Sex = 'MALE';
+                }
+            }
+        
+            if (entry.CivilStatus) {
+                switch (entry.CivilStatus) {
+                    case 'S':
+                        entry.CivilStatus = 'SINGLE';
+                        break;
+                    case 'M':
+                        entry.CivilStatus = 'MARRIED';
+                        break;
+                    case 'W':
+                        entry.CivilStatus = 'WIDOWED';
+                        break;
+                    case 'L':
+                        entry.CivilStatus = 'LEGALLY SEPARATED';
+                        break;
+                }
+            }
+        
+            if (entry.Weight) {
+                entry.Weight = Math.floor(entry.Weight);
+            }
+        
+            // Convert abbreviated data for beneficiaries
+            if (entry.BeneficiarySex) {
+                if (entry.BeneficiarySex === 'F') {
+                    entry.BeneficiarySex = 'FEMALE';
+                } else if (entry.BeneficiarySex === 'M') {
+                    entry.BeneficiarySex = 'MALE';
+                }
+            }
+        
+            if (entry.BeneficiaryType) {
+                if (entry.BeneficiaryType === 'P') {
+                    entry.BeneficiaryType = 'PRIMARY';
+                } else if (entry.BeneficiaryType === 'S') {
+                    entry.BeneficiaryType = 'SECONDARY';
+                }
+            }
+        
+            if (entry.BeneficiaryDesignation) {
+                if (entry.BeneficiaryDesignation === 'R') {
+                    entry.BeneficiaryDesignation = 'REVOCABLE';
+                } else if (entry.BeneficiaryDesignation === 'I') {
+                    entry.BeneficiaryDesignation = 'IRREVOCABLE';
+                }
+            }
+        
+            return entry;
+        });
+        
+        return res.status(200).json(formattedData);
+    });
+}); 
+
 app.put('/applicants/:ApplicantID', (req, res) => {
     const ApplicantID = req.params.ApplicantID;
     const {
