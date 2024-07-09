@@ -104,7 +104,7 @@ function ModerateMember7() {
                 meeting their needs, it is crucial to tailor the insurance plan to 
                 maximize the benefits provided by the insurance company. As an 
                 administrator, you have been assigned to count the number of members 
-                aged over 50 years who are Engineers, categorized by employer code.</p>
+                aged 50 years and over who are Engineers, categorized by employer code.</p>
               <div className="db">
                 <table className="table database-table">
                   <thead>
