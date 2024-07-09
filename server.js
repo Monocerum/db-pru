@@ -1420,7 +1420,7 @@ app.post('/members/filter', (req, res) => {
 
 
 
-//Display dbMembers moderate problem statement
+//Display dbMembers moderate problem statement 5
 app.get('/memberModerate', (req, res) => {
     const sqlQuery = `
         SELECT EmployerCode, Position, ROUND(AVG(MonthlyIncome),2) AS 'AverageMonthlyIncome'
@@ -1435,7 +1435,21 @@ app.get('/memberModerate', (req, res) => {
     });
 });
 
-//Display dbEmployer moderate problem statement
+//Display dbMembers moderate problem statement 7
+app.get('/memberModerate2', (req, res) => {
+    const sqlQuery = `
+        SELECT EmployerCode, COUNT(*) AS 'NumMembers'
+        FROM applicant
+        WHERE Age >= 50 AND Occupation = 'Engineer'
+        GROUP BY EmployerCode;`;
+
+    db.query(sqlQuery, (err, results) => {
+        if (err) throw err;
+        res.json(results);
+    });
+});
+
+//Display dbEmployer moderate problem statement 4
 app.get('/employerModerate', (req, res) => {
     const sqlQuery = `
         SELECT EmpOrBusNature, COUNT(*) AS "NumEmployers"
@@ -1448,7 +1462,7 @@ app.get('/employerModerate', (req, res) => {
     });
 });
 
-//Display dbBeneficiaries moderate problem statement
+//Display dbBeneficiaries moderate problem statement 6
 app.get('/beneficiaryModerate', (req, res) => {
     const sqlQuery = `
         SELECT BeneficiaryType, COUNT(*) AS 'NumBeneficiaries'
