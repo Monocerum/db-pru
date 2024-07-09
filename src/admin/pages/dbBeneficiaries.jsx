@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // Styles
@@ -10,6 +10,8 @@ import PruLogo from "../../assets/pru-logo.svg";
 import SideNav from "../components/sidenav";
 
 function DBBeneficiaries() {
+  const navigate = useNavigate();
+
   const [filterOptions, setFilterOptions] = useState({});
   const [beneficiaries, setBeneficiaries] = useState([]);
   const [visibleAttributes, setVisibleAttributes] = useState([
@@ -112,6 +114,10 @@ function DBBeneficiaries() {
     setVisibleAttributes(attributes);
   };
 
+  const moderateBtn = () => {
+    navigate(`/moderateBeneficiary6`);
+ };
+
   return (
     <>
       <div>
@@ -168,6 +174,7 @@ function DBBeneficiaries() {
                 <button className="show-btns" onClick={() => showSpecificAttributes(["BeneficiaryCode"])}>BeneficiaryCode</button>
                 <button className="show-btns" onClick={() => showSpecificAttributes(["BeneficiaryName"])}>BeneficiaryName</button>
                 <button className="show-btns" onClick={() => showSpecificAttributes(["BeneficiaryPrsntAdrs", "BeneficiaryCountry"])}>Location</button>
+                <button className="show-btns" onClick={moderateBtn}>??</button>
               </div>
 
               <div className="db">
