@@ -9,19 +9,19 @@ import "../../styles.css";
 import PruLogo from "../../assets/pru-logo.svg";
 import SideNav from "../components/sidenav";
 
-function ModerateMember5() {
+function ModerateBeneficiary6() {
   const [filterOptions, setFilterOptions] = useState({});
-  const [applicant, setApplicant] = useState([]);
+  const [employer, setApplicant] = useState([]);
   const [visibleAttributes, setVisibleAttributes] = useState([
-    "EmployerCode", "Position", "AverageMonthlyIncome"
-  ]);
+    "BeneficiaryType", "NumBeneficiaries"]);
+
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
   const [lastUserId, setLastUserId] = useState(null);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5020/memberModerate")
+      .get("http://localhost:5020/beneficiaryModerate")
       .then((response) => {
         setApplicant(response.data);
       })
@@ -44,14 +44,6 @@ function ModerateMember5() {
   }, [filterOptions]);
 
   const activePage = useLocation();
-
-  const handleAddMember = () => {
-    if (lastUserId) {
-      navigate(`/apply?userID=${lastUserId}`);
-    } else {
-      console.error("No user found.");
-    }
-  };
 
   return (
     <>
@@ -77,10 +69,10 @@ function ModerateMember5() {
             </div>
             <div className="db-container">
               <div className="db-header">
-                <h2 className="db-name">Members</h2>
-                <div className="action-buttons">
-                  <button className="add-button" onClick={handleAddMember} disabled>Add Member</button>
-                </div>
+                <h2 className="db-name">Beneficiaries</h2>
+                {/* <div className="action-buttons">
+                  <button className="add-button" onClick={handleAddEmployer} disabled>Add Employer</button>
+                </div> */}
               </div>
               <div className="action-db">
                 <div className="search-container">
@@ -89,7 +81,7 @@ function ModerateMember5() {
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search Member Name"
+                    placeholder="Search Beneficiary Name"
                     disabled
                   />
                   <button className="search-button">Search</button>
@@ -99,11 +91,12 @@ function ModerateMember5() {
                   <button className="save-button">Save</button>
                 </div> */}
               </div>
-              <h3>PROBLEM STATEMENT 5</h3>
-              <p>You are tasked with calculating the average monthly income of applicants by position within each employer. 
-                The aim is to determine which applicants will be granted higher insurance benefits according to their 
-                position in an employer or company. Display the employer codes and positions where the average monthly 
-                income exceeds ₱50,000.00, sorted in descending order. </p>
+              <h3>PROBLEM STATEMENT 6</h3>
+              <p>As a person in charge of the database, your supervisor has 
+                tasked you with presenting a comprehensive analysis of 
+                beneficiaries classified according to their type. This data 
+                holds significance for the company’s long-term financial 
+                strategy over the next decade or so.</p>
               <div className="db">
                 <table className="table database-table">
                   <thead>
@@ -111,14 +104,13 @@ function ModerateMember5() {
                       {/* <th id="icon-header"></th>
                       <th id="icon-header"></th>
                       <th id="icon-header"></th> */}
-                      {visibleAttributes.includes("EmployerCode") && <th>Employer Code</th>}
-                      {visibleAttributes.includes("Position") && <th>Position</th>}
-                      {visibleAttributes.includes("AverageMonthlyIncome") && <th>Average Monthly Income</th>}
+                      {visibleAttributes.includes("BeneficiaryType") && <th>Beneficiary Type</th>}
+                      {visibleAttributes.includes("NumBeneficiaries") && <th>Number of Beneficiary</th>}
                     </tr>
                   </thead>
                   <tbody>
-                    {applicant.filter((a) => {
-                      return search.trim() === '' || a.ApplicantName.toLowerCase().includes(search.toLowerCase());
+                    {employer.filter((a) => {
+                      return search.trim() === '' || a.BeneficiaryType.toLowerCase().includes(search.toLowerCase());
                     })
                     .map((a, key) => (
                       <tr key={key}>
@@ -135,9 +127,8 @@ function ModerateMember5() {
                         <td className="data-container">
                           <i className="bx bx-trash" onClick={() => deleteData(a.ApplicantID)}></i>
                         </td> */}
-                        {visibleAttributes.includes("EmployerCode") && <td className="data-container">{a.EmployerCode}</td>}
-                        {visibleAttributes.includes("Position") && <td className="data-container">{a.Position}</td>}
-                        {visibleAttributes.includes("AverageMonthlyIncome") && <td className="data-container">{a.AverageMonthlyIncome}</td>}
+                        {visibleAttributes.includes("BeneficiaryType") && <td className="data-container">{a.BeneficiaryType}</td>}
+                        {visibleAttributes.includes("NumBeneficiaries") && <td className="data-container">{a.NumBeneficiaries}</td>}
                       </tr>
                     ))}
                   </tbody>
@@ -151,7 +142,7 @@ function ModerateMember5() {
                     </Link>
                   </li>
                   <li className={`display-nav ${activePage.pathname === "/dbMembers" ? "active" : ""}`}>
-                    <Link to="/dbMembers" className="applicant nav-label">
+                    <Link to="/dbMembers" className="employer nav-label">
                       Member
                     </Link>
                   </li>
@@ -180,4 +171,4 @@ function ModerateMember5() {
   );
 }
 
-export default ModerateMember5;
+export default ModerateBeneficiary6;

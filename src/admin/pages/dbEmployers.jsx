@@ -94,6 +94,10 @@ function DBEmployers() {
     setVisibleAttributes(attributes);
   };
 
+  const moderateBtn = () => {
+    navigate(`/moderateEmployer4`);
+ };
+
   return (
     <>
       <div>
@@ -166,6 +170,7 @@ function DBEmployers() {
                 >
                   Location
                 </button>
+                <button className="show-btns" onClick={moderateBtn}>Problem Statement 4</button>
               </div>
               
               <div className="db">

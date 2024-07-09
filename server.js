@@ -1435,6 +1435,41 @@ app.get('/memberModerate', (req, res) => {
     });
 });
 
+//Display dbEmployer moderate problem statement
+app.get('/employerModerate', (req, res) => {
+    const sqlQuery = `
+        SELECT EmpOrBusNature, COUNT(*) AS "NumEmployers"
+        FROM Employer
+        GROUP BY EmpOrBusNature;`;
+
+    db.query(sqlQuery, (err, results) => {
+        if (err) throw err;
+        res.json(results);
+    });
+});
+
+//Display dbBeneficiaries moderate problem statement
+app.get('/beneficiaryModerate', (req, res) => {
+    const sqlQuery = `
+        SELECT BeneficiaryType, COUNT(*) AS 'NumBeneficiaries'
+        FROM Beneficiary
+        GROUP BY BeneficiaryType;`;
+
+    db.query(sqlQuery, (err, results) => {
+        if (err) throw err;
+        
+        results.forEach(result => {
+            if (result.BeneficiaryType === 'P') {
+                result.BeneficiaryType = 'Primary';
+            } else if (result.BeneficiaryType === 'S') {
+                result.BeneficiaryType = 'Secondary';
+            }
+        });
+        
+        res.json(results);
+    });
+});
+
 
 //Route for 'apply.jsx'
 app.get('/apply', (req, res) => {
