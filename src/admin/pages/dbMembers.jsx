@@ -19,7 +19,7 @@ function DBMembers() {
     "Birthdate", "Birthplace", "CivilStatus", "Nationality", "Height", "Weight",
     "Sex", "PrsntAdrsZIP", "PermntAdrsZIP", "Occupation", "Position", "ApplicantWorkNature",
     "SourceOfFunds", "NetWorth", "DateHired", "DateOfRegularization", "SSSID", "TINID",
-    "OtherID", "OtherID2Number", "MobileNumber", "TelNo", "EmailAddress"
+    "OtherID", "OtherID2Number", "MobileNumber", "TelNo", "EmailAddress", "EmployerCode"
   ]);
   
   const [search, setSearch] = useState('');
@@ -126,7 +126,7 @@ function DBMembers() {
       "Birthdate", "Birthplace", "CivilStatus", "Nationality", "Height", "Weight",
       "Sex", "PrsntAdrsZIP", "PermntAdrsZIP", "Occupation", "Position", "ApplicantWorkNature",
       "SourceOfFunds", "NetWorth", "DateHired", "DateOfRegularization", "SSSID", "TINID",
-      "OtherID", "OtherID2Number", "MobileNumber", "TelNo", "EmailAddress"
+      "OtherID", "OtherID2Number", "MobileNumber", "TelNo", "EmailAddress", "EmployerCode"
     ]);
   };
 
@@ -267,6 +267,7 @@ function DBMembers() {
                         {filterOptions.selectFields.includes("MobileNumber") && <th>Mobile Number</th>}
                         {filterOptions.selectFields.includes("TelNo") && <th>Telephone Number</th>}
                         {filterOptions.selectFields.includes("EmailAddress") && <th>E-mail Address</th>}
+                        {filterOptions.selectFields.includes("EmployerCode") && <th>Employer Code</th>}
                         </> ) : ( <>
                         {visibleAttributes.includes("ApplicantID") && <th id="id-header">ApplicantID</th>}
                         {visibleAttributes.includes("ApplicantName") && <th>Name</th>}
@@ -303,6 +304,7 @@ function DBMembers() {
                         {visibleAttributes.includes("MobileNumber") && <th>Mobile Number</th>}
                         {visibleAttributes.includes("TelNo") && <th>Telephone Number</th>}
                         {visibleAttributes.includes("EmailAddress") && <th>E-mail Address</th>}
+                        {visibleAttributes.includes("EmployerCode") && <th>Employer Code</th>}
                       </>)}
                     </tr>
                   </thead>
