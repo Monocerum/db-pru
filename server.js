@@ -95,7 +95,7 @@ app.post('/apply', (req, res) => {
         'fullname', 'age', 'bday', 'bplace', 'civil_status', 'nationality',
         'height', 'weight', 'sex', 'ps_address', 'ps_country', 'ps_zip',
         'pm_address', 'pm_country', 'pm_zip', 'occupation', 'position',
-        'work_nature', 'sof', 'gai', 'nw', 'hired', 'regular', 'income', 'sss', 'tin',
+        'sof', 'gai', 'nw', 'hired', 'regular', 'income', 'sss', 'tin',
         'mobile', 'email'
     ];
 
@@ -121,7 +121,7 @@ app.post('/apply', (req, res) => {
         'beneficiary1Share', 'beneficiary1Type', 'beneficiary1Designation',
         'beneficiary1Bplace', 'beneficiary1Nationality', 'beneficiary1PsAddress', 
         'beneficiary1PsCountry', 'beneficiary1PsZip','beneficiary1Mobile', 
-        'beneficiary1Tel', 'beneficiary1Email'
+        'beneficiary1Email'
     ];
 
     const missingBen1 = requiredBen1.filter(field => !req.body[field]);

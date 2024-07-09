@@ -584,7 +584,6 @@ function Apply() {
                         placeholder="Nature of Work/Business"
                         value={formData.work_nature}
                         onChange={handleInputChange}
-                        required
                       />
                     </div>
                   </div>

@@ -582,7 +582,6 @@ function Apply() {
                         placeholder="Nature of Work/Business"
                         value={formData.work_nature}
                         onChange={handleInputChange}
-                        required
                       />
                     </div>
                   </div>
@@ -823,6 +822,7 @@ function Apply() {
                         placeholder="Mobile Number"
                         value={formData.mobile}
                         onChange={handleInputChange}
+                        required
                       />
                     </div>
                     <div className="tel-fill fill">
@@ -879,7 +879,7 @@ function Apply() {
                     </div>
                     <div className="fill work-nature-fill">
                       <label htmlFor="employerWorkNature">
-                        Nature of Work of Employer/Business
+                        Nature of Work of Employer/Business<span className="required">*</span>
                       </label>
                       <input
                         className="employerWorkNature"
@@ -1083,6 +1083,7 @@ function Apply() {
                             value="S"
                             onChange={handleRadio}
                             required
+                            disabled
                           />
                           <label htmlFor="beneficiary1-secondary">
                             Secondary
@@ -1349,6 +1350,7 @@ function Apply() {
                             name="beneficiary2Type"
                             value="P"
                             onChange={handleRadio}
+                            disabled
                           />
                           <label htmlFor="beneficiary2-primary">Primary</label>
                         </div>
