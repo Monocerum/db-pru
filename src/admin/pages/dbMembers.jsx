@@ -368,6 +368,7 @@ function DBMembers() {
                         {filterOptions.selectFields.includes("MobileNumber") && <td className="data-container">{a.MobileNumber}</td>}
                         {filterOptions.selectFields.includes("TelNo") && <td className="data-container">{a.TelNo}</td>}
                         {filterOptions.selectFields.includes("EmailAddress") && <td className="data-container">{a.EmailAddress}</td>}
+                        {filterOptions.selectFields.includes("EmployerCode") && <td className="data-container">{a.EmployerCode}</td>}
                         </>
                         ) : ( 
                         <>
@@ -406,6 +407,7 @@ function DBMembers() {
                         {visibleAttributes.includes("MobileNumber") && <td className="data-container">{a.MobileNumber}</td>}
                         {visibleAttributes.includes("TelNo") && <td className="data-container">{a.TelNo}</td>}
                         {visibleAttributes.includes("EmailAddress") && <td className="data-container">{a.EmailAddress}</td>}
+                        {visibleAttributes.includes("EmployerCode") && <td className="data-container">{a.EmployerCode}</td>}
                         </>
                         )}
                       </tr>
