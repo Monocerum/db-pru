@@ -35,6 +35,7 @@ import DBAll from './pages/db';
 
 // Moderate Problem Statement
 import ModerateMember5 from './pages/moderateMember5.jsx';
+import ModerateEmployer4 from './pages/moderateEmployer4.jsx'
 
 // Assets
 import PruLogo from '../assets/pru-logo.svg';
@@ -67,6 +68,7 @@ function App() {
               <Route path="/dbEmployers" element={<DBEmployers />} />
               <Route path="/dbAll" element={<DBAll />} ></Route>
               <Route path="/moderateMember5" element={<ModerateMember5 />} ></Route>
+              <Route path="/moderateEmployer4" element={<ModerateEmployer4 />} ></Route>
               <Route 
                 path='/*'
                 element={

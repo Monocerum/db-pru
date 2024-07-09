@@ -1435,6 +1435,19 @@ app.get('/memberModerate', (req, res) => {
     });
 });
 
+//Display dbEmployer moderate problem statement
+app.get('/employerModerate', (req, res) => {
+    const sqlQuery = `
+        SELECT EmpOrBusNature, COUNT(*) AS "NumApplicants"
+        FROM Employer
+        GROUP BY EmpOrBusNature;`;
+
+    db.query(sqlQuery, (err, results) => {
+        if (err) throw err;
+        res.json(results);
+    });
+});
+
 
 //Route for 'apply.jsx'
 app.get('/apply', (req, res) => {
