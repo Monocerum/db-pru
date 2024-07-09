@@ -17,7 +17,8 @@ function Header() {
     '/dbUsers', '/employerDetails', '/employerProfile', 
     '/home', '/indivBeneficiary', '/loginProfile', 
     '/moderateMember5', '/moderateEmployer4',
-    '/moderateBeneficiary6', '/moderateMember7'
+    '/moderateBeneficiary6', '/moderateMember7',
+    '/dbAll'
   ].includes(location.pathname);
 
   const isAuthPage = ['/register', '/adminLogin', '/employerRegistration'].includes(location.pathname);
