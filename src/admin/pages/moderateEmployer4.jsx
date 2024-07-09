@@ -13,7 +13,7 @@ function ModerateEmployer4() {
   const [filterOptions, setFilterOptions] = useState({});
   const [employer, setApplicant] = useState([]);
   const [visibleAttributes, setVisibleAttributes] = useState([
-    "EmpOrBusNature", "NumApplicants"]);
+    "EmpOrBusNature", "NumEmployers"]);
 
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
@@ -109,7 +109,7 @@ function ModerateEmployer4() {
                       <th id="icon-header"></th>
                       <th id="icon-header"></th> */}
                       {visibleAttributes.includes("EmpOrBusNature") && <th>Business Nature</th>}
-                      {visibleAttributes.includes("NumApplicants") && <th>Number of Members</th>}
+                      {visibleAttributes.includes("NumEmployers") && <th>Number of Employer</th>}
                     </tr>
                   </thead>
                   <tbody>
@@ -132,7 +132,7 @@ function ModerateEmployer4() {
                           <i className="bx bx-trash" onClick={() => deleteData(a.ApplicantID)}></i>
                         </td> */}
                         {visibleAttributes.includes("EmpOrBusNature") && <td className="data-container">{a.EmpOrBusNature}</td>}
-                        {visibleAttributes.includes("NumApplicants") && <td className="data-container">{a.NumApplicants}</td>}
+                        {visibleAttributes.includes("NumEmployers") && <td className="data-container">{a.NumEmployers}</td>}
                       </tr>
                     ))}
                   </tbody>
