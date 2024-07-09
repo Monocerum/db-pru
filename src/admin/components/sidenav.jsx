@@ -120,9 +120,9 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
               <span className="nav-item filter">Filter</span>
           </li>
         </ul>
-        <div className="textFilter">
+        <div className={`textFilter ${activePage.pathname === "/home" ? "inactive" : ""}`}>
           <div className="filter-content">
-          <div className={`filter-container ${activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
+          <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
             <h3 className="filter-title"> DISPLAY: </h3>
             <select multiple name="selectFields" className="select-fields" value={filters.selectFields} onChange={handleSelectChange}>
               <option value="ApplicantID">Applicant ID</option>
@@ -166,7 +166,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
             </select>
           </div>
 
-          <div className={`filter-container ${activePage.pathname === "/dbUsers" || activePage.pathname === "/dbMembers"  || activePage.pathname === "/dbBeneficiaries" ? "inactive" : ""}`}>
+          <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbMembers"  || activePage.pathname === "/dbBeneficiaries" ? "inactive" : ""}`}>
             <h3 className="filter-title"> DISPLAY: </h3>
             <select multiple name="selectFields" className="select-fields" value={filters.selectFields} onChange={handleSelectChange}>
               <option value="EmployerCode">Employer Code</option>
@@ -179,7 +179,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
             </select>
           </div>
 
-          <div className={`filter-container ${activePage.pathname === "/dbUsers" || activePage.pathname === "/dbMembers"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
+          <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbMembers"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
             <h3 className="filter-title"> DISPLAY: </h3>
             <select multiple name="selectFields" className="select-fields" value={filters.selectFields} onChange={handleSelectChange}>
               <option value="BeneficiaryCode">Beneficiary Code</option>
@@ -201,7 +201,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
               <option value="BeneficiaryEmailAdrs">Email Address</option>
             </select>
           </div>
-            <div className={`filter-container ${activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
+            <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
             <h3 className="filter-title"> SORT BY </h3>
             <label className="filter-label-container">
               <input type="checkbox" name="orderBy" value="MonthlyIncome" onChange={handleCheckboxChange} />
@@ -221,7 +221,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
             </label>
           </div>
 
-          <div className={`filter-container ${activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
+          <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
             <h3 className="filter-title"> SORT IN </h3>
             <label className="filter-label-container">
               <input type="checkbox" name="orderIn" value="ASC" onChange={handleCheckboxChange} />
@@ -233,7 +233,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
             </label>
           </div>
           
-          <div className={`filter-container ${activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
+          <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
             <h3 className="filter-title"> Position </h3>
             <label className="filter-label-container">
               <input type="checkbox" name="position" value="Manager" onChange={handleCheckboxChange} />
@@ -249,7 +249,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
             </label>
           </div>
 
-          <div className={`filter-container ${activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
+          <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
             <h3 className="filter-title"> Tenure </h3>
             <label className="filter-label-container">
               <input type="checkbox" name="datehired" value="< 5" onChange={handleCheckboxChange}  />
@@ -261,7 +261,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
             </label>
           </div>
 
-          <div className="filter-container">
+          <div className={`filter-container ${activePage.pathname === "/home" ? "inactive" : ""}`}>
             <h3 className="filter-title"> Location </h3>
             <label className="filter-label-container">
               <input type="checkbox" name="location" value="Quezon City" onChange={handleCheckboxChange}  />
@@ -281,7 +281,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
             </label>
           </div>
 
-          <div className={`filter-container ${activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
+          <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
             <h3 className="filter-title"> Age </h3>
             <label className="filter-label-container">
               <input type="checkbox" name="age" value="< 18" onChange={handleCheckboxChange} />
@@ -301,7 +301,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
             </label>
           </div>
 
-          <div className={`filter-container ${activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
+          <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
             <h3 className="filter-title"> Monthly Income </h3>
             <label className="filter-label-container">
               <input type="checkbox" name="salary" value="< 100000" onChange={handleCheckboxChange}  />
@@ -317,7 +317,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
             </label>
           </div>
 
-          <div className={`filter-container ${activePage.pathname === "/dbMembers" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
+          <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbMembers" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
             <h3 className="filter-title"> Beneficiary Type </h3>
             <label className="filter-label-container">
               <input type="checkbox" name="beneficiaryType" value="P" onChange={handleCheckboxChange}  />
@@ -329,7 +329,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
             </label>
           </div>
 
-          <div className={`filter-container ${activePage.pathname === "/dbMembers" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
+          <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbMembers" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
             <h3 className="filter-title"> Beneficiary Designation </h3>
             <label className="filter-label-container">
               <input type="checkbox" name="beneficiaryDesignation" value="I" onChange={handleCheckboxChange}  />
@@ -341,7 +341,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
             </label>
           </div>
 
-          <div className={`filter-container ${activePage.pathname === "/dbMembers" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
+          <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbMembers" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
             <h3 className="filter-title"> Beneficiary Sex </h3>
             <label className="filter-label-container">
               <input type="checkbox" name="beneficiarySex" value="M" onChange={handleCheckboxChange}  />
@@ -353,7 +353,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
             </label>
           </div>
 
-          <div className={`filter-container ${activePage.pathname === "/dbMembers" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries" ? "inactive" : ""}`}>
+          <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbMembers" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries" ? "inactive" : ""}`}>
             <h3 className="filter-title"> Employer Work or Business Nature </h3>
             <label className="filter-label-container">
               <input type="checkbox" name="EmpOrBusNature" value="TECHNOLOGY" onChange={handleCheckboxChange}  />
