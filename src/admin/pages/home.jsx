@@ -166,7 +166,7 @@ function Home() {
                 </table>
               </div>
               <div className="recent-rectangle">
-              <Link to="/dbEmployer"> <h3 className="recent-text"> Employers 
+              <Link to="/dbEmployers"> <h3 className="recent-text"> Employers 
                 <i className='bx bxs-chevron-right'></i></h3> 
               </Link>
                 <table className="table dashboard-beneficiaries">

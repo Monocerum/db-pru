@@ -120,7 +120,7 @@ const SideNav = ({ filterOptions, setFilterOptions, onFilter }) => {
               <span className="nav-item filter">Filter</span>
           </li>
         </ul>
-        <div className={`textFilter ${activePage.pathname === "/home" ? "inactive" : ""}`}>
+        <div className={`textFilter ${activePage.pathname === "/home" ||  activePage.pathname === "/dbUsers" ? "inactive" : ""}`}>
           <div className="filter-content">
           <div className={`filter-container ${activePage.pathname === "/home" ||  activePage.pathname === "/dbUsers" || activePage.pathname === "/dbBeneficiaries"  || activePage.pathname === "/dbEmployers" ? "inactive" : ""}`}>
             <h3 className="filter-title"> DISPLAY: </h3>
