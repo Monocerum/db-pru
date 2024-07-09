@@ -406,7 +406,6 @@ app.get('/applicants', (req, res) => {
 
                 } else if (applicant.Sex === 'M') {
                     applicant.Sex = 'MALE';
-
                 }
             }
 
@@ -1278,13 +1277,10 @@ app.delete('/beneficiaries/:ApplicantID/:BeneficiaryCode', (req, res) => {
 app.post('/members/filter', (req, res) => {
     const filters = req.body;
     console.log(filters);
-    
-    // let sql = 'SELECT * FROM applicant WHERE 1=1';
-    // console.log(sql);
 
     let sql = 'SELECT';
     console.log(sql);
-    if (filters.selectFields.length > 0) {
+    if (filters.selectFields && filters.selectFields.length > 0) {
         sql += ` ${filters.selectFields.map(p => `${p}`).join(', ')}`;
     } else {
         sql += ` *`
@@ -1348,8 +1344,16 @@ app.post('/members/filter', (req, res) => {
     const filters = req.body;
     console.log(filters);
     
-    let sql = 'SELECT * FROM beneficiary WHERE 1=1';
-    console.log(sql);
+    let sql = 'SELECT';
+    if (filters.selectFields) {
+        if (filters.selectFields.length > 0) {
+            sql += ` ${filters.selectFields.map(p => `${p}`).join(', ')}`;
+        }
+    } else {
+        sql += ` *`
+    }
+    
+    sql += ` FROM beneficiary WHERE 1=1`
 
     if (filters.location.length > 0) {
         sql += ` AND ${filters.location.map(p => `BeneficiaryPrsntAdrs LIKE '%${p}%'`).join(' OR ')}`;
@@ -1383,8 +1387,16 @@ app.post('/members/filter', (req, res) => {
     const filters = req.body;
     console.log(filters);
     
-    let sql = 'SELECT * FROM employer WHERE 1=1';
-    console.log(sql);
+    let sql = 'SELECT';
+    if (filters.selectFields) {
+        if (filters.selectFields.length > 0) {
+            sql += ` ${filters.selectFields.map(p => `${p}`).join(', ')}`;
+        }
+    } else {
+        sql += ` *`
+    }
+    
+    sql += ` FROM employer WHERE 1=1`
 
     if (filters.location.length > 0) {
         sql += ` AND ${filters.location.map(p => `EmpOrBusAdrs LIKE '%${p}%'`).join(' OR ')}`;
@@ -1393,14 +1405,6 @@ app.post('/members/filter', (req, res) => {
     if (filters.EmpOrBusNature.length > 0) {
         sql += ` AND EmpOrBusNature IN (${filters.EmpOrBusNature.map(b => `'${b}'`).join(', ')})`;
     }
-
-    // if (filters.EmpOrBusCountry.length > 0) {
-    //     if (filters.EmpOrBusCountry.value === "Philippines") {
-    //         sql += ` AND EmpOrBusCountry IN (${filters.EmpOrBusCountry.map(b => `'${b}'`).join(', ')})`;
-    //     } else if (filters.EmpOrBusCountry === "<> Philippines") {
-    //         sql += ` AND EmpOrBusCountry <> Philippines`;  
-    //     } 
-    // }
 
     console.log(sql);
 

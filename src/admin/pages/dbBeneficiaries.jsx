@@ -177,9 +177,15 @@ function DBBeneficiaries() {
                       <th id="icon-header"></th>
                       <th id="icon-header"></th>
                       <th id="icon-header"></th>
-                      {visibleAttributes.map((attr) => (
-                        <th key={attr} className="id-header">{attr}</th>
-                      ))}
+                      {filterOptions && filterOptions.selectFields ? (filterOptions.selectFields.map((attr) => (
+                        <>
+                          <th key={attr} className="id-header">{attr}</th>
+                        </>
+                      ))) : (visibleAttributes.map((attr) => (
+                        <>
+                          <th key={attr} className="id-header">{attr}</th>
+                        </>
+                      )))}
                     </tr>
                   </thead>
                   <tbody>
@@ -205,9 +211,15 @@ function DBBeneficiaries() {
                         <td className="data-container">
                           <i className="bx bx-trash" onClick={() => deleteData(b.ApplicantID, b.BeneficiaryCode)}></i>
                         </td>
-                        {visibleAttributes.map((attr) => (
+                        {filterOptions && filterOptions.selectFields ? (filterOptions.selectFields.map((attr) => (
+                        <>
                           <td key={`${attr}-${key}`} className="data-container">{b[attr]}</td>
-                        ))}
+                        </>
+                        ))) : (visibleAttributes.map((attr) => (
+                          <>
+                            <td key={`${attr}-${key}`} className="data-container">{b[attr]}</td>
+                          </>
+                        )))}
                       </tr>
                     ))}
                   </tbody>
@@ -255,7 +267,7 @@ function DBBeneficiaries() {
                     </Link>
                   </li>
                   <li className={`display-nav ${activePage.pathname === "/dbAll" ? "active" : ""}`}>
-                    <Link to="/dbAll" className="all nav-label">
+                    <Link to="/dbAll" className="all-db nav-label">
                       Joined
                     </Link>
                   </li>

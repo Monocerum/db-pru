@@ -37,17 +37,17 @@ function DBEmployers() {
   }, []);
 
   const fetchData = async () => {
-    try {
-      const response = await axios.post("http://localhost:5020/employers/filter", filterOptions);
-      setEmployer(response.data);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
-    }
-  };
-  
-  useEffect(() => {
-    fetchData();
-  }, [filterOptions])
+      try {
+        const response = await axios.post("http://localhost:5020/employers/filter", filterOptions);
+        setEmployer(response.data);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+    
+    useEffect(() => {
+      fetchData();
+    }, [filterOptions])
 
   const deleteData = async (EmployerCode) => { 
     if (window.confirm("Do you want to delete record?")) {
@@ -175,13 +175,27 @@ function DBEmployers() {
                       <th id="icon-header"></th>
                       <th id="icon-header"></th>
                       <th id="icon-header"></th>
-                      {visibleAttributes.includes("EmployerCode") && <th id="id-header">Employer or Business Code</th>}
-                      {visibleAttributes.includes("EmpOrBusName") && <th>Name</th>}
-                      {visibleAttributes.includes("EmpOrBusNature") && <th>Nature of Work of Employer</th>}
-                      {visibleAttributes.includes("EmpOrBusTelNo") && <th>Telephone Number</th>}
-                      {visibleAttributes.includes("EmpOrBusAdrs") && <th>Present Address</th>}
-                      {visibleAttributes.includes("EmpOrBusCountry") && <th>Country</th>}
-                      {visibleAttributes.includes("EmpOrBusZIP") && <th>ZIP</th>}
+                      {filterOptions && filterOptions.selectFields ? (
+                        <>
+                        {filterOptions.selectFields.includes("EmployerCode") && <th id="id-header">Employer or Business Code</th>}
+                        {filterOptions.selectFields.includes("EmpOrBusName") && <th>Name</th>}
+                        {filterOptions.selectFields.includes("EmpOrBusNature") && <th>Nature of Work of Employer</th>}
+                        {filterOptions.selectFields.includes("EmpOrBusTelNo") && <th>Telephone Number</th>}
+                        {filterOptions.selectFields.includes("EmpOrBusAdrs") && <th>Present Address</th>}
+                        {filterOptions.selectFields.includes("EmpOrBusCountry") && <th>Country</th>}
+                        {filterOptions.selectFields.includes("EmpOrBusZIP") && <th>ZIP</th>}
+                        </>
+                      ) : (
+                        <>
+                        {visibleAttributes.includes("EmployerCode") && <th id="id-header">Employer or Business Code</th>}
+                        {visibleAttributes.includes("EmpOrBusName") && <th>Name</th>}
+                        {visibleAttributes.includes("EmpOrBusNature") && <th>Nature of Work of Employer</th>}
+                        {visibleAttributes.includes("EmpOrBusTelNo") && <th>Telephone Number</th>}
+                        {visibleAttributes.includes("EmpOrBusAdrs") && <th>Present Address</th>}
+                        {visibleAttributes.includes("EmpOrBusCountry") && <th>Country</th>}
+                        {visibleAttributes.includes("EmpOrBusZIP") && <th>ZIP</th>}
+                        </>
+                      )}
                     </tr>
                   </thead>
                   <tbody>
@@ -207,13 +221,25 @@ function DBEmployers() {
                         <td className="data-container employer-data">
                           <i className="bx bx-trash" onClick={() => deleteData(e.EmployerCode)}></i>
                         </td>
-                        {visibleAttributes.includes("EmployerCode") && <td className="data-container employer-data">{e.EmployerCode}</td>}
-                        {visibleAttributes.includes("EmpOrBusName") && <td className="data-container employer-data">{e.EmpOrBusName}</td>}
-                        {visibleAttributes.includes("EmpOrBusNature") && <td className="data-container employer-data">{e.EmpOrBusNature}</td>}
-                        {visibleAttributes.includes("EmpOrBusTelNo") && <td className="data-container employer-data">{e.EmpOrBusTelNo}</td>}
-                        {visibleAttributes.includes("EmpOrBusAdrs") && <td className="data-container employer-data">{e.EmpOrBusAdrs}</td>}
-                        {visibleAttributes.includes("EmpOrBusCountry") && <td className="data-container employer-data">{e.EmpOrBusCountry}</td>}
-                        {visibleAttributes.includes("EmpOrBusZIP") && <td className="data-container employer-data">{e.EmpOrBusZIP}</td>}
+                        {filterOptions && filterOptions.selectFields ? ( <>
+                          {filterOptions.selectFields.includes("EmployerCode") && <td className="data-container employer-data">{e.EmployerCode}</td>}
+                          {filterOptions.selectFields.includes("EmpOrBusName") && <td className="data-container employer-data">{e.EmpOrBusName}</td>}
+                          {filterOptions.selectFields.includes("EmpOrBusNature") && <td className="data-container employer-data">{e.EmpOrBusNature}</td>}
+                          {filterOptions.selectFields.includes("EmpOrBusTelNo") && <td className="data-container employer-data">{e.EmpOrBusTelNo}</td>}
+                          {filterOptions.selectFields.includes("EmpOrBusAdrs") && <td className="data-container employer-data">{e.EmpOrBusAdrs}</td>}
+                          {filterOptions.selectFields.includes("EmpOrBusCountry") && <td className="data-container employer-data">{e.EmpOrBusCountry}</td>}
+                          {filterOptions.selectFields.includes("EmpOrBusZIP") && <td className="data-container employer-data">{e.EmpOrBusZIP}</td>}
+                        </>
+                        ) : ( 
+                        <>
+                          {visibleAttributes.includes("EmployerCode") && <td className="data-container employer-data">{e.EmployerCode}</td>}
+                          {visibleAttributes.includes("EmpOrBusName") && <td className="data-container employer-data">{e.EmpOrBusName}</td>}
+                          {visibleAttributes.includes("EmpOrBusNature") && <td className="data-container employer-data">{e.EmpOrBusNature}</td>}
+                          {visibleAttributes.includes("EmpOrBusTelNo") && <td className="data-container employer-data">{e.EmpOrBusTelNo}</td>}
+                          {visibleAttributes.includes("EmpOrBusAdrs") && <td className="data-container employer-data">{e.EmpOrBusAdrs}</td>}
+                          {visibleAttributes.includes("EmpOrBusCountry") && <td className="data-container employer-data">{e.EmpOrBusCountry}</td>}
+                          {visibleAttributes.includes("EmpOrBusZIP") && <td className="data-container employer-data">{e.EmpOrBusZIP}</td>}
+                        </>)}
                       </tr>
                     ))}
                   </tbody>
@@ -261,7 +287,7 @@ function DBEmployers() {
                     </Link>
                   </li>
                   <li className={`display-nav ${activePage.pathname === "/dbAll" ? "active" : ""}`}>
-                    <Link to="/dbAll" className="all nav-label">
+                    <Link to="/dbAll" className="all-db nav-label">
                       Joined
                     </Link>
                   </li>
